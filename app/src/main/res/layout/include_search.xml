@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.flyco.roundview.RoundLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:orientation="horizontal"
+    android:padding="@dimen/px10"
+    app:rv_backgroundColor="@color/white"
+    app:rv_cornerRadius="@dimen/px60">
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/ly_search"
+        android:layout_marginLeft="@dimen/px20"
+        android:focusable="false"
+        android:longClickable="false"
+        android:cursorVisible="false"
+        android:textSize="@dimen/size30"
+        android:drawablePadding="@dimen/px20"
+        android:focusableInTouchMode="false"
+        android:drawableLeft="@mipmap/search"
+        android:layout_width="match_parent"
+        android:background="@null"
+        android:layout_height="wrap_content" />
+
+</com.flyco.roundview.RoundLinearLayout>
+

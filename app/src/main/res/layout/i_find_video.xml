@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="?actionBarItemBackground"
+    tools:ignore="MissingConstraints"
+    android:paddingBottom="@dimen/px40"
+    android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/iv_img"
+            android:src="@mipmap/place_holder"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="146dp" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_zan"
+            android:drawablePadding="@dimen/px5"
+            android:padding="@dimen/px5"
+            android:drawableLeft="@mipmap/y1"
+            android:background="@color/red_F72A61"
+            android:gravity="center"
+            android:textSize="@dimen/size18"
+            android:layout_gravity="bottom|left"
+            style="@style/Tv12white" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_time"
+            android:textSize="@dimen/size18"
+            android:drawablePadding="@dimen/px5"
+            android:gravity="center"
+            android:padding="@dimen/px5"
+            android:drawableLeft="@mipmap/dlpiay"
+            android:background="@color/blue_474578"
+            android:layout_gravity="bottom|right"
+            style="@style/Tv12white" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_title"
+            android:layout_margin="@dimen/px20"
+            android:drawablePadding="@dimen/px5"
+            android:gravity="center"
+            android:padding="@dimen/px5"
+            android:background="@color/black"
+            style="@style/Tv12white" />
+
+    </FrameLayout>
+
+</android.support.constraint.ConstraintLayout>

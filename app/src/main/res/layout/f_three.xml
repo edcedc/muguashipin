@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tl="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:background="@color/blue_15163d"
+        android:padding="@dimen/px20"
+        tools:ignore="MissingConstraints"
+        android:layout_height="match_parent">
+
+        <View
+            style="@style/title_bar"/>
+
+        <com.flyco.tablayout.SlidingTabLayout
+            android:layout_marginTop="@dimen/px20"
+            android:id="@+id/tb_layout"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            tl:tl_iconVisible="false"
+            tl:tl_textSelectColor="@color/red_F72A61"
+            tl:tl_textUnselectColor="@color/white"
+            tl:tl_indicator_color="@color/red_F72A61"
+            tl:tl_indicator_corner_radius="4dp"
+            tl:tl_indicator_height="4dp"
+            tl:tl_tab_width="@dimen/px100"
+            tl:tl_tab_space_equal="false"
+            tl:tl_indicator_width="4dp"
+            tl:tl_textsize="15sp"/>
+
+        <com.yc.mugua.weight.NoScrollViewPager
+            android:layout_marginTop="@dimen/px40"
+            tl:layout_constraintTop_toBottomOf="@id/tb_layout"
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+</layout>

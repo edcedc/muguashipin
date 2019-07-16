@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/blue_15163d">
+
+        <android.support.v4.widget.NestedScrollView
+            android:fillViewport="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/px40"
+                android:paddingTop="@dimen/px80"
+                android:paddingRight="@dimen/px40"
+                tools:ignore="MissingConstraints">
+
+                <com.yc.mugua.weight.CircleImageView
+                    android:id="@+id/iv_head"
+                    android:layout_width="@dimen/px200"
+                    android:layout_height="@dimen/px200"
+                    android:src="@mipmap/place_holder_user" />
+
+                <com.flyco.roundview.RoundTextView
+                    android:id="@+id/tv_income_withdrawal"
+                    style="@style/Tv12white"
+                    android:layout_marginRight="@dimen/px40"
+                    android:paddingLeft="@dimen/px30"
+                    android:paddingTop="@dimen/px10"
+                    android:paddingRight="@dimen/px30"
+                    android:paddingBottom="@dimen/px10"
+                    android:text="@string/income_withdrawal"
+                    app:layout_constraintRight_toLeftOf="@id/tv_login"
+                    app:layout_constraintTop_toTopOf="@id/iv_head"
+                    app:rv_backgroundColor="@color/blue_474578"
+                    app:rv_backgroundPressColor="@color/blue_15163d"
+                    app:rv_cornerRadius="@dimen/px60" />
+
+                <com.flyco.roundview.RoundTextView
+                    android:id="@+id/tv_login"
+                    style="@style/Tv12white"
+                    android:paddingLeft="@dimen/px30"
+                    android:paddingTop="@dimen/px10"
+                    android:paddingRight="@dimen/px30"
+                    android:paddingBottom="@dimen/px10"
+                    android:text="@string/login_register"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/iv_head"
+                    app:rv_backgroundColor="@color/blue_474578"
+                    app:rv_backgroundPressColor="@color/blue_15163d"
+                    app:rv_cornerRadius="@dimen/px60" />
+
+                <com.flyco.roundview.RoundTextView
+                    android:id="@+id/tv_vip"
+                    style="@style/Tv15white"
+                    android:layout_width="0dp"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/px40"
+                    android:paddingTop="@dimen/px30"
+                    android:paddingRight="@dimen/px40"
+                    android:paddingBottom="@dimen/px30"
+                    android:text="@string/vip_recharge"
+                    android:textSize="@dimen/size32"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_head"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_income_withdrawal"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:rv_backgroundColor="@color/red_F72A61"
+                    app:rv_backgroundPressColor="@color/red_EF402C"
+                    app:rv_cornerRadius="@dimen/px60" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_name"
+                    style="@style/Tv15white"
+                    android:layout_marginTop="@dimen/px30"
+                    android:text="name"
+                    android:textSize="23sp"
+                    app:layout_constraintTop_toBottomOf="@id/iv_head" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_advertisement"
+                    style="@style/Tv12white"
+                    android:layout_marginTop="@dimen/px20"
+                    android:text="@string/advertisement"
+                    android:textColor="@color/red_F72A61"
+                    app:layout_constraintTop_toBottomOf="@id/tv_name" />
+
+                <LinearLayout
+                    android:id="@+id/layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/px40"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@id/tv_advertisement">
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/tv_promote"
+                        style="@style/Tv12white"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="?actionBarItemBackground"
+                        android:drawableTop="@mipmap/y2"
+                        android:drawablePadding="@dimen/px20"
+                        android:gravity="center"
+                        android:text="@string/me_promote"
+                        android:textSize="@dimen/size20" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/tv_feedback"
+                        style="@style/Tv12white"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="?actionBarItemBackground"
+                        android:drawableTop="@mipmap/opinion"
+                        android:drawablePadding="@dimen/px20"
+                        android:gravity="center"
+                        android:text="@string/feedback"
+                        android:textSize="@dimen/size20" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/tv_message"
+                        style="@style/Tv12white"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="?actionBarItemBackground"
+                        android:drawableTop="@mipmap/menews"
+                        android:drawablePadding="@dimen/px20"
+                        android:gravity="center"
+                        android:text="@string/message"
+                        android:textSize="@dimen/size20" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/tv_hot"
+                        style="@style/Tv12white"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="?actionBarItemBackground"
+                        android:drawableTop="@mipmap/communication"
+                        android:drawablePadding="@dimen/px20"
+                        android:gravity="center"
+                        android:text="@string/hot_exchange"
+                        android:textSize="@dimen/size20" />
+
+                </LinearLayout>
+
+                <com.yc.mugua.weight.RoundImageView
+                    android:id="@+id/iv_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/px192"
+                    android:layout_marginTop="@dimen/px40"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/place_holder"
+                    app:layout_constraintTop_toBottomOf="@id/layout" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/px40"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@id/iv_img">
+
+                    <View style="@style/divider_1" />
+
+                    <LinearLayout
+                        android:id="@+id/ly_history"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/px20"
+                        android:background="?actionBarItemBackground"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <android.support.v7.widget.AppCompatTextView
+                                style="@style/Tv15white"
+                                android:text="@string/viewing_history" />
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/tv_history"
+                                style="@style/Tv12white"
+                                android:layout_marginTop="@dimen/px10"
+                                android:textColor="@color/blue_474578" />
+
+                        </LinearLayout>
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@mipmap/door" />
+
+                    </LinearLayout>
+
+                    <View
+                        style="@style/divider_1"
+                        android:layout_marginBottom="@dimen/px20"
+                        android:layout_marginTop="@dimen/px20" />
+
+                    <LinearLayout
+                        android:id="@+id/ly_cash"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?actionBarItemBackground"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <android.support.v7.widget.AppCompatTextView
+                                style="@style/Tv15white"
+                                android:text="@string/local_cache" />
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/tv_cash"
+                                style="@style/Tv12white"
+                                android:layout_marginTop="@dimen/px10"
+                                android:textColor="@color/blue_474578" />
+
+                        </LinearLayout>
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@mipmap/door" />
+
+                    </LinearLayout>
+
+                    <View
+                        style="@style/divider_1"
+                        android:layout_marginBottom="@dimen/px20"
+                        android:layout_marginTop="@dimen/px20" />
+
+                    <LinearLayout
+                        android:id="@+id/ly_like"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?actionBarItemBackground"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <android.support.v7.widget.AppCompatTextView
+                                style="@style/Tv15white"
+                                android:text="@string/me_like" />
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/tv_like"
+                                style="@style/Tv12white"
+                                android:layout_marginTop="@dimen/px10"
+                                android:textColor="@color/blue_474578" />
+
+                        </LinearLayout>
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@mipmap/door" />
+
+                    </LinearLayout>
+
+                    <View
+                        style="@style/divider_1"
+                        android:layout_marginBottom="@dimen/px20"
+                        android:layout_marginTop="@dimen/px20" />
+
+                </LinearLayout>
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+
+    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+</layout>
