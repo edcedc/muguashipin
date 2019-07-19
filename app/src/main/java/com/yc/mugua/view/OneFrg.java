@@ -98,7 +98,7 @@ public class OneFrg extends BaseFragment<OnePresenter, FOneBinding> implements O
         if (adapter == null){
             adapter = new HomeAdapter(act, listBean);
         }
-        setRecyclerViewType(mB.recyclerView, R.color.blue_15163d);
+        setRecyclerViewType(mB.recyclerView);
         mB.recyclerView.setAdapter(adapter);
 
         showLoadDataing();

@@ -20,6 +20,7 @@
     <string name="change_batches" translatable="false">换一批</string>
     <string name="find_class" translatable="false">分类</string>
     <string name="search" translatable="false">搜索</string>
+    <string name="zking" translatable="false">二维码</string>
     <string name="hot_search" translatable="false">热门搜索</string>
     <string name="recommend" translatable="false">推荐</string>
     <string name="income_withdrawal" translatable="false">收益提现</string>
@@ -27,6 +28,8 @@
     <string name="register" translatable="false">注册</string>
     <string name="advertisement" translatable="false">看广告、推广可增加更多次数哦！</string>
     <string name="me_promote" translatable="false">我要推广</string>
+    <string name="me_promote2" translatable="false">我的推广</string>
+    <string name="me_promote1" translatable="false">推广</string>
     <string name="message" translatable="false">消息通知</string>
     <string name="feedback" translatable="false">意见反馈</string>
     <string name="hot_exchange" translatable="false">火爆交流群</string>
@@ -34,7 +37,14 @@
     <string name="local_cache" translatable="false">本地缓存</string>
     <string name="me_like" translatable="false">我喜欢的</string>
     <string name="vip_recharge" translatable="false">VIP充值</string>
+    <string name="vip" translatable="false">VIP</string>
     <string name="forget" translatable="false">密码找回</string>
+    <string name="me_collection" translatable="false">我的收藏</string>
+    <string name="can_collection" translatable="false">取消收藏</string>
+    <string name="describe" translatable="false">详情描述（必填）</string>
+    <string name="describe1" translatable="false">请详尽描述遇到的问题，以便我们为您即时解决（10-100字）</string>
+    <string name="available_today" translatable="false">今日可观影次数</string>
+    <string name="movie_watches" translatable="false">剩余观影次数</string>
 
     <string name="error_phone" translatable="false">手机号码格式错误</string>
     <string name="error_phone1" translatable="false">手机号码或验证码为空</string>
@@ -55,5 +65,20 @@
     <string name="login" translatable="false">登录</string>
     <string name="please_invitation" translatable="false">填写邀请码可以增加每日观影特权</string>
     <string name="user_login" translatable="false">已有账号？立即登录</string>
+    <string name="submission" translatable="false">提交</string>
+    <string name="extension" translatable="false">立即推广</string>
+    <string name="buy_immediately" translatable="false">立即购买</string>
+    <string name="performance" translatable="false">总业绩</string>
+    <string name="balance" translatable="false">我的余额</string>
+    <string name="withdrawable" translatable="false">可提现金额</string>
+    <string name="payment" translatable="false">提现手续费</string>
+    <string name="name_payee" translatable="false">收款人姓名</string>
+    <string name="bank" translatable="false">银行卡号</string>
+    <string name="withdrawable1" translatable="false">提现金额</string>
+    <string name="submission1" translatable="false">提交申请</string>
+    <string name="input_name" translatable="false">请输入收款人姓名</string>
+    <string name="input_moble" translatable="false">请输入收款账号</string>
+    <string name="input_balance" translatable="false">请输入提现金额</string>
+    <string name="presentation" translatable="false">提 现</string>
 
 </resources>

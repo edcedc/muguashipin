@@ -11,6 +11,8 @@
         android:paddingTop="@dimen/px5"
         android:paddingBottom="@dimen/px5"
         android:paddingLeft="@dimen/px30"
+        app:rv_strokeWidth="@dimen/px2"
+        app:rv_strokeColor="@color/red_F72A61"
         android:paddingRight="@dimen/px30"
         android:gravity="center"
         app:rv_cornerRadius="@dimen/px20"

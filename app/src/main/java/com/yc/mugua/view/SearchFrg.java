@@ -12,6 +12,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.flyco.roundview.RoundTextView;
 import com.flyco.roundview.RoundViewDelegate;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
@@ -58,6 +59,7 @@ public class SearchFrg extends BaseFragment<SearchPresenter, FSearchBinding> imp
         etSearch.setFocusableInTouchMode(true);
         etSearch.setCursorVisible(true);
         mB.tvSearch.setOnClickListener(this);
+        mB.fyClose.setOnClickListener(this);
 
         showLoadDataing();
         mB.refreshLayout.startRefresh();
@@ -119,7 +121,6 @@ public class SearchFrg extends BaseFragment<SearchPresenter, FSearchBinding> imp
     @Override
     public void setHot(final List<DataBean> list) {
         mB.refreshLayout.finishRefreshing();
-
         mB.flHot.removeAllViews();
         mB.flHot.setAdapter(new TagAdapter<DataBean>(list){
             @Override
@@ -135,9 +136,10 @@ public class SearchFrg extends BaseFragment<SearchPresenter, FSearchBinding> imp
                 super.onSelected(position, view);
                 RoundTextView tvText = view.findViewById(R.id.tv_text);
                 RoundViewDelegate delegate = tvText.getDelegate();
-                DataBean bean = list.get(position);
                 delegate.setBackgroundColor(act.getColor(R.color.red_F72A61));
+                DataBean bean = list.get(position);
                 bean.setSelect(true);
+                mPresenter.onSearch(SearchFrg.this);
             }
 
             @Override
@@ -169,9 +171,10 @@ public class SearchFrg extends BaseFragment<SearchPresenter, FSearchBinding> imp
                 super.onSelected(position, view);
                 RoundTextView tvText = view.findViewById(R.id.tv_text);
                 RoundViewDelegate delegate = tvText.getDelegate();
-                DataBean bean = list.get(position);
                 delegate.setBackgroundColor(act.getColor(R.color.red_F72A61));
+                DataBean bean = list.get(position);
                 bean.setSelect(true);
+                mPresenter.onSearch(SearchFrg.this);
             }
 
             @Override
@@ -201,6 +204,9 @@ public class SearchFrg extends BaseFragment<SearchPresenter, FSearchBinding> imp
         switch (view.getId()){
             case R.id.tv_search:
 
+                break;
+            case R.id.fy_close:
+                pop();
                 break;
         }
     }

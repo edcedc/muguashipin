@@ -2,7 +2,9 @@ package com.yc.mugua.presenter;
 
 import android.os.Handler;
 
+import com.yc.mugua.base.BaseFragment;
 import com.yc.mugua.bean.DataBean;
+import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.impl.SearchContract;
 
 import java.util.ArrayList;
@@ -40,6 +42,26 @@ public class SearchPresenter extends SearchContract.Presenter{
                     list.add(new DataBean());
                 }
                 mView.setRecommend(list);
+                mView.hideLoading();
+            }
+        }, 500);
+    }
+
+    @Override
+    public void onSearch(BaseFragment root) {
+        UIHelper.startSearchTextFrg(root);
+    }
+
+    @Override
+    public void onRequest(int pagetNumber, String text) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                List<DataBean> list = new ArrayList<>();
+                for (int i = 0;i<15;i++){
+                    list.add(new DataBean());
+                }
+                mView.setData(list);
                 mView.hideLoading();
             }
         }, 500);

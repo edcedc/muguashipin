@@ -51,7 +51,6 @@
                         app:rv_cornerRadius="@dimen/px60"
                         android:layout_margin="@dimen/px40"
                         app:rv_backgroundColor="@color/red_F72A61"
-                        app:rv_backgroundPressColor="@color/red_EF402C"
                         style="@style/RoundBlueTextView" />
 
                     <com.flyco.roundview.RoundTextView
@@ -61,7 +60,6 @@
                         android:layout_marginLeft="@dimen/px40"
                         android:layout_marginRight="@dimen/px40"
                         app:rv_backgroundColor="@color/blue_474578"
-                        app:rv_backgroundPressColor="@color/blue_15163d"
                         style="@style/RoundBlueTextView" />
 
                 </LinearLayout>

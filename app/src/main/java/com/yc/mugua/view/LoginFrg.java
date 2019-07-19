@@ -56,6 +56,7 @@ public class LoginFrg extends BaseFragment<LoginPresenter, FLoginBinding> implem
     @Override
     protected void initView(View view) {
         setSofia(true);
+        setSwipeBackEnable(false);
         ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
         String[] strings = {getString(R.string.phone_login), getString(R.string.name_login)};
         for (String s : strings){

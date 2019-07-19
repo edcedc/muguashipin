@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
@@ -23,7 +24,9 @@ import com.yc.mugua.R;
 import com.yc.mugua.base.BasePresenter;
 import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.databinding.FSplashBinding;
+import com.yc.mugua.utils.CountDownTimer;
 import com.yc.mugua.utils.GlideImageLoader;
+import com.yc.mugua.utils.cache.ShareIsLoginCache;
 import com.yc.mugua.utils.cache.ShareSessionIdCache;
 
 import java.util.ArrayList;
@@ -33,6 +36,8 @@ import com.yc.mugua.base.BaseFragment;
 import com.yc.mugua.weight.RuntimeRationale;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.transformer.DefaultTransformer;
+
+import io.reactivex.internal.operators.completable.CompletableTimer;
 
 /**
  * 作者：yc on 2018/6/15.
@@ -75,15 +80,28 @@ public class SplashFrg extends BaseFragment<BasePresenter, FSplashBinding> imple
     @Override
     protected void initView(View view) {
         act = getActivity();
-        handler.sendEmptyMessage(mHandle_splash);
-        /*final List<String> images = new ArrayList<>();
+        final List<String> images = new ArrayList<>();
         images.add("http://wx1.sinaimg.cn/mw600/0076BSS5ly1g4286f37zhj30p80zvtfc.jpg");
         images.add("http://wx3.sinaimg.cn/mw600/0076BSS5ly1g425w3lk61j30bq0kw43c.jpg");
         images.add("http://wx3.sinaimg.cn/mw600/0076BSS5ly1g425ebwtm7j30k00u8e81.jpg");
         mB.banner.setImages(images)
                 .setImageLoader(new GlideImageLoader())
                 .setOnBannerListener(this)
-                .setBannerAnimation(DefaultTransformer.class).start();
+                .setBannerAnimation(DefaultTransformer.class);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (ShareIsLoginCache.getInstance(act).getIsLogin()){
+                    mB.banner.setVisibility(View.VISIBLE);
+                    mB.banner.start();
+                }else {
+                    mB.ivImg.setBackgroundResource(R.mipmap.cpic);
+                    mB.fyClose.setVisibility(View.VISIBLE);
+                    mB.ivImg.setVisibility(View.VISIBLE);
+                    downTimer.start();
+                }
+            }
+        }, 1000);
         mB.banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -101,8 +119,20 @@ public class SplashFrg extends BaseFragment<BasePresenter, FSplashBinding> imple
             public void onPageScrollStateChanged(int state) {
 
             }
-        });*/
+        });
     }
+
+    private CountDownTimer downTimer = new CountDownTimer(3000, 1000) {
+        @Override
+        public void onTick(long millisUntilFinished) {
+            mB.tvText.setText(3 - millisUntilFinished / 1000 + "");
+        }
+
+        @Override
+        public void onFinish(long millisUntilFinished) {
+            handler.sendEmptyMessage(mHandle_splash);
+        }
+    };
 
     private Handler handler = new Handler() {
         @Override

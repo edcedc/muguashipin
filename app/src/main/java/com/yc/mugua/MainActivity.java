@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.umeng.socialize.UMShareAPI;
 import com.yc.mugua.base.BaseActivity;
+import com.yc.mugua.utils.cache.ShareIsLoginCache;
 import com.yc.mugua.view.MainFrg;
 
 public class MainActivity extends BaseActivity {
@@ -27,6 +28,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        ShareIsLoginCache.getInstance(act).save(false);
         if (findFragment(MainFrg.class) == null) {
             loadRootFragment(R.id.fl_container, MainFrg.newInstance());
         }

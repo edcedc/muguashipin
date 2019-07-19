@@ -5,14 +5,24 @@ import android.os.Bundle;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.yc.mugua.MainActivity;
 import com.yc.mugua.base.BaseFragment;
+import com.yc.mugua.view.CashFrg;
+import com.yc.mugua.view.CollectionFrg;
+import com.yc.mugua.view.FeedbackFrg;
 import com.yc.mugua.view.FindClassFrg;
 import com.yc.mugua.view.ForgetFrg;
+import com.yc.mugua.view.FourFrg;
+import com.yc.mugua.view.HistoryFrg;
+import com.yc.mugua.view.IncomeFrg;
 import com.yc.mugua.view.LoginFrg;
 import com.yc.mugua.view.MainFrg;
+import com.yc.mugua.view.MsgFrg;
 import com.yc.mugua.view.OneFrg;
+import com.yc.mugua.view.PromoteFrg;
 import com.yc.mugua.view.RegisterFrg;
 import com.yc.mugua.view.SearchFrg;
+import com.yc.mugua.view.SearchTextFrg;
 import com.yc.mugua.view.TwoFrg;
+import com.yc.mugua.view.VipFrg;
 import com.yc.mugua.view.act.LoginAct;
 
 
@@ -77,4 +87,94 @@ public final class UIHelper {
         frg.setArguments(bundle);
         root.start(frg);
     }
+
+     /**
+     *  搜索数据也
+     * @param root
+     */
+    public static void startSearchTextFrg(BaseFragment root) {
+        SearchTextFrg frg = new SearchTextFrg();
+        Bundle bundle = new Bundle();
+        frg.setArguments(bundle);
+        root.start(frg);
+    }
+
+    /**
+     *  观看历史
+     */
+    public static void startHistoryFrg(BaseFragment root) {
+        HistoryFrg frg = new HistoryFrg();
+        Bundle bundle = new Bundle();
+        frg.setArguments(bundle);
+        ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+    }
+
+    /**
+     *  通知
+     */
+    public static void startMsgFrg(BaseFragment root) {
+        MsgFrg frg = new MsgFrg();
+        Bundle bundle = new Bundle();
+        frg.setArguments(bundle);
+        ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+    }
+
+    /**
+     *  我的收藏
+     */
+    public static void startCollectionFrg(BaseFragment root) {
+        CollectionFrg frg = new CollectionFrg();
+        Bundle bundle = new Bundle();
+        frg.setArguments(bundle);
+        ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+    }
+    /**
+     *  收益提现
+     */
+    public static void startIncomeFrg(BaseFragment root) {
+        IncomeFrg frg = new IncomeFrg();
+        Bundle bundle = new Bundle();
+        frg.setArguments(bundle);
+        ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+    }
+
+    /**
+     *  我的缓存
+     */
+    public static void startCashFrg(BaseFragment root) {
+        CashFrg frg = new CashFrg();
+        Bundle bundle = new Bundle();
+        frg.setArguments(bundle);
+        ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+    }
+
+    /**
+     *  意见反馈
+     */
+    public static void startFeedbackFrg(BaseFragment root) {
+        FeedbackFrg frg = new FeedbackFrg();
+        Bundle bundle = new Bundle();
+        frg.setArguments(bundle);
+        ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+    }
+
+    /**
+     *  我要推广
+     */
+    public static void startPromoteFrg(BaseFragment root) {
+        PromoteFrg frg = new PromoteFrg();
+        Bundle bundle = new Bundle();
+        frg.setArguments(bundle);
+        ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+    }
+    /**
+     *  VIP
+     */
+    public static void startVipFrg(BaseFragment root) {
+        VipFrg frg = new VipFrg();
+        Bundle bundle = new Bundle();
+        frg.setArguments(bundle);
+        ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+    }
+
 }

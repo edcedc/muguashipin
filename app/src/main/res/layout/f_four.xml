@@ -72,7 +72,6 @@
                     app:layout_constraintLeft_toLeftOf="@id/tv_income_withdrawal"
                     app:layout_constraintRight_toRightOf="parent"
                     app:rv_backgroundColor="@color/red_F72A61"
-                    app:rv_backgroundPressColor="@color/red_EF402C"
                     app:rv_cornerRadius="@dimen/px60" />
 
                 <android.support.v7.widget.AppCompatTextView

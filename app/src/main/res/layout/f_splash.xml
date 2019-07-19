@@ -12,6 +12,7 @@
         android:orientation="vertical">
 
         <com.youth.banner.Banner
+            android:visibility="gone"
             android:id="@+id/banner"
             app:is_auto_play="false"
             app:indicator_margin="@dimen/px10"
@@ -22,5 +23,38 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/iv_img"
+            android:visibility="gone"
+            android:scaleType="fitXY"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <FrameLayout
+            android:visibility="gone"
+            android:id="@+id/fy_close"
+            android:layout_margin="@dimen/px40"
+            android:layout_gravity="right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.yc.mugua.weight.CircleImageView
+                android:alpha="0.5"
+                android:src="@color/black"
+                android:layout_width="@dimen/px50"
+                android:layout_height="@dimen/px50" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_text"
+                android:textColor="@color/white"
+                android:text="0"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:textSize="15sp"
+                android:layout_height="wrap_content" />
+
+        </FrameLayout>
+
     </FrameLayout>
+
 </layout>

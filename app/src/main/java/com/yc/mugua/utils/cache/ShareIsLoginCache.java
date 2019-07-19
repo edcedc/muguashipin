@@ -32,7 +32,7 @@ public class ShareIsLoginCache {
 
     public boolean getIsLogin(){
         Object asObject = ACache.get(act).getAsObject(login);
-        if (asObject != null){
+        if (asObject == null){
             return true;
         }
         return false;

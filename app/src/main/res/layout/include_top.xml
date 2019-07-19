@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textColor="@color/white"
+                android:textColor="@color/red_F72A61"
                 android:textSize="12sp" />
 
         </FrameLayout>
@@ -52,6 +52,7 @@
     </android.support.v7.widget.Toolbar>
 
     <View
+        android:visibility="gone"
         style="@style/divider_dropshadow"
         android:id="@+id/top_view"/>
 

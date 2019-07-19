@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/px20"
+    android:background="?actionBarItemBackground"
+    android:layout_height="wrap_content">
+
+    <com.flyco.roundview.RoundLinearLayout
+        android:id="@+id/layout"
+        android:padding="@dimen/px40"
+        app:rv_cornerRadius="@dimen/px30"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:rv_backgroundColor="@color/red_DA7575"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_title"
+            android:textSize="35sp"
+            style="@style/Tv15white" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_marginTop="@dimen/px10"
+            android:layout_marginBottom="@dimen/px10"
+            android:layout_marginRight="@dimen/px300"
+            android:id="@+id/tv_content"
+            style="@style/Tv12white" />
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_vip"
+                android:alpha="0.5"
+                android:textSize="35sp"
+                style="@style/Tv15white" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="0dp"/>
+
+            <com.flyco.roundview.RoundTextView
+                android:id="@+id/bt_submit"
+                android:ems="6"
+                android:gravity="center"
+                android:textColor="@color/red_DA7575"
+                app:rv_cornerRadius="@dimen/px60"
+                app:rv_backgroundColor="@color/white"
+                android:padding="@dimen/px10"
+                android:text="@string/buy_immediately"
+                android:textSize="@dimen/size26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </com.flyco.roundview.RoundLinearLayout>
+
+</FrameLayout>

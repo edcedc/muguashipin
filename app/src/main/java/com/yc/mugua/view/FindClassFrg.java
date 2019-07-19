@@ -52,7 +52,7 @@ public class FindClassFrg extends BaseFragment<BaseListPresenter, FFindClassBind
         if (adapter == null){
             adapter = new SearchAdapter(act, listBean);
         }
-        setRecyclerViewType(mB.recyclerView, R.color.blue_474578);
+        setRecyclerViewType(mB.recyclerView);
         mB.recyclerView.setAdapter(adapter);
         showLoadDataing();
         mB.refreshLayout.startRefresh();

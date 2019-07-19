@@ -59,13 +59,13 @@ public class TwoFrg extends BaseFragment<TwoPresenter, FTwoBinding> implements T
         if (searchAdapter == null){
             searchAdapter = new SearchAdapter(act, listSearch);
         }
-        setRecyclerViewType(mB.rvSearch, R.color.blue_15163d);
+        setRecyclerViewType(mB.rvSearch);
         mB.rvSearch.setAdapter(searchAdapter);
 
         if (adapter == null){
             adapter = new FindVideoAdapter(act, listBean);
         }
-        setRecyclerViewType(mB.recyclerView, R.color.blue_15163d);
+        setRecyclerViewType(mB.recyclerView);
         mB.recyclerView.setAdapter(adapter);
 
         showLoadDataing();
@@ -119,7 +119,7 @@ public class TwoFrg extends BaseFragment<TwoPresenter, FTwoBinding> implements T
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.ly_search:
-
+                UIHelper.startSearchFrg(this);
                 break;
             case R.id.iv_class:
                 UIHelper.startFindClassFrg(this);

@@ -148,8 +148,8 @@
         <com.flyco.roundview.RoundTextView
             android:id="@+id/bt_submit"
             android:layout_margin="@dimen/px60"
+            android:background="?actionBarItemBackground"
             tl:rv_backgroundColor="@color/red_F72A61"
-            tl:rv_backgroundPressColor="@color/red_EF402C"
             android:text="@string/submit"
             tl:rv_cornerRadius="@dimen/px60"
             style="@style/RoundBlueTextView" />

@@ -53,6 +53,7 @@
         <activity
             android:name="com.yc.mugua.view.act.LoginAct"
             android:resizeableActivity="true"
+            android:theme="@style/AppTheme.NoActionBar.SwipeBack"
             android:screenOrientation="portrait"/>
 
 

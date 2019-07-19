@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.yc.mugua.R;
@@ -13,6 +14,7 @@ import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.databinding.FFourBinding;
 import com.yc.mugua.impl.FourContract;
 import com.yc.mugua.presenter.FourPresenter;
+import com.yc.mugua.utils.CountDownTimer;
 import com.yc.mugua.utils.GlideLoadingUtils;
 
 import org.json.JSONObject;
@@ -97,22 +99,22 @@ public class FourFrg extends BaseFragment<FourPresenter, FFourBinding> implement
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.tv_income_withdrawal:
-
+                UIHelper.startIncomeFrg(this);
                 break;
             case R.id.tv_login:
                 UIHelper.startLoginAct();
                 break;
             case R.id.tv_vip:
-
+                UIHelper.startVipFrg(this);
                 break;
             case R.id.tv_promote:
-
+                UIHelper.startPromoteFrg(this);
                 break;
             case R.id.tv_feedback:
-
+                UIHelper.startFeedbackFrg(this);
                 break;
             case R.id.tv_message:
-
+                UIHelper.startMsgFrg(this);
                 break;
             case R.id.tv_hot:
 
@@ -121,13 +123,13 @@ public class FourFrg extends BaseFragment<FourPresenter, FFourBinding> implement
 
                 break;
             case R.id.ly_history:
-
+                UIHelper.startHistoryFrg(this);
                 break;
             case R.id.ly_cash:
-
+                UIHelper.startCashFrg(this);
                 break;
             case R.id.ly_like:
-
+                UIHelper.startCollectionFrg(this);
                 break;
         }
     }

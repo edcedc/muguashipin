@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.flyco.roundview.RoundLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/px100"
+        android:orientation="vertical"
+        app:rv_backgroundColor="@color/white"
+        app:rv_cornerRadius="@dimen/px40">
+
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/Tv15white"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/px40"
+            android:text="选择支付方式"
+            android:textColor="@color/black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_wx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@mipmap/zhifubao"
+                android:drawablePadding="@dimen/px20"
+                android:gravity="center"
+                android:text="微信"
+                android:textColor="#25AE21" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_zfb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@mipmap/zhifubao"
+                android:drawablePadding="@dimen/px20"
+                android:gravity="center"
+                android:text="支付宝"
+                android:textColor="#2397D9" />
+
+        </LinearLayout>
+
+        <com.flyco.roundview.RoundLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px70"
+            android:layout_marginTop="@dimen/px20"
+            android:layout_marginRight="@dimen/px70"
+            android:gravity="center"
+            app:rv_backgroundColor="@color/white_f4f4f4"
+            app:rv_cornerRadius="@dimen/px5"
+            app:rv_strokeColor="#E6E6E6"
+            app:rv_strokeWidth="@dimen/px1">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="center"
+                android:hint="输入充值码"
+                android:maxLines="1"
+                android:padding="@dimen/px20"
+                android:textSize="@dimen/size26" />
+
+        </com.flyco.roundview.RoundLinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="@dimen/px20"
+            android:background="#999999" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.flyco.roundview.RoundTextView
+                android:id="@+id/bt_cancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/px30"
+                android:text="取消"
+                android:textSize="@dimen/size26"
+                app:rv_cornerRadius_BL="@dimen/px40" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="#999999" />
+
+            <com.flyco.roundview.RoundTextView
+                android:id="@+id/bt_submit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/px30"
+                android:text="确定"
+                android:textSize="@dimen/size26"
+                app:rv_cornerRadius_BR="@dimen/px40" />
+
+        </LinearLayout>
+
+    </com.flyco.roundview.RoundLinearLayout>
+
+</FrameLayout>

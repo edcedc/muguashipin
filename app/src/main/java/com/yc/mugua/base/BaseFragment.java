@@ -444,8 +444,9 @@ public abstract class BaseFragment<P extends BasePresenter, VB extends ViewDataB
     @RequiresApi(api = Build.VERSION_CODES.M)
     protected void setRecyclerViewType(RecyclerView recyclerView){
         recyclerView.setLayoutManager(new LinearLayoutManager(act));
-        setRecyclerView(recyclerView, R.color.white);
+        setRecyclerView(recyclerView, R.color.blue_15163d);
     }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     protected void setRecyclerViewType(RecyclerView recyclerView, int baColor){
         recyclerView.setLayoutManager(new LinearLayoutManager(act));

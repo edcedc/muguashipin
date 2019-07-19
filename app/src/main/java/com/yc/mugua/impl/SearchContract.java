@@ -1,5 +1,6 @@
 package com.yc.mugua.impl;
 
+import com.yc.mugua.base.BaseFragment;
 import com.yc.mugua.base.BasePresenter;
 import com.yc.mugua.base.IBaseListView;
 import com.yc.mugua.bean.DataBean;
@@ -28,6 +29,9 @@ public interface SearchContract {
 
         public abstract void onRecommend();
 
+        public abstract void onSearch(BaseFragment root);
+
+        public abstract void onRequest(int pagetNumber, String text);
     }
 
 }
