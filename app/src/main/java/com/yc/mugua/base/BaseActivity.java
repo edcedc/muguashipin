@@ -4,14 +4,9 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,6 +15,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
@@ -87,7 +88,7 @@ public abstract class BaseActivity<P extends BasePresenter, VB extends ViewDataB
 
         initView();
 //        vLoading = LoadingLayout.wrap(act);
-        vLoading = findViewById(R.id.loading);
+        vLoading = act.findViewById(R.id.loading);
 
         api = WXAPIFactory.createWXAPI(act, Constants.WX_APPID);
         getSwipeBackLayout().setEdgeOrientation(SwipeBackLayout.EDGE_ALL);
@@ -125,10 +126,10 @@ public abstract class BaseActivity<P extends BasePresenter, VB extends ViewDataB
     private void title(String title, String rightText, int img, boolean isBack) {
         setSofia(false);
         final AppCompatActivity mAppCompatActivity = (AppCompatActivity) act;
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        TextView topTitle = findViewById(R.id.top_title);
-        TextView topRight = findViewById(R.id.top_right);
-        FrameLayout topRightFy = findViewById(R.id.top_right_fy);
+        Toolbar toolbar = act.findViewById(R.id.toolbar);
+        TextView topTitle = act.findViewById(R.id.top_title);
+        TextView topRight = act.findViewById(R.id.top_right);
+        FrameLayout topRightFy = act.findViewById(R.id.top_right_fy);
         //需要调用该函数才能设置toolbar的信息
         mAppCompatActivity.setSupportActionBar(toolbar);
         mAppCompatActivity.getSupportActionBar().setTitle("");

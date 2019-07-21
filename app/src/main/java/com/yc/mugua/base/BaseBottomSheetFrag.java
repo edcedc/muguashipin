@@ -8,9 +8,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialog;
-import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +16,9 @@ import android.view.WindowManager;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.yc.mugua.R;
 
@@ -61,7 +61,7 @@ public abstract class BaseBottomSheetFrag extends BottomSheetDialogFragment {
 
 
         //每次打开都调用该方法 类似于onCreateView 用于返回一个Dialog实例
-        dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
+        dialog = super.onCreateDialog(savedInstanceState);
         if (rootView == null) {
             getActivity().getWindow().setSoftInputMode
                     (WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN|

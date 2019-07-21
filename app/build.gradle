@@ -68,6 +68,13 @@ android {
 //        javaMaxHeapSize "4g"
 //    }
 
+    android {
+        compileOptions {
+            sourceCompatibility 1.8
+            targetCompatibility 1.8
+        }
+    }
+
     repositories {
         flatDir {
             dirs 'libs'

@@ -1,8 +1,9 @@
 package com.yc.mugua.view;
 
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
 import android.view.View;
+
+import androidx.recyclerview.widget.DividerItemDecoration;
 
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;

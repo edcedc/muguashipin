@@ -1,7 +1,6 @@
 package com.yc.mugua.view;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;

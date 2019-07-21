@@ -2,11 +2,12 @@ package com.yc.mugua.view;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import com.yc.mugua.R;
 import com.yc.mugua.base.BaseFragment;

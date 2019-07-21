@@ -12,7 +12,7 @@
         app:rv_backgroundColor="@color/white"
         app:rv_cornerRadius="@dimen/px40">
 
-        <android.support.v7.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatTextView
             style="@style/Tv15white"
             android:layout_gravity="center"
             android:layout_margin="@dimen/px40"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <android.support.v7.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_wx"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
                 android:text="微信"
                 android:textColor="#25AE21" />
 
-            <android.support.v7.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_zfb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
             app:rv_strokeColor="#E6E6E6"
             app:rv_strokeWidth="@dimen/px1">
 
-            <android.support.v7.widget.AppCompatEditText
+            <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/et_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

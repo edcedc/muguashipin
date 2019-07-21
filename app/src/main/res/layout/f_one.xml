@@ -21,7 +21,7 @@
 
             <include layout="@layout/include_search"/>
 
-            <android.support.v7.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_dow"
                 android:layout_marginLeft="@dimen/px40"
                 android:layout_marginRight="@dimen/px40"
@@ -29,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <android.support.v7.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_time"
                 android:background="@mipmap/home_history"
                 android:layout_width="wrap_content"
@@ -47,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <android.support.v4.widget.NestedScrollView
+                <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -82,7 +82,7 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <android.support.v7.widget.AppCompatTextView
+                            <androidx.appcompat.widget.AppCompatTextView
                                 android:drawablePadding="@dimen/px20"
                                 android:drawableLeft="@mipmap/huanyipi"
                                 android:text="@string/change_batches"
@@ -90,7 +90,7 @@
 
                         </com.flyco.roundview.RoundLinearLayout>
 
-                        <android.support.v7.widget.RecyclerView
+                        <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recyclerView"
                             android:layout_margin="@dimen/px40"
                             android:layout_width="match_parent"
@@ -100,7 +100,7 @@
 
                     </LinearLayout>
 
-                </android.support.v4.widget.NestedScrollView>
+                </androidx.core.widget.NestedScrollView>
 
             </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 

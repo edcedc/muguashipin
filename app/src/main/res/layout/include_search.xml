@@ -10,7 +10,7 @@
     app:rv_backgroundColor="@color/white"
     app:rv_cornerRadius="@dimen/px60">
 
-    <android.support.v7.widget.AppCompatEditText
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/ly_search"
         android:layout_marginLeft="@dimen/px20"
         android:focusable="false"

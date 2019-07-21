@@ -2,12 +2,13 @@ package com.yc.mugua.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.AppCompatImageView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
+
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatImageView;
 
 import com.google.zxing.WriterException;
 import com.yc.mugua.R;
