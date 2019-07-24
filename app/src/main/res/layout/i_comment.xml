@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingConstraints"
+    android:background="?actionBarItemBackground"
+    android:paddingTop="@dimen/px30"
+    android:paddingLeft="@dimen/px30"
+    android:paddingRight="@dimen/px30"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.yc.mugua.weight.CircleImageView
+        android:id="@+id/iv_head"
+        android:src="@mipmap/place_holder_user"
+        android:layout_width="@dimen/px100"
+        android:layout_height="@dimen/px100" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_marginLeft="@dimen/px30"
+        android:id="@+id/tv_title"
+        android:textColor="@color/white"
+        app:layout_constraintLeft_toRightOf="@id/iv_head"
+        style="@style/Tv13black" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_report"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="@string/report"
+        android:textColor="@color/blue_7F7E9B"
+        style="@style/Tv13black" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_content"
+        android:layout_marginLeft="@dimen/px30"
+        android:layout_marginTop="@dimen/px10"
+        app:layout_constraintLeft_toRightOf="@id/iv_head"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        android:text="sadasdasdasdasdasd"
+        android:textColor="@color/white"
+        style="@style/Tv13black" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_time"
+        android:layout_marginLeft="@dimen/px30"
+        android:layout_marginTop="@dimen/px10"
+        app:layout_constraintLeft_toRightOf="@id/iv_head"
+        app:layout_constraintTop_toBottomOf="@id/tv_content"
+        android:textColor="@color/blue_7F7E9B"
+        style="@style/Tv13black" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_zan"
+        app:layout_constraintTop_toTopOf="@id/tv_time"
+        android:drawablePadding="@dimen/px10"
+        android:drawableLeft="@mipmap/bofandianzan"
+        app:layout_constraintBottom_toBottomOf="@id/tv_time"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="0"
+        android:textColor="@color/blue_7F7E9B"
+        style="@style/Tv13black" />
+
+    <View
+        android:layout_marginTop="@dimen/px30"
+        app:layout_constraintTop_toBottomOf="@id/tv_time"
+        style="@style/divider_1"/>
+
+</android.support.constraint.ConstraintLayout>

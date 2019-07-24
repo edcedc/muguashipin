@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:ignore="MissingConstraints"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.flyco.roundview.RoundTextView
+        android:id="@+id/tv_text"
+        android:paddingTop="@dimen/px5"
+        android:paddingBottom="@dimen/px5"
+        android:paddingLeft="@dimen/px30"
+        app:rv_backgroundColor="@color/red_F72A61"
+        android:paddingRight="@dimen/px30"
+        android:gravity="center"
+        app:rv_cornerRadius="@dimen/px20"
+        style="@style/Tv12white"/>
+
+</android.support.constraint.ConstraintLayout>

@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <androidx.appcompat.widget.AppCompatImageView
+                <android.support.v7.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:background="@mipmap/back"
                     android:layout_height="wrap_content" />
@@ -37,7 +37,7 @@
             <include layout="@layout/include_search"
                 />
             
-            <androidx.appcompat.widget.AppCompatTextView
+            <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/tv_search"
                 android:text="@string/search"
                 android:padding="@dimen/px40"
@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <android.support.v7.widget.AppCompatTextView
                         android:textColor="@color/red_F72A61"
                         android:text="@string/hot_search"
                         style="@style/Tv12white" />
@@ -73,7 +73,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/px10" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <android.support.v7.widget.AppCompatTextView
                         android:layout_marginTop="@dimen/px20"
                         android:textColor="@color/red_F72A61"
                         android:text="@string/recommend"

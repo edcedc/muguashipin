@@ -8,13 +8,10 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
-import com.blankj.utilcode.util.Utils;
 import com.google.zxing.WriterException;
 import com.yc.mugua.R;
-import com.yc.mugua.adapter.MsgAdapter;
 import com.yc.mugua.adapter.PromoteAdapter;
 import com.yc.mugua.base.BaseFragment;
 import com.yc.mugua.bean.DataBean;
@@ -23,7 +20,6 @@ import com.yc.mugua.impl.PromoteContract;
 import com.yc.mugua.presenter.PromotePresenter;
 import com.yc.mugua.utils.GlideLoadingUtils;
 import com.yc.mugua.utils.PopupWindowTool;
-import com.yc.mugua.weight.LinearDividerItemDecoration;
 import com.yc.mugua.weight.ZXingUtils;
 
 import java.util.ArrayList;

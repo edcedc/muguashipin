@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,21 +9,21 @@
     android:background="?actionBarItemBackground"
     android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@+id/iv_img"
         android:src="@mipmap/place_holder"
         android:scaleType="centerCrop"
         android:layout_width="@dimen/px116"
         android:layout_height="@dimen/px116"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_title"
         android:layout_marginLeft="@dimen/px20"
         app:layout_constraintLeft_toRightOf="@id/iv_img"
         app:layout_constraintTop_toTopOf="@id/iv_img"
         style="@style/Tv12white" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_content"
         android:layout_marginLeft="@dimen/px20"
         android:textColor="@color/blue_474578"
@@ -32,7 +32,7 @@
         app:layout_constraintBottom_toTopOf="@id/tv_time"
         style="@style/Tv12white" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_time"
         android:layout_marginLeft="@dimen/px20"
         app:layout_constraintLeft_toRightOf="@id/iv_img"
@@ -40,4 +40,4 @@
         app:layout_constraintTop_toBottomOf="@id/tv_content"
         style="@style/Tv12white" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>

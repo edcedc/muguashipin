@@ -3,6 +3,7 @@ package com.yc.mugua.view;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -11,22 +12,15 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
-import androidx.appcompat.widget.AppCompatEditText;
-
-import com.flyco.roundview.RoundTextView;
-import com.flyco.roundview.RoundViewDelegate;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.yc.mugua.R;
 import com.yc.mugua.adapter.BillboardAdapter;
 import com.yc.mugua.base.BaseFragment;
 import com.yc.mugua.bean.DataBean;
-import com.yc.mugua.databinding.FSearchBinding;
 import com.yc.mugua.databinding.FSearchTwoBinding;
 import com.yc.mugua.impl.SearchContract;
 import com.yc.mugua.presenter.SearchPresenter;
-import com.zhy.view.flowlayout.FlowLayout;
-import com.zhy.view.flowlayout.TagAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +54,7 @@ public class SearchTextFrg extends BaseFragment<SearchPresenter, FSearchTwoBindi
 
     @Override
     protected void initView(View view) {
-        AppCompatEditText etSearch = view.findViewById(R.id.ly_search);
+        AppCompatEditText etSearch = view.findViewById(R.id.et_search);
         etSearch.setFocusable(true);
         etSearch.setFocusableInTouchMode(true);
         etSearch.setCursorVisible(true);

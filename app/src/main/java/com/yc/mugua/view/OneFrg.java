@@ -1,17 +1,12 @@
 package com.yc.mugua.view;
 
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.blankj.utilcode.util.ConvertUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
-import com.umeng.socialize.UMAuthListener;
-import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yarolegovich.discretescrollview.DSVOrientation;
 import com.yarolegovich.discretescrollview.InfiniteScrollAdapter;
 import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
@@ -20,18 +15,14 @@ import com.yc.mugua.adapter.HomeAdapter;
 import com.yc.mugua.adapter.HomeBannerAdapter;
 import com.yc.mugua.adapter.LikeAdapter;
 import com.yc.mugua.base.BaseFragment;
-import com.yc.mugua.base.BasePresenter;
 import com.yc.mugua.bean.DataBean;
 import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.databinding.FOneBinding;
 import com.yc.mugua.impl.OneContract;
 import com.yc.mugua.presenter.OnePresenter;
-import com.yc.mugua.utils.ShareTool;
-import com.yc.mugua.weight.GridDividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class OneFrg extends BaseFragment<OnePresenter, FOneBinding> implements OneContract.View, View.OnClickListener {
 
@@ -72,6 +63,7 @@ public class OneFrg extends BaseFragment<OnePresenter, FOneBinding> implements O
 
     @Override
     protected void initView(View view) {
+        setSwipeBackEnable(false);
         setSofia(true);
         if (homeBannerAdapter == null){
             homeBannerAdapter = new HomeBannerAdapter(act, this, listBanner);
@@ -86,7 +78,7 @@ public class OneFrg extends BaseFragment<OnePresenter, FOneBinding> implements O
         tvLikeTitle = view.findViewById(R.id.tv_like_title);
         rvLike = view.findViewById(R.id.rv_like);
         view.findViewById(R.id.iv_img).setVisibility(View.GONE);
-        view.findViewById(R.id.ly_search).setOnClickListener(this);
+        view.findViewById(R.id.et_search).setOnClickListener(this);
         view.findViewById(R.id.iv_dow).setOnClickListener(this);
         view.findViewById(R.id.iv_time).setOnClickListener(this);
         if (likeAdapter == null){
@@ -146,14 +138,14 @@ public class OneFrg extends BaseFragment<OnePresenter, FOneBinding> implements O
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.ly_search:
+            case R.id.et_search:
                 UIHelper.startSearchFrg(this);
                 break;
             case R.id.iv_dow:
-
+                UIHelper.startCashFrg(this);
                 break;
             case R.id.iv_time:
-
+                UIHelper.startHistoryFrg(this);
                 break;
         }
     }

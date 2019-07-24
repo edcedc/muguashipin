@@ -7,7 +7,6 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.yc.mugua.R;
 import com.yc.mugua.adapter.CollectionAdapter;
-import com.yc.mugua.adapter.HistoryAdapter;
 import com.yc.mugua.base.BaseFragment;
 import com.yc.mugua.base.BaseListContract;
 import com.yc.mugua.base.BaseListPresenter;
@@ -46,7 +45,7 @@ public class CollectionFrg extends BaseFragment<BaseListPresenter, BRecyclerBind
 
     @Override
     protected void initView(View view) {
-        setTitle(getString(R.string.me_collection));
+        setTitle(getString(R.string.like));
         if (adapter == null){
             adapter = new CollectionAdapter(act, listBean);
         }

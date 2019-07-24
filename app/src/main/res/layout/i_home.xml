@@ -7,11 +7,8 @@
 
     <com.yc.mugua.weight.RoundImageView
         android:id="@+id/iv_img"
-        android:src="@mipmap/place_holder"
-        android:layout_marginTop="@dimen/px20"
-        android:scaleType="centerCrop"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/px152" />
+        style="@style/advert_img"
+        android:layout_marginTop="@dimen/px20"/>
 
     <LinearLayout
         android:layout_marginTop="@dimen/px20"
@@ -26,14 +23,14 @@
             android:layout_width="10dp"
             android:layout_height="10dp" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/tv_like_title"
             android:text="谢谢谢谢"
             style="@style/Tv12white" />
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_like"
         android:layout_marginTop="@dimen/px20"
         android:layout_width="match_parent"

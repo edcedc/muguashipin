@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.yc.mugua.weight.LoadingLayout
+            android:id="@+id/loadinglayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/blue_15163d"
+                android:orientation="vertical"
+                tools:ignore="MissingConstraints">
+
+                <View style="@style/title_bar" />
+
+                <com.yc.mugua.weight.GSYSampleADVideoPlayer
+                    android:id="@+id/videoPlayer"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+
+                <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+                    android:id="@+id/refreshLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <android.support.v4.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:descendantFocusability="blocksDescendants">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:focusableInTouchMode="true"
+                            android:orientation="vertical">
+
+                            <android.support.constraint.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="#2D2C44"
+                                android:padding="@dimen/px20">
+
+                                <android.support.v7.widget.AppCompatTextView
+                                    android:id="@+id/tv_title"
+                                    style="@style/Tv15white" />
+
+                                <android.support.v7.widget.AppCompatTextView
+                                    android:id="@+id/tv_zan"
+                                    style="@style/Tv15white"
+                                    android:layout_marginRight="@dimen/px20"
+                                    android:drawableLeft="@mipmap/bofandianzan"
+                                    android:drawablePadding="@dimen/px10"
+                                    android:text="0"
+                                    android:textColor="#7F7E9B"
+                                    app:layout_constraintRight_toLeftOf="@id/tv_cai" />
+
+                                <android.support.v7.widget.AppCompatTextView
+                                    android:id="@+id/tv_cai"
+                                    style="@style/Tv15white"
+                                    android:drawableLeft="@mipmap/bumanyi"
+                                    android:drawablePadding="@dimen/px10"
+                                    android:text="0"
+                                    android:textColor="#7F7E9B"
+                                    app:layout_constraintRight_toRightOf="parent" />
+
+                                <android.support.v7.widget.AppCompatTextView
+                                    android:id="@+id/tv_time"
+                                    style="@style/Tv15white"
+                                    android:textColor="#7F7E9B"
+                                    app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+                            </android.support.constraint.ConstraintLayout>
+
+                            <android.support.constraint.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/px20">
+
+                                <LinearLayout
+                                    android:id="@+id/layout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <android.support.v7.widget.AppCompatTextView
+                                        android:id="@+id/tv_biaoqian"
+                                        style="@style/Tv12white"
+                                        android:text="@string/label" />
+
+                                    <com.zhy.view.flowlayout.TagFlowLayout
+                                        android:id="@+id/fl_label"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        app:layout_constraintBottom_toBottomOf="@id/tv_biaoqian"
+                                        app:layout_constraintLeft_toRightOf="@id/tv_biaoqian"
+                                        app:layout_constraintTop_toTopOf="@id/tv_biaoqian" />
+
+                                </LinearLayout>
+
+                                <com.yc.mugua.weight.RoundImageView
+                                    android:id="@+id/iv_img"
+                                    style="@style/advert_img"
+                                    android:layout_marginTop="@dimen/px20"
+                                    app:layout_constraintTop_toBottomOf="@id/layout" />
+
+                                <android.support.v7.widget.AppCompatTextView
+                                    android:id="@+id/tv_comment"
+                                    style="@style/Tv12white"
+                                    android:layout_marginTop="@dimen/px30"
+                                    android:text="0点评"
+                                    app:layout_constraintTop_toBottomOf="@id/iv_img" />
+
+                                <android.support.v7.widget.AppCompatImageView
+                                    android:id="@+id/iv_share"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@mipmap/share"
+                                    app:layout_constraintBottom_toBottomOf="@id/tv_comment"
+                                    app:layout_constraintRight_toRightOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/iv_img"
+                                    app:layout_constraintTop_toTopOf="@id/tv_comment" />
+
+                                <android.support.v7.widget.AppCompatImageView
+                                    android:id="@+id/iv_dow"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="@dimen/px40"
+                                    android:background="@mipmap/y4"
+                                    app:layout_constraintBottom_toBottomOf="@id/tv_comment"
+                                    app:layout_constraintRight_toLeftOf="@id/iv_share"
+                                    app:layout_constraintTop_toBottomOf="@id/iv_img"
+                                    app:layout_constraintTop_toTopOf="@id/tv_comment" />
+
+                                <android.support.v7.widget.AppCompatImageView
+                                    android:id="@+id/iv_coll"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="@dimen/px40"
+                                    android:background="@mipmap/y3"
+                                    app:layout_constraintBottom_toBottomOf="@id/tv_comment"
+                                    app:layout_constraintRight_toLeftOf="@id/iv_dow"
+                                    app:layout_constraintTop_toBottomOf="@id/iv_img"
+                                    app:layout_constraintTop_toTopOf="@id/tv_comment" />
+
+                            </android.support.constraint.ConstraintLayout>
+
+                            <View style="@style/divider_1" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/px20"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <com.yc.mugua.weight.CircleImageView
+                                    android:layout_width="10dp"
+                                    android:layout_height="10dp"
+                                    android:layout_marginRight="@dimen/px10"
+                                    android:src="@color/red_F72A61" />
+
+                                <android.support.v7.widget.AppCompatTextView
+                                    style="@style/Tv12white"
+                                    android:text="@string/like_it" />
+
+                            </LinearLayout>
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/recyclerView"
+
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:nestedScrollingEnabled="false"
+                                android:overScrollMode="never" />
+
+                        </LinearLayout>
+
+                    </android.support.v4.widget.NestedScrollView>
+
+                </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+            </LinearLayout>
+
+        </com.yc.mugua.weight.LoadingLayout>
+
+
+        <include
+            android:id="@+id/bottom_sheet"
+            layout="@layout/include_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:behavior_hideable="true"
+            app:behavior_peekHeight="0dp"
+            app:layout_behavior="@string/bottom_sheet_behavior"/>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+</layout>

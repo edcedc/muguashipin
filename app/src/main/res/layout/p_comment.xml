@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:drawableLeft="@mipmap/open"
+            android:layout_width="match_parent"
+            android:padding="@dimen/px20"
+            android:gravity="center"
+            android:background="#2D2C44"
+            android:id="@+id/tv_comment"
+            android:text="0条评论"
+            style="@style/Tv15white" />
+
+        <com.yc.mugua.weight.LoadingLayout
+            android:id="@+id/loadinglayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+            <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+                android:id="@+id/refreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never" />
+
+            </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+            <LinearLayout
+                android:background="@color/blue_474578"
+                android:padding="@dimen/px20"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.flyco.roundview.RoundTextView
+                    android:id="@+id/et_text"
+                    android:hint="回复..."
+                    android:padding="@dimen/px20"
+                    app:rv_backgroundColor="@color/white"
+                    android:textColorHint="@color/blue_474578"
+                    app:rv_cornerRadius="@dimen/px60"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/iv_xiao"
+                    android:background="@mipmap/expression"
+                    android:layout_marginLeft="@dimen/px60"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/iv_coll"
+                    android:layout_marginLeft="@dimen/px60"
+                    android:layout_marginRight="@dimen/px60"
+                    android:background="@mipmap/collection"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/iv_share"
+                    android:background="@mipmap/ashare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            </LinearLayout>
+
+        </com.yc.mugua.weight.LoadingLayout>
+
+
+    </LinearLayout>
+
+
+</layout>

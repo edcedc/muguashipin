@@ -28,6 +28,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        setSwipeBackEnable(false);
         ShareIsLoginCache.getInstance(act).save(false);
         if (findFragment(MainFrg.class) == null) {
             loadRootFragment(R.id.fl_container, MainFrg.newInstance());

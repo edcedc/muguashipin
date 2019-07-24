@@ -8,20 +8,19 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 
-import androidx.annotation.NonNull;
-import androidx.viewpager.widget.ViewPager;
-
 import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
 import com.yanzhenjie.permission.Setting;
 import com.yc.mugua.R;
+import com.yc.mugua.base.BaseFragment;
 import com.yc.mugua.base.BasePresenter;
 import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.databinding.FSplashBinding;
@@ -29,16 +28,12 @@ import com.yc.mugua.utils.CountDownTimer;
 import com.yc.mugua.utils.GlideImageLoader;
 import com.yc.mugua.utils.cache.ShareIsLoginCache;
 import com.yc.mugua.utils.cache.ShareSessionIdCache;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import com.yc.mugua.base.BaseFragment;
 import com.yc.mugua.weight.RuntimeRationale;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.transformer.DefaultTransformer;
 
-import io.reactivex.internal.operators.completable.CompletableTimer;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 作者：yc on 2018/6/15.

@@ -1,11 +1,9 @@
 package com.yc.mugua.view;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.View;
 
-import androidx.fragment.app.Fragment;
-
-import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.yc.mugua.R;
 import com.yc.mugua.adapter.MyPagerAdapter;
@@ -13,7 +11,6 @@ import com.yc.mugua.base.BaseFragment;
 import com.yc.mugua.base.BaseListContract;
 import com.yc.mugua.base.BaseListPresenter;
 import com.yc.mugua.databinding.FThreeBinding;
-import com.yc.mugua.weight.TabEntity;
 
 import java.util.ArrayList;
 

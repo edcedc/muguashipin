@@ -10,20 +10,19 @@ import com.yc.mugua.view.CollectionFrg;
 import com.yc.mugua.view.FeedbackFrg;
 import com.yc.mugua.view.FindClassFrg;
 import com.yc.mugua.view.ForgetFrg;
-import com.yc.mugua.view.FourFrg;
 import com.yc.mugua.view.HistoryFrg;
 import com.yc.mugua.view.IncomeFrg;
-import com.yc.mugua.view.LoginFrg;
 import com.yc.mugua.view.MainFrg;
 import com.yc.mugua.view.MsgFrg;
-import com.yc.mugua.view.OneFrg;
 import com.yc.mugua.view.PromoteFrg;
 import com.yc.mugua.view.RegisterFrg;
 import com.yc.mugua.view.SearchFrg;
 import com.yc.mugua.view.SearchTextFrg;
-import com.yc.mugua.view.TwoFrg;
 import com.yc.mugua.view.VipFrg;
+import com.yc.mugua.view.act.EquAct;
 import com.yc.mugua.view.act.LoginAct;
+import com.yc.mugua.view.act.SetAct;
+import com.yc.mugua.view.act.VideoAct;
 
 
 /**
@@ -68,6 +67,13 @@ public final class UIHelper {
     }
 
     /**
+     *  设置
+     */
+    public static void startSetAct(){
+        ActivityUtils.startActivity(SetAct.class);
+    }
+
+    /**
      *  注册
      */
     public static void startRegisterFrg(BaseFragment root) {
@@ -86,6 +92,13 @@ public final class UIHelper {
         Bundle bundle = new Bundle();
         frg.setArguments(bundle);
         root.start(frg);
+    }
+
+    /**
+     *  视频详情
+     */
+    public static void startVideoAct() {
+        ActivityUtils.startActivity(VideoAct.class);
     }
 
      /**
@@ -151,11 +164,15 @@ public final class UIHelper {
     /**
      *  意见反馈
      */
-    public static void startFeedbackFrg(BaseFragment root) {
+    public static void startFeedbackFrg(BaseFragment root, int type) {
         FeedbackFrg frg = new FeedbackFrg();
         Bundle bundle = new Bundle();
         frg.setArguments(bundle);
-        ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+        if (type == 0){
+            ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+        }else {
+            root.start(frg);
+        }
     }
 
     /**
@@ -175,6 +192,13 @@ public final class UIHelper {
         Bundle bundle = new Bundle();
         frg.setArguments(bundle);
         ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+    }
+
+    /**
+     *  密码锁
+     */
+    public static void startEquAct() {
+        ActivityUtils.startActivity(EquAct.class);
     }
 
 }

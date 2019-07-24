@@ -14,7 +14,7 @@
 
         <include layout="@layout/include_top" />
 
-        <androidx.core.widget.NestedScrollView
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -32,12 +32,12 @@
                     android:orientation="horizontal"
                     android:padding="@dimen/px20">
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <android.support.v7.widget.AppCompatTextView
                         style="@style/Tv13black"
                         android:layout_weight="1"
                         android:text="@string/performance" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <android.support.v7.widget.AppCompatTextView
                         android:id="@+id/tv_performance"
                         style="@style/Tv13black"
                         android:textColor="@color/red_F72A61" />
@@ -52,12 +52,12 @@
                     android:orientation="horizontal"
                     android:padding="@dimen/px20">
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <android.support.v7.widget.AppCompatTextView
                         style="@style/Tv13black"
                         android:layout_weight="1"
                         android:text="@string/balance" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <android.support.v7.widget.AppCompatTextView
                         android:id="@+id/tv_balance"
                         style="@style/Tv13black"
                         android:textColor="@color/red_F72A61" />
@@ -72,12 +72,12 @@
                     android:orientation="horizontal"
                     android:padding="@dimen/px20">
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <android.support.v7.widget.AppCompatTextView
                         style="@style/Tv13black"
                         android:layout_weight="1"
                         android:text="@string/withdrawable" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <android.support.v7.widget.AppCompatTextView
                         android:id="@+id/tv_withdrawable"
                         style="@style/Tv13black"
                         android:textColor="@color/red_F72A61" />
@@ -92,12 +92,12 @@
                     android:orientation="horizontal"
                     android:padding="@dimen/px20">
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <android.support.v7.widget.AppCompatTextView
                         style="@style/Tv13black"
                         android:layout_weight="1"
                         android:text="@string/payment" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <android.support.v7.widget.AppCompatTextView
                         android:id="@+id/tv_payment"
                         style="@style/Tv13black"
                         android:textColor="@color/red_F72A61" />
@@ -112,12 +112,12 @@
                     android:orientation="horizontal"
                     android:padding="@dimen/px20">
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <android.support.v7.widget.AppCompatTextView
                         style="@style/Tv13black"
                         android:layout_weight="1"
                         android:text="@string/name_payee" />
 
-                    <androidx.appcompat.widget.AppCompatEditText
+                    <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/et_name"
                         style="@style/Tv13black"
                         android:background="@null"
@@ -134,12 +134,12 @@
                     android:orientation="horizontal"
                     android:padding="@dimen/px20">
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <android.support.v7.widget.AppCompatTextView
                         style="@style/Tv13black"
                         android:layout_weight="1"
                         android:text="@string/performance" />
 
-                    <androidx.appcompat.widget.AppCompatEditText
+                    <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/et_moble"
                         style="@style/Tv13black"
                         android:background="@null"
@@ -156,12 +156,12 @@
                     android:orientation="horizontal"
                     android:padding="@dimen/px20">
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <android.support.v7.widget.AppCompatTextView
                         style="@style/Tv13black"
                         android:layout_weight="1"
                         android:text="@string/performance" />
 
-                    <androidx.appcompat.widget.AppCompatEditText
+                    <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/et_balance"
                         style="@style/Tv13black"
                         android:background="@null"
@@ -179,25 +179,25 @@
                     tl:rv_backgroundColor="@color/red_F72A61"
                     tl:rv_cornerRadius="@dimen/px60" />
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/tv_yue"
                     style="@style/Tv12white"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/px80"
+                    android:layout_marginLeft="@dimen/px20"
                     android:layout_marginTop="@dimen/px60"
-                    android:layout_marginRight="@dimen/px80" />
+                    android:layout_marginRight="@dimen/px20" />
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/tv_content"
                     style="@style/Tv12white"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/px80"
+                    android:layout_marginLeft="@dimen/px20"
                     android:layout_marginTop="@dimen/px20"
-                    android:layout_marginRight="@dimen/px80" />
+                    android:layout_marginRight="@dimen/px20" />
 
             </LinearLayout>
 
-        </androidx.core.widget.NestedScrollView>
+        </android.support.v4.widget.NestedScrollView>
 
     </LinearLayout>
 

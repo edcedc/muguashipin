@@ -9,12 +9,12 @@
         android:layout_height="match_parent"
         android:background="@color/blue_15163d">
 
-        <androidx.core.widget.NestedScrollView
+        <android.support.v4.widget.NestedScrollView
             android:fillViewport="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingLeft="@dimen/px40"
@@ -63,9 +63,9 @@
                     android:layout_width="0dp"
                     android:gravity="center"
                     android:paddingLeft="@dimen/px40"
-                    android:paddingTop="@dimen/px30"
+                    android:paddingTop="@dimen/px25"
                     android:paddingRight="@dimen/px40"
-                    android:paddingBottom="@dimen/px30"
+                    android:paddingBottom="@dimen/px25"
                     android:text="@string/vip_recharge"
                     android:textSize="@dimen/size32"
                     app:layout_constraintBottom_toBottomOf="@id/iv_head"
@@ -74,7 +74,7 @@
                     app:rv_backgroundColor="@color/red_F72A61"
                     app:rv_cornerRadius="@dimen/px60" />
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/tv_name"
                     style="@style/Tv15white"
                     android:layout_marginTop="@dimen/px30"
@@ -82,7 +82,7 @@
                     android:textSize="23sp"
                     app:layout_constraintTop_toBottomOf="@id/iv_head" />
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/tv_advertisement"
                     style="@style/Tv12white"
                     android:layout_marginTop="@dimen/px20"
@@ -98,7 +98,7 @@
                     android:orientation="horizontal"
                     app:layout_constraintTop_toBottomOf="@id/tv_advertisement">
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <android.support.v7.widget.AppCompatTextView
                         android:id="@+id/tv_promote"
                         style="@style/Tv12white"
                         android:layout_width="0dp"
@@ -110,7 +110,7 @@
                         android:text="@string/me_promote"
                         android:textSize="@dimen/size20" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <android.support.v7.widget.AppCompatTextView
                         android:id="@+id/tv_feedback"
                         style="@style/Tv12white"
                         android:layout_width="0dp"
@@ -122,7 +122,7 @@
                         android:text="@string/feedback"
                         android:textSize="@dimen/size20" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <android.support.v7.widget.AppCompatTextView
                         android:id="@+id/tv_message"
                         style="@style/Tv12white"
                         android:layout_width="0dp"
@@ -134,7 +134,7 @@
                         android:text="@string/message"
                         android:textSize="@dimen/size20" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <android.support.v7.widget.AppCompatTextView
                         android:id="@+id/tv_hot"
                         style="@style/Tv12white"
                         android:layout_width="0dp"
@@ -150,11 +150,8 @@
 
                 <com.yc.mugua.weight.RoundImageView
                     android:id="@+id/iv_img"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/px192"
+                    style="@style/advert_img"
                     android:layout_marginTop="@dimen/px40"
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/place_holder"
                     app:layout_constraintTop_toBottomOf="@id/layout" />
 
                 <LinearLayout
@@ -181,11 +178,11 @@
                             android:layout_weight="1"
                             android:orientation="vertical">
 
-                            <androidx.appcompat.widget.AppCompatTextView
+                            <android.support.v7.widget.AppCompatTextView
                                 style="@style/Tv15white"
                                 android:text="@string/viewing_history" />
 
-                            <androidx.appcompat.widget.AppCompatTextView
+                            <android.support.v7.widget.AppCompatTextView
                                 android:id="@+id/tv_history"
                                 style="@style/Tv12white"
                                 android:layout_marginTop="@dimen/px10"
@@ -193,7 +190,7 @@
 
                         </LinearLayout>
 
-                        <androidx.appcompat.widget.AppCompatImageView
+                        <android.support.v7.widget.AppCompatImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@mipmap/door" />
@@ -219,11 +216,11 @@
                             android:layout_weight="1"
                             android:orientation="vertical">
 
-                            <androidx.appcompat.widget.AppCompatTextView
+                            <android.support.v7.widget.AppCompatTextView
                                 style="@style/Tv15white"
                                 android:text="@string/local_cache" />
 
-                            <androidx.appcompat.widget.AppCompatTextView
+                            <android.support.v7.widget.AppCompatTextView
                                 android:id="@+id/tv_cash"
                                 style="@style/Tv12white"
                                 android:layout_marginTop="@dimen/px10"
@@ -231,7 +228,7 @@
 
                         </LinearLayout>
 
-                        <androidx.appcompat.widget.AppCompatImageView
+                        <android.support.v7.widget.AppCompatImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@mipmap/door" />
@@ -257,11 +254,11 @@
                             android:layout_weight="1"
                             android:orientation="vertical">
 
-                            <androidx.appcompat.widget.AppCompatTextView
+                            <android.support.v7.widget.AppCompatTextView
                                 style="@style/Tv15white"
                                 android:text="@string/me_like" />
 
-                            <androidx.appcompat.widget.AppCompatTextView
+                            <android.support.v7.widget.AppCompatTextView
                                 android:id="@+id/tv_like"
                                 style="@style/Tv12white"
                                 android:layout_marginTop="@dimen/px10"
@@ -269,7 +266,7 @@
 
                         </LinearLayout>
 
-                        <androidx.appcompat.widget.AppCompatImageView
+                        <android.support.v7.widget.AppCompatImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@mipmap/door" />
@@ -281,11 +278,31 @@
                         android:layout_marginBottom="@dimen/px20"
                         android:layout_marginTop="@dimen/px20" />
 
+                    <LinearLayout
+                        android:id="@+id/ly_equ"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?actionBarItemBackground"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_marginTop="@dimen/px20"
+                            android:layout_marginBottom="@dimen/px20"
+                            style="@style/Tv15white"
+                            android:text="@string/set" />
+
+                    </LinearLayout>
+
+                    <View
+                        style="@style/divider_1"
+                        android:layout_marginBottom="@dimen/px20"
+                        android:layout_marginTop="@dimen/px20" />
+
                 </LinearLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </android.support.constraint.ConstraintLayout>
 
-        </androidx.core.widget.NestedScrollView>
+        </android.support.v4.widget.NestedScrollView>
 
 
     </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>

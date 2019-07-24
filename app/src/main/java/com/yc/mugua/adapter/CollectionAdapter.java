@@ -1,14 +1,13 @@
 package com.yc.mugua.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.flyco.roundview.RoundTextView;
 import com.yc.mugua.R;
@@ -26,9 +25,16 @@ import java.util.List;
  */
 public class CollectionAdapter extends BaseRecyclerviewAdapter<DataBean> {
 
+    private boolean isCollection = true;
+
+    public CollectionAdapter(Context act, List<DataBean> listBean, boolean isCollection) {
+        super(act, listBean);
+        this.isCollection = isCollection;
+    }
     public CollectionAdapter(Context act, List<DataBean> listBean) {
         super(act, listBean);
     }
+
 
     @Override
     protected void onBindViewHolde(RecyclerView.ViewHolder holder, int position) {
@@ -54,6 +60,11 @@ public class CollectionAdapter extends BaseRecyclerviewAdapter<DataBean> {
 
             }
         });
+        if (isCollection){
+            viewHolder.bt_submit.setVisibility(View.VISIBLE);
+        }else {
+            viewHolder.bt_submit.setVisibility(View.GONE);
+        }
     }
 
     @Override

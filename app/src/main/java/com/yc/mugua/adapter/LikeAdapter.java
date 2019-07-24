@@ -1,17 +1,17 @@
 package com.yc.mugua.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.yc.mugua.R;
 import com.yc.mugua.base.BaseRecyclerviewAdapter;
 import com.yc.mugua.bean.DataBean;
+import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.utils.GlideLoadingUtils;
 
 import java.util.List;
@@ -38,7 +38,7 @@ public class LikeAdapter extends BaseRecyclerviewAdapter<DataBean> {
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                UIHelper.startVideoAct();
             }
         });
     }

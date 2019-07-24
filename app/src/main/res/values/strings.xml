@@ -36,11 +36,15 @@
     <string name="viewing_history" translatable="false">观看历史</string>
     <string name="local_cache" translatable="false">本地缓存</string>
     <string name="me_like" translatable="false">我喜欢的</string>
+    <string name="equipment" translatable="false">锁屏密码</string>
+    <string name="equipment1" translatable="false">清除锁屏密码</string>
+    <string name="set" translatable="false">设置</string>
     <string name="vip_recharge" translatable="false">VIP充值</string>
     <string name="vip" translatable="false">VIP</string>
     <string name="forget" translatable="false">密码找回</string>
     <string name="me_collection" translatable="false">我的收藏</string>
     <string name="can_collection" translatable="false">取消收藏</string>
+    <string name="can_like" translatable="false">取消喜欢</string>
     <string name="describe" translatable="false">详情描述（必填）</string>
     <string name="describe1" translatable="false">请详尽描述遇到的问题，以便我们为您即时解决（10-100字）</string>
     <string name="available_today" translatable="false">今日可观影次数</string>
@@ -80,5 +84,10 @@
     <string name="input_moble" translatable="false">请输入收款账号</string>
     <string name="input_balance" translatable="false">请输入提现金额</string>
     <string name="presentation" translatable="false">提 现</string>
+    <string name="label" translatable="false">标签：</string>
+    <string name="like_it" translatable="false">猜你喜欢</string>
+    <string name="report" translatable="false">举报</string>
+    <string name="out" translatable="false">退出登录</string>
+    <string name="like" translatable="false">我喜欢的</string>
 
 </resources>

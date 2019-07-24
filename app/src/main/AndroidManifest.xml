@@ -55,10 +55,45 @@
             android:resizeableActivity="true"
             android:theme="@style/AppTheme.NoActionBar.SwipeBack"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.yc.mugua.view.act.SetAct"
+            android:resizeableActivity="true"
+            android:theme="@style/AppTheme.NoActionBar.SwipeBack"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.yc.mugua.view.act.EquAct"
+            android:resizeableActivity="true"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar.SwipeBack"
+            android:screenOrientation="portrait"/>
 
+        <activity
+            android:name="com.yc.mugua.view.act.VideoAct"
+            android:resizeableActivity="true"
+            android:theme="@style/AppTheme.NoActionBar.SwipeBack"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
 
         <service android:name="com.yc.mugua.service.InitializeService"
             android:exported="false"/>
+
+       <!-- <service
+            android:name=".utils.lock.DetectService"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/detection_service_config" />
+        </service>-->
+
+
+        <service android:name=".utils.lock.service.MyService" />
+
+        <receiver android:name=".utils.lock.receiver.MyReceiver" />
 
 
         <!-- 如果您项目中的所有页面都只需要以高或宽中的一个作为基准进行适配的话, 那就只需要填写高或宽中的一个设计图尺寸即可 -->

@@ -2,20 +2,15 @@ package com.yc.mugua.view;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import androidx.annotation.Nullable;
 
 import com.yc.mugua.R;
 import com.yc.mugua.base.BaseFragment;
 import com.yc.mugua.base.BasePresenter;
 import com.yc.mugua.base.IBaseView;
 import com.yc.mugua.databinding.FMainBinding;
-import com.yc.mugua.weight.buttonBar.BottomBar;
-import com.yc.mugua.weight.buttonBar.BottomBarTab;
 
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -167,7 +162,9 @@ public class MainFrg extends BaseFragment<BasePresenter, FMainBinding> implement
                 break;
         }
         showHideFragment(mFragments[position], mFragments[prePosition]);
-        switch (prePosition){
+
+        if (prePosition == position)return;
+        switch (prePosition){//上一个变色
             case 0:
                 setNoClick(prePosition, mB.ly1);
                 break;

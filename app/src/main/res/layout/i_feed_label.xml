@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -11,9 +12,11 @@
         android:paddingTop="@dimen/px5"
         android:paddingBottom="@dimen/px5"
         android:paddingLeft="@dimen/px30"
+        app:rv_strokeWidth="@dimen/px2"
+        app:rv_strokeColor="@color/red_F72A61"
         android:paddingRight="@dimen/px30"
         android:gravity="center"
         app:rv_cornerRadius="@dimen/px20"
         style="@style/Tv12white"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>

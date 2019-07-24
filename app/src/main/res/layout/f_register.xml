@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <android.support.v7.widget.AppCompatImageView
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/px20"
                 android:layout_marginBottom="@dimen/px20"
@@ -39,7 +39,7 @@
                 android:background="@color/blue_474578"
                 android:layout_height="match_parent"/>
 
-            <androidx.appcompat.widget.AppCompatEditText
+            <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/et_invitation"
                 android:textSize="@dimen/size30"
                 android:hint="@string/please_invitation"
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <android.support.v7.widget.AppCompatTextView
                 android:layout_marginLeft="@dimen/px20"
                 android:text="+86  "
                 android:gravity="center"
@@ -73,7 +73,7 @@
                 android:background="@color/blue_474578"
                 android:layout_height="match_parent"/>
 
-            <androidx.appcompat.widget.AppCompatEditText
+            <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/et_phone"
                 android:textSize="@dimen/size30"
                 android:inputType="phone"
@@ -93,7 +93,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <android.support.v7.widget.AppCompatImageView
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/px20"
                 android:layout_marginBottom="@dimen/px20"
@@ -109,7 +109,7 @@
                 android:background="@color/blue_474578"
                 android:layout_height="match_parent"/>
 
-            <androidx.appcompat.widget.AppCompatEditText
+            <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/et_code"
                 android:inputType="phone"
                 android:textSize="@dimen/size30"
@@ -140,7 +140,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <android.support.v7.widget.AppCompatImageView
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/px20"
                 android:layout_marginBottom="@dimen/px20"
@@ -156,7 +156,7 @@
                 android:background="@color/blue_474578"
                 android:layout_height="match_parent"/>
 
-            <androidx.appcompat.widget.AppCompatEditText
+            <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/et_pwd"
                 android:textSize="@dimen/size30"
                 android:inputType="textPassword"
@@ -185,7 +185,7 @@
             tl:rv_cornerRadius="@dimen/px60"
             style="@style/RoundBlueTextView" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/tv_login"
             android:layout_gravity="center"
             android:text="@string/user_login"

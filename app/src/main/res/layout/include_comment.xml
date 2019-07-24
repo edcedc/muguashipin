@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_comment_title"
+        style="@style/Tv15white"
+        android:layout_width="match_parent"
+        android:background="#2D2C44"
+        android:drawableLeft="@mipmap/open"
+        android:gravity="center"
+        android:padding="@dimen/px20"
+        android:text="0条评论" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+            android:id="@+id/refreshLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_comment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never" />
+
+        </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue_474578"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/px20">
+
+        <com.flyco.roundview.RoundTextView
+            android:id="@+id/et_text"
+            style="@style/Tv15white"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:hint="回复..."
+            android:padding="@dimen/px20"
+            android:textColorHint="@color/blue_474578"
+            app:rv_backgroundColor="@color/white"
+            app:rv_cornerRadius="@dimen/px60" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/iv_xiao"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px60"
+            android:background="@mipmap/expression" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/iv_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px60"
+            android:layout_marginRight="@dimen/px60"
+            android:background="@mipmap/collection" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/iv_share1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ashare" />
+
+    </LinearLayout>
+
+</LinearLayout>
+
+

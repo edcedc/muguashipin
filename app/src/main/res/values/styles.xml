@@ -59,6 +59,13 @@
         <item name="android:windowEnterAnimation">@anim/dialog_push_in</item>
         <item name="android:windowExitAnimation">@anim/dialog_push_out</item>
     </style>
+    
+    <style name="advert_img">
+        <item name="android:layout_height">@dimen/px192</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:src">@mipmap/place_holder</item>
+    </style>
 
     <style name="divider_1">
         <item name="android:layout_height">0.5dp</item>

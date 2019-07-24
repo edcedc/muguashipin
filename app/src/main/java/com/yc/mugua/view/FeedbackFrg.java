@@ -70,7 +70,7 @@ public class FeedbackFrg extends BaseFragment<FeedbackPresenter, FFeedbackBindin
         mB.flLayout.setAdapter(new TagAdapter<DataBean>(list){
             @Override
             public View getView(FlowLayout parent, int position, DataBean dataBean) {
-                View view = View.inflate(act, R.layout.i_search_label, null);
+                View view = View.inflate(act, R.layout.i_feed_label, null);
                 TextView tvText = view.findViewById(R.id.tv_text);
                 tvText.setText(position + "全部");
                 return view;

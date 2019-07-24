@@ -28,7 +28,7 @@
             android:layout_weight="1"
             android:text="name" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <android.support.v7.widget.AppCompatTextView
             android:visibility="gone"
             android:id="@+id/tv_content"
             android:layout_marginRight="@dimen/px20"

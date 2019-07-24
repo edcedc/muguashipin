@@ -1,17 +1,17 @@
 package com.yc.mugua.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.yc.mugua.R;
 import com.yc.mugua.base.BaseRecyclerviewAdapter;
 import com.yc.mugua.bean.DataBean;
+import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.utils.GlideLoadingUtils;
 
 import java.util.List;
@@ -34,15 +34,15 @@ public class BillboardAdapter extends BaseRecyclerviewAdapter<DataBean> {
         DataBean bean = listBean.get(position);
 
         GlideLoadingUtils.load(act, "http://wx1.sinaimg.cn/mw600/62306eealy1g4xwb6ahatj20u01404qp.jpg", viewHolder.iv_img);
-        viewHolder.tv_time.setText("time");
+        viewHolder.tv_time.setText("1213");
         viewHolder.tv_zan.setText("123");
-        viewHolder.tv_title.setText("title");
-        viewHolder.tv_content.setText("content");
+        viewHolder.tv_title.setText("波西米亚狂想曲");
+        viewHolder.tv_content.setText("Bohemian ");
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                UIHelper.startVideoAct();
             }
         });
     }

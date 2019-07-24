@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <android.support.v7.widget.AppCompatTextView
                 android:layout_marginTop="@dimen/px40"
                 android:text="@string/describe"
                 style="@style/Tv15white" />
@@ -40,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/et_text"
                     android:background="@null"
                     android:padding="@dimen/px20"

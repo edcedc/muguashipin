@@ -16,12 +16,12 @@
         app:rv_backgroundColor="@color/red_DA7575"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/tv_title"
             android:textSize="35sp"
             style="@style/Tv15white" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <android.support.v7.widget.AppCompatTextView
             android:layout_marginTop="@dimen/px10"
             android:layout_marginBottom="@dimen/px10"
             android:layout_marginRight="@dimen/px300"
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/tv_vip"
                 android:alpha="0.5"
                 android:textSize="35sp"

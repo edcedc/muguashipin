@@ -62,7 +62,7 @@ public class ACache {
 	private static Map<String, ACache> mInstanceMap = new HashMap<String, ACache>();
 	private ACacheManager mCache;
 
-	private static final String cache = "cache_sg";//每次换项目就要换一次名子
+	private static final String cache = "cache_mg";//每次换项目就要换一次名子
 
 	public static ACache get(Context ctx) {
 		return get(ctx, cache);

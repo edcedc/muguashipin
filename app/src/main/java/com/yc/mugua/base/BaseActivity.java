@@ -4,9 +4,20 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,15 +27,12 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
-
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -34,15 +42,14 @@ import com.yc.mugua.utils.Constants;
 import com.yc.mugua.utils.TUtil;
 import com.yc.mugua.utils.pay.PayResult;
 import com.yc.mugua.weight.AuthResult;
+import com.yc.mugua.weight.LoadingLayout;
 
 import org.json.JSONObject;
 
 import java.util.Map;
 
-import ezy.ui.layout.LoadingLayout;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import me.yokeyword.fragmentation.SupportActivity;
 import me.yokeyword.fragmentation.SwipeBackLayout;
 import me.yokeyword.fragmentation_swipeback.SwipeBackActivity;
 
@@ -88,11 +95,10 @@ public abstract class BaseActivity<P extends BasePresenter, VB extends ViewDataB
 
         initView();
 //        vLoading = LoadingLayout.wrap(act);
-        vLoading = act.findViewById(R.id.loading);
+        vLoading = act.findViewById(R.id.loadinglayout);
 
         api = WXAPIFactory.createWXAPI(act, Constants.WX_APPID);
         getSwipeBackLayout().setEdgeOrientation(SwipeBackLayout.EDGE_ALL);
-
     }
 
     protected abstract void initPresenter();
@@ -334,10 +340,6 @@ public abstract class BaseActivity<P extends BasePresenter, VB extends ViewDataB
         MobclickAgent.onPause(this);
     }
 
-
-
-
-
     //支付宝支付
     public void pay(final String info){
 //        new Thread(new Runnable() {
@@ -439,5 +441,57 @@ public abstract class BaseActivity<P extends BasePresenter, VB extends ViewDataB
         return super.swipeBackPriority();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    protected void setRecyclerViewType(RecyclerView recyclerView){
+        recyclerView.setLayoutManager(new LinearLayoutManager(act));
+        setRecyclerView(recyclerView, R.color.blue_15163d);
+    }
+    private void setRecyclerView(RecyclerView recyclerView, int baColor){
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setBackgroundColor(ContextCompat.getColor(act,baColor));
+    }
+
+    protected void setRefreshLayout(TwinklingRefreshLayout refreshLayout, RefreshListenerAdapter listener) {
+//        ProgressLayout headerView = new ProgressLayout(act);
+//        refreshLayout.setHeaderView(headerView);
+//        refreshLayout.setOverScrollRefreshShow(false);
+        ProgressLayout header = new ProgressLayout(act);
+        refreshLayout.setHeaderView(header);
+        refreshLayout.setFloatRefresh(true);
+        refreshLayout.setOverScrollRefreshShow(false);
+        refreshLayout.setHeaderHeight(140);
+        refreshLayout.setMaxHeadHeight(240);
+        refreshLayout.setOverScrollHeight(200);
+        refreshLayout.setOnRefreshListener(listener);
+    }
+
+    protected void setRefreshLayout(final int pagerNumber, final TwinklingRefreshLayout refreshLayout) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (pagerNumber == 1) {
+                    refreshLayout.finishRefreshing();
+                } else {
+                    refreshLayout.finishLoadmore();
+                }
+            }
+        }, 300);
+
+    }
+
+    /**
+     *  是否有更多
+     * @param listSize
+     * @param totalRow
+     * @param refreshLayout
+     */
+    protected void setRefreshLayoutMode(int listSize, int totalRow, TwinklingRefreshLayout refreshLayout) {
+        if (listSize == totalRow) {
+            refreshLayout.setEnableLoadmore(false);
+        } else {
+            refreshLayout.setEnableLoadmore(true);
+        }
+    }
 
 }

@@ -8,9 +8,9 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 
-import androidx.appcompat.widget.AppCompatImageView;
 
 /**
  * 圆角图片

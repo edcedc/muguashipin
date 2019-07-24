@@ -2,10 +2,7 @@ package com.yc.mugua.view;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
-import com.flyco.roundview.RoundTextView;
-import com.flyco.roundview.RoundViewDelegate;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.yc.mugua.R;
@@ -17,8 +14,6 @@ import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.databinding.FTwoBinding;
 import com.yc.mugua.impl.TwoContract;
 import com.yc.mugua.presenter.TwoPresenter;
-import com.zhy.view.flowlayout.FlowLayout;
-import com.zhy.view.flowlayout.TagAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +50,7 @@ public class TwoFrg extends BaseFragment<TwoPresenter, FTwoBinding> implements T
     @Override
     protected void initView(View view) {
         mB.ivClass.setOnClickListener(this);
-        view.findViewById(R.id.ly_search).setOnClickListener(this);
+        view.findViewById(R.id.et_search).setOnClickListener(this);
         if (searchAdapter == null){
             searchAdapter = new SearchAdapter(act, listSearch);
         }
@@ -118,7 +113,7 @@ public class TwoFrg extends BaseFragment<TwoPresenter, FTwoBinding> implements T
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.ly_search:
+            case R.id.et_search:
                 UIHelper.startSearchFrg(this);
                 break;
             case R.id.iv_class:

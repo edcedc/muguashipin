@@ -1,15 +1,14 @@
 package com.yc.mugua.adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.yc.mugua.R;
 import com.yc.mugua.base.BaseRecyclerviewAdapter;
@@ -52,7 +51,7 @@ public class HomeAdapter extends BaseRecyclerviewAdapter<DataBean> {
         viewHolder.recyclerView.setLayoutManager(new GridLayoutManager(act, 2));
         viewHolder.recyclerView.setHasFixedSize(true);
         viewHolder.recyclerView.setItemAnimator(new DefaultItemAnimator());
-        viewHolder.recyclerView.addItemDecoration(new GridDividerItemDecoration(60, 20, ContextCompat.getColor(act,R.color.blue_474578)));
+        viewHolder.recyclerView.addItemDecoration(new GridDividerItemDecoration(60, 20, ContextCompat.getColor(act,R.color.blue_15163d)));
         viewHolder.recyclerView.setAdapter(adapter);
     }
 

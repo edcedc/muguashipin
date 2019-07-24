@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:background="@color/blue_15163d"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/include_top"/>
+
+
+    <LinearLayout
+        android:padding="@dimen/px40"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ly_equ"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?actionBarItemBackground"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_marginTop="@dimen/px20"
+                android:layout_marginBottom="@dimen/px20"
+                style="@style/Tv15white"
+                android:text="@string/equipment" />
+
+        </LinearLayout>
+
+        <View
+            style="@style/divider_1"
+            android:layout_marginBottom="@dimen/px20"
+            android:layout_marginTop="@dimen/px20" />
+
+        <LinearLayout
+            android:id="@+id/ly_equ1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?actionBarItemBackground"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_marginTop="@dimen/px20"
+                android:layout_marginBottom="@dimen/px20"
+                style="@style/Tv15white"
+                android:text="@string/equipment1" />
+
+        </LinearLayout>
+
+        <View
+            style="@style/divider_1"
+            android:layout_marginBottom="@dimen/px20"
+            android:layout_marginTop="@dimen/px20" />
+
+        <com.flyco.roundview.RoundTextView
+            android:id="@+id/bt_submit"
+            android:layout_marginTop="@dimen/px50"
+            android:layout_marginBottom="@dimen/px50"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:padding="@dimen/px20"
+            android:text="@string/out"
+            style="@style/Tv15white"
+            android:gravity="center"
+            app:rv_backgroundColor="@color/red_F72A61"
+            app:rv_cornerRadius="@dimen/px60" />
+
+    </LinearLayout>
+
+    </LinearLayout>
+
+</layout>
