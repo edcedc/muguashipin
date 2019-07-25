@@ -18,15 +18,6 @@ public class User {
     private JSONObject userObj;
     private String userId;
     private String sessionId;
-    private JSONObject userInfoObj;
-
-    public JSONObject getUserInfoObj() {
-        return userInfoObj;
-    }
-
-    public void setUserInfoObj(JSONObject userInfoObj) {
-        this.userInfoObj = userInfoObj;
-    }
 
     public void setUserObj(JSONObject userObj) {
         this.userObj = userObj;
@@ -51,12 +42,7 @@ public class User {
     }
 
     public String getUserId() {
-        if (userObj == null) {
-            if (userInfoObj == null){
-                return "获取失败";
-            }
-            userId = userInfoObj.optString("userId");
-        }else {
+        if (userObj != null) {
             userId = userObj.optString("id");
         }
         return userId;

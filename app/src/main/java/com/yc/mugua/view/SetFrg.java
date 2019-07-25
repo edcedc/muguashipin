@@ -68,7 +68,7 @@ public class SetFrg extends BaseFragment<BasePresenter, FSetBinding> implements 
                 UIHelper.startLoginAct();
                 SharedAccount.getInstance(act).remove();
                 User.getInstance().setLogin(false);
-                User.getInstance().setUserInfoObj(null);
+                User.getInstance().setUserObj(null);
                 ActivityUtils.finishAllActivities();
                 break;
         }
