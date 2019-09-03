@@ -6,7 +6,6 @@ import android.view.View;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.yc.mugua.R;
-import com.yc.mugua.adapter.HistoryAdapter;
 import com.yc.mugua.adapter.VipAdapter;
 import com.yc.mugua.base.BaseFragment;
 import com.yc.mugua.bean.DataBean;
@@ -53,17 +52,11 @@ public class VipFrg extends BaseFragment<VipPresenter, BRecyclerBinding> impleme
         }
         setRecyclerViewType(mB.recyclerView);
         mB.recyclerView.setAdapter(adapter);
-        adapter.setOnClickListener(new VipAdapter.OnClickListener() {
-            @Override
-            public void onClick(int position) {
-                PopupWindowTool.showPay(act, new PopupWindowTool.onPayListener() {
-                    @Override
-                    public void onClick(int pos, String text) {
+        adapter.setOnClickListener(position -> PopupWindowTool.showPay(act, (pos, text) -> {
+            DataBean bean = listBean.get(pos);
+            String id = bean.getId();
 
-                    }
-                });
-            }
-        });
+        }));
 
         showLoadDataing();
         mB.refreshLayout.startRefresh();

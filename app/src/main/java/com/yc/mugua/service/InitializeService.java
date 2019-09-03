@@ -66,7 +66,7 @@ public class InitializeService extends IntentService {
         LogUtils.e("performInit begin:" + System.currentTimeMillis());
         initOkGo();
         initAutoSizeConfig();
-        initQbSdk();
+//        initQbSdk();
         initShare();
 //        LogUtils.getConfig().setLogSwitch(false);
         // 设置崩溃后自动重启 APP
@@ -152,7 +152,7 @@ public class InitializeService extends IntentService {
     private void initOkGo() {
         //---------这里给出的是示例代码,告诉你可以这么传,实际使用的时候,根据需要传,不需要就不传-------------//
         HttpHeaders headers = new HttpHeaders();
-        headers.put("fanwang", "yc");    //header不支持中文，不允许有特殊字符
+//        headers.put("fanwang", "yc");    //header不支持中文，不允许有特殊字符
         //        headers.put("commonHeaderKey2", "commonHeaderValue2");
         com.lzy.okgo.model.HttpParams params = new com.lzy.okgo.model.HttpParams();
         //        params.put("sessionId", User.getInstance().getSessionId());     //param支持中文,直接传,不要自己编码

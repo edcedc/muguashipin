@@ -10,7 +10,7 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:paddingTop="@dimen/px100"
+            android:paddingTop="@dimen/px80"
             android:paddingLeft="@dimen/px60"
             android:paddingRight="@dimen/px60"
             android:paddingBottom="@dimen/px20"
@@ -37,7 +37,7 @@
 
         </LinearLayout>
 
-        <com.yc.mugua.weight.LoadingLayout
+        <ezy.ui.layout.LoadingLayout
             android:id="@+id/loadinglayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -104,7 +104,7 @@
 
             </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 
-        </com.yc.mugua.weight.LoadingLayout>
+        </ezy.ui.layout.LoadingLayout>
 
 
     </LinearLayout>

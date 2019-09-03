@@ -31,14 +31,14 @@ public class BaseResponseBean<T> implements Serializable {
     private static final long serialVersionUID = 5213230387175987834L;
 
     public int code;
-    public String desc;
+    public String message;
     public T data;
 
     @Override
     public String toString() {
         return "BaseResponseBean{\n" +//
                "\tcode=" + code + "\n" +//
-               "\tmsg='" + desc + "\'\n" +//
+               "\tmsg='" + message + "\'\n" +//
                "\tdata=" + data + "\n" +//
                '}';
     }

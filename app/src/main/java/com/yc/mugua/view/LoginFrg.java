@@ -4,17 +4,17 @@ import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
-import android.widget.CompoundButton;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.yc.mugua.R;
-import com.yc.mugua.adapter.MyPagerAdapter;
 import com.yc.mugua.base.BaseFragment;
 import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.databinding.FLoginBinding;
 import com.yc.mugua.impl.LoginContract;
 import com.yc.mugua.presenter.LoginPresenter;
+import com.yc.mugua.utils.cache.SharedAccount;
 import com.yc.mugua.weight.TabEntity;
 
 import java.util.ArrayList;
@@ -84,17 +84,14 @@ public class LoginFrg extends BaseFragment<LoginPresenter, FLoginBinding> implem
         mB.tvRegister.setOnClickListener(this);
         mB.tvForget.setOnClickListener(this);
         mB.btSubmit.setOnClickListener(this);
-        mB.ivPwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                int passwordLength = mB.etPwd.getText().length();
-                if (b){
-                    mB.etPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                }else {
-                    mB.etPwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                }
-                mB.etPwd.setSelection(passwordLength);
+        mB.ivPwd.setOnCheckedChangeListener((compoundButton, b) -> {
+            int passwordLength = mB.etPwd.getText().length();
+            if (b){
+                mB.etPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            }else {
+                mB.etPwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
             }
+            mB.etPwd.setSelection(passwordLength);
         });
     }
 
@@ -120,4 +117,23 @@ public class LoginFrg extends BaseFragment<LoginPresenter, FLoginBinding> implem
     public void onCode() {
 
     }
+
+    @Override
+    public void setLogin() {
+        UIHelper.startMainAct();
+        act.finish();
+    }
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        SharedAccount account = SharedAccount.getInstance(act);
+        String mobile = account.getMobile();
+        String pwd = account.getPwd();
+        if (!StringUtils.isEmpty(mobile) && !StringUtils.isEmpty(pwd)){
+            mB.etPhone.setText(mobile);
+            mB.etPwd.setText(pwd);
+        }
+    }
+
 }

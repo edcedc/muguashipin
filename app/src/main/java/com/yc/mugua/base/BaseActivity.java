@@ -6,12 +6,10 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -38,16 +36,18 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.mugua.R;
+import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.utils.Constants;
 import com.yc.mugua.utils.TUtil;
+import com.yc.mugua.utils.cache.ShareSessionIdCache;
 import com.yc.mugua.utils.pay.PayResult;
 import com.yc.mugua.weight.AuthResult;
-import com.yc.mugua.weight.LoadingLayout;
 
 import org.json.JSONObject;
 
 import java.util.Map;
 
+import ezy.ui.layout.LoadingLayout;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import me.yokeyword.fragmentation.SwipeBackLayout;
@@ -441,7 +441,6 @@ public abstract class BaseActivity<P extends BasePresenter, VB extends ViewDataB
         return super.swipeBackPriority();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     protected void setRecyclerViewType(RecyclerView recyclerView){
         recyclerView.setLayoutManager(new LinearLayoutManager(act));
         setRecyclerView(recyclerView, R.color.blue_15163d);
@@ -491,6 +490,16 @@ public abstract class BaseActivity<P extends BasePresenter, VB extends ViewDataB
             refreshLayout.setEnableLoadmore(false);
         } else {
             refreshLayout.setEnableLoadmore(true);
+        }
+    }
+
+    public boolean isLogin(){
+        if (!StringUtils.isEmpty(ShareSessionIdCache.getInstance(act).getSessionId())){
+            return true;
+        }else {
+            UIHelper.startLoginAct();
+            showToast("请登录");
+            return false;
         }
     }
 

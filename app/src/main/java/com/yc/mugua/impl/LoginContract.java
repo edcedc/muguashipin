@@ -16,6 +16,7 @@ public interface LoginContract {
 
         void onCode();
 
+        void setLogin();
     }
 
     abstract class Presenter extends BasePresenter<View> {

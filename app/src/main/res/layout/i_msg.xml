@@ -11,7 +11,7 @@
 
     <com.yc.mugua.weight.CircleImageView
         android:id="@+id/iv_img"
-        android:src="@mipmap/place_holder"
+        android:src="@color/white"
         android:scaleType="centerCrop"
         android:layout_width="@dimen/px116"
         android:layout_height="@dimen/px116"/>

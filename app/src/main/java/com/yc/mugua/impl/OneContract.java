@@ -27,7 +27,7 @@ public interface OneContract {
 
         public abstract void onListRequest();
 
-        public abstract void onRequest();
+        public abstract void onRequest(int pagerNumber);
 
     }
 

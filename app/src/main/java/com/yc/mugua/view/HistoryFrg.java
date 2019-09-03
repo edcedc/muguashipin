@@ -6,13 +6,12 @@ import android.view.View;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.yc.mugua.R;
-import com.yc.mugua.adapter.FindVideoAdapter;
 import com.yc.mugua.adapter.HistoryAdapter;
 import com.yc.mugua.base.BaseFragment;
-import com.yc.mugua.base.BaseListContract;
-import com.yc.mugua.base.BaseListPresenter;
 import com.yc.mugua.bean.DataBean;
 import com.yc.mugua.databinding.BRecyclerBinding;
+import com.yc.mugua.impl.HistoryContract;
+import com.yc.mugua.presenter.HistoryPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,7 @@ import java.util.List;
  * Time: 15:43
  *  观看历史
  */
-public class HistoryFrg extends BaseFragment<BaseListPresenter, BRecyclerBinding> implements BaseListContract.View {
+public class HistoryFrg extends BaseFragment<HistoryPresenter, BRecyclerBinding> implements HistoryContract.View {
 
     private List<DataBean> listBean = new ArrayList<>();
     private HistoryAdapter adapter;
@@ -58,13 +57,13 @@ public class HistoryFrg extends BaseFragment<BaseListPresenter, BRecyclerBinding
         setRefreshLayout(mB.refreshLayout, new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-                mPresenter.onRequest("", pagerNumber = 1);
+                mPresenter.onRequest(pagerNumber = 1);
             }
 
             @Override
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
                 super.onLoadMore(refreshLayout);
-                mPresenter.onRequest("", pagerNumber += 1);
+                mPresenter.onRequest(pagerNumber += 1);
             }
         });
     }
@@ -91,6 +90,11 @@ public class HistoryFrg extends BaseFragment<BaseListPresenter, BRecyclerBinding
         }
         listBean.addAll(list);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void setOnRightClickListener() {
+        super.setOnRightClickListener();
     }
 
 }

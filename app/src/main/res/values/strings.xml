@@ -21,6 +21,7 @@
     <string name="find_class" translatable="false">分类</string>
     <string name="search" translatable="false">搜索</string>
     <string name="zking" translatable="false">二维码</string>
+    <string name="release" translatable="false">发布</string>
     <string name="hot_search" translatable="false">热门搜索</string>
     <string name="recommend" translatable="false">推荐</string>
     <string name="income_withdrawal" translatable="false">收益提现</string>
@@ -89,5 +90,19 @@
     <string name="report" translatable="false">举报</string>
     <string name="out" translatable="false">退出登录</string>
     <string name="like" translatable="false">我喜欢的</string>
+    <string name="delete" translatable="false">删除</string>
+    <string name="clear_all" translatable="false">清除全部</string>
+    <string name="text1" translatable="false">您的邀请码</string>
+    <string name="text2" translatable="false">扫描上面二维码，下载APP</string>
+    <string name="text3" translatable="false">推广分享获取永久免费观影</string>
+    <string name="text4" translatable="false">请去推广页面推广好友增加观影次数吧</string>
+    <string name="copy" translatable="false">复制</string>
+    <string name="copy_url" translatable="false">复制链接</string>
+    <string name="save_zking" translatable="false">保存二维码</string>
+    <string name="name" translatable="false">用户名</string>
+    <string name="phone" translatable="false">手机号</string>
+    <string name="crear_time" translatable="false">注册时间</string>
+    <string name="manage" translatable="false">管理</string>
+    <string name="all" translatable="false">全选删除</string>
 
 </resources>

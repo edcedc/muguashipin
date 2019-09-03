@@ -22,7 +22,7 @@
             android:text="0条评论"
             style="@style/Tv15white" />
 
-        <com.yc.mugua.weight.LoadingLayout
+        <ezy.ui.layout.LoadingLayout
             android:id="@+id/loadinglayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -92,7 +92,7 @@
 
             </LinearLayout>
 
-        </com.yc.mugua.weight.LoadingLayout>
+        </ezy.ui.layout.LoadingLayout>
 
 
     </LinearLayout>

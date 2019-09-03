@@ -1,12 +1,11 @@
 package com.yc.mugua.presenter;
 
-import android.os.Handler;
-
-import com.yc.mugua.base.BasePresenter;
-import com.yc.mugua.base.IBaseListView;
+import com.blankj.utilcode.util.FileUtils;
 import com.yc.mugua.bean.DataBean;
 import com.yc.mugua.impl.CashContract;
+import com.yc.mugua.utils.Constants;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,17 +19,26 @@ public class CashPresenter extends CashContract.Presenter {
 
     @Override
     public void onRequest() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                List<DataBean> list = new ArrayList<>();
-                for (int i = 0;i<15;i++){
-                    list.add(new DataBean());
+        final List<File> files = FileUtils.listFilesInDir(Constants.videoUrl);
+        if (files != null && files.size() != 0) {
+            final List<DataBean> list = new ArrayList<>();
+            new Thread(() -> {
+                for (File file : files) {
+                    DataBean bean = new DataBean();
+                    String fileName = FileUtils.getFileName(file);
+                    bean.setTitle(fileName.substring(0, fileName.length() - 4));
+                    bean.setContent(file.toString());
+                    bean.setContext(FileUtils.getFileSize(file));
+                    list.add(bean);
                 }
-                mView.setData(list);
-                mView.hideLoading();
-            }
-        }, 500);
+                act.runOnUiThread(() -> {
+                    mView.setData(list);
+                    mView.hideLoading();
+                });
+            }).start();
+        }else {
+            mView.showLoadEmpty();
+        }
     }
 
 }

@@ -32,19 +32,12 @@ public class BillboardAdapter extends BaseRecyclerviewAdapter<DataBean> {
     protected void onBindViewHolde(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
         DataBean bean = listBean.get(position);
+        GlideLoadingUtils.load(act, bean.getImage(), viewHolder.iv_img);
+        viewHolder.tv_time.setText(bean.getDuration());
+        viewHolder.tv_zan.setText(bean.getLikeNum() + "");
+        viewHolder.tv_title.setText(bean.getTitle());
 
-        GlideLoadingUtils.load(act, "http://wx1.sinaimg.cn/mw600/62306eealy1g4xwb6ahatj20u01404qp.jpg", viewHolder.iv_img);
-        viewHolder.tv_time.setText("1213");
-        viewHolder.tv_zan.setText("123");
-        viewHolder.tv_title.setText("波西米亚狂想曲");
-        viewHolder.tv_content.setText("Bohemian ");
-
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                UIHelper.startVideoAct();
-            }
-        });
+        viewHolder.itemView.setOnClickListener(view -> UIHelper.startVideoAct(bean.getId()));
     }
 
     @Override

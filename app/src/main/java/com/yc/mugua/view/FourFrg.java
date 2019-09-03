@@ -17,6 +17,7 @@ import com.yc.mugua.databinding.FFourBinding;
 import com.yc.mugua.impl.FourContract;
 import com.yc.mugua.presenter.FourPresenter;
 import com.yc.mugua.utils.GlideLoadingUtils;
+import com.yc.mugua.view.act.HtmlAct;
 
 import org.json.JSONObject;
 
@@ -27,6 +28,8 @@ import org.json.JSONObject;
  * Time: 1:14
  */
 public class FourFrg extends BaseFragment<FourPresenter, FFourBinding> implements FourContract.View, View.OnClickListener {
+
+    private String hotUrl;
 
     public static FourFrg newInstance() {
         Bundle args = new Bundle();
@@ -40,8 +43,7 @@ public class FourFrg extends BaseFragment<FourPresenter, FFourBinding> implement
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        if (isRequest){
-            isRequest = false;
+        if (isRequest) {
             mB.refreshLayout.startRefresh();
         }
         setData(User.getInstance().getUserObj());
@@ -64,6 +66,7 @@ public class FourFrg extends BaseFragment<FourPresenter, FFourBinding> implement
 
     @Override
     protected void initView(View view) {
+        setSwipeBackEnable(false);
         mB.tvIncomeWithdrawal.setOnClickListener(this);
         mB.tvLogin.setOnClickListener(this);
         mB.tvVip.setOnClickListener(this);
@@ -77,26 +80,18 @@ public class FourFrg extends BaseFragment<FourPresenter, FFourBinding> implement
         mB.lyLike.setOnClickListener(this);
         mB.lyEqu.setOnClickListener(this);
         mB.refreshLayout.setEnableLoadmore(false);
+        mPresenter.onHotGroup();
         setRefreshLayout(mB.refreshLayout, new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-                mPresenter.onInfo();
-                mB.refreshLayout.finishRefreshing();
+                if (User.getInstance().isLogin()){
+                    mPresenter.onInfo();
+                    isRequest = false;
+                }else {
+                    mPresenter.onCommonUserInfo();
+                }
             }
         });
-
-        ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#09FBFC"));
-        SpannableString hText = new SpannableString("历史观看" + 10 + "部");
-        hText.setSpan(colorSpan, 4, hText.length() - 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-        mB.tvHistory.setText(hText);
-        SpannableString cText = new SpannableString("目前本地缓存" + 10 + "部");
-        cText.setSpan(colorSpan, 6, cText.length() - 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-        mB.tvCash.setText(cText);
-        SpannableString lText = new SpannableString("您有" + 10 + "部喜欢的影片");
-        lText.setSpan(colorSpan, 2, lText.length() - 6, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-        mB.tvLike.setText(lText);
-        GlideLoadingUtils.load(act, "http://wx1.sinaimg.cn/mw600/62306eealy1g4xwb6ahatj20u01404qp.jpg", mB.ivHead);
-        GlideLoadingUtils.load(act, "http://wx1.sinaimg.cn/mw600/62306eealy1g4xwb6ahatj20u01404qp.jpg", mB.ivImg);
     }
 
     @Override
@@ -121,7 +116,7 @@ public class FourFrg extends BaseFragment<FourPresenter, FFourBinding> implement
                 UIHelper.startMsgFrg(this);
                 break;
             case R.id.tv_hot:
-
+                UIHelper.startHtmlAct(HtmlAct.HOTGROUP, hotUrl);
                 break;
             case R.id.iv_img:
 
@@ -145,7 +140,39 @@ public class FourFrg extends BaseFragment<FourPresenter, FFourBinding> implement
     @Override
     public void setData(JSONObject userObj) {
         if (userObj == null)return;
+        ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#09FBFC"));
+        SpannableString hText = new SpannableString("历史观看" + userObj.optInt("history") + "部");
+        hText.setSpan(colorSpan, 4, hText.length() - 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        mB.tvHistory.setText(hText);
+        SpannableString cText = new SpannableString("目前本地缓存" + 0 + "部");
+        cText.setSpan(colorSpan, 6, cText.length() - 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        mB.tvCash.setText(cText);
+        SpannableString lText = new SpannableString("您有" + userObj.optInt("like") + "部喜欢的影片");
+        lText.setSpan(colorSpan, 2, lText.length() - 6, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        mB.tvLike.setText(lText);
+        GlideLoadingUtils.load(act, userObj.optString("headimg"), mB.ivHead, true);
+        mB.tvName.setText(userObj.optString("name"));
+    }
 
+    @Override
+    public void setAd(JSONObject ad) {
+        if (ad != null){
+            GlideLoadingUtils.load(act, ad.optString("imgUrl"), mB.ivImg);
+            mB.ivImg.setVisibility(View.VISIBLE);
+        }else {
+            mB.ivImg.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void setHotGroup(String url) {
+        hotUrl = url;
+    }
+
+    @Override
+    public void hideLoading() {
+        super.hideLoading();
+        super.setRefreshLayout(pagerNumber, mB.refreshLayout);
     }
 
 }

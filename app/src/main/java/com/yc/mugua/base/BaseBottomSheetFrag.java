@@ -90,12 +90,20 @@ public abstract class BaseBottomSheetFrag extends BottomSheetDialogFragment {
                 mBehavior.setPeekHeight(rootView.getHeight());
             }
         });
+        // 初始化参数
+        Bundle bundle = getArguments();
+        if (bundle == null) {
+            bundle = new Bundle();
+        }
+        initParms(bundle);
         initView(rootView);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
         return dialog;
     }
+
+    protected abstract void initParms(Bundle bundle);
 
     public abstract int bindLayout();
 

@@ -1,12 +1,17 @@
 package com.yc.mugua.presenter;
 
-import android.os.Handler;
-
+import com.lzy.okgo.model.Response;
+import com.yc.mugua.bean.BaseResponseBean;
 import com.yc.mugua.bean.DataBean;
+import com.yc.mugua.callback.Code;
+import com.yc.mugua.controller.CloudApi;
 import com.yc.mugua.impl.OneContract;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by Android Studio.
@@ -18,44 +23,106 @@ public class OnePresenter extends OneContract.Presenter{
 
     @Override
     public void onBanner() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                List<DataBean> list = new ArrayList<>();
-                for (int i = 0;i<5;i++){
-                    list.add(new DataBean());
-                }
-                mView.setBanner(list);
-            }
-        }, 500);
+        CloudApi.homeGetBanner()
+                .doOnSubscribe(disposable -> {})
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<BaseResponseBean<DataBean>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mView.addDisposable(d);
+                    }
+
+                    @Override
+                    public void onNext(Response<BaseResponseBean<DataBean>> baseResponseBeanResponse) {
+                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+                            DataBean data = baseResponseBeanResponse.body().data;
+                            List<DataBean> banners = data.getBanners();
+                            mView.setBanner(banners);
+                            onListRequest();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.onError(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
     }
 
     @Override
     public void onListRequest() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                List<DataBean> list = new ArrayList<>();
-                for (int i = 0;i<5;i++){
-                    list.add(new DataBean());
-                }
-                mView.setLike(list);
-            }
-        }, 500);
+        CloudApi.homeGuessLike()
+                .doOnSubscribe(disposable -> {})
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<BaseResponseBean<DataBean>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mView.addDisposable(d);
+                    }
+
+                    @Override
+                    public void onNext(Response<BaseResponseBean<DataBean>> baseResponseBeanResponse) {
+                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+                            DataBean data = baseResponseBeanResponse.body().data;
+                            List<DataBean> vedios = data.getVedios();
+                            mView.setLike(vedios);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.onError(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mView.hideLoading();
+                    }
+                });
     }
 
     @Override
-    public void onRequest() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                List<DataBean> list = new ArrayList<>();
-                for (int i = 0;i<5;i++){
-                    list.add(new DataBean());
-                }
-                mView.setData(list);
-                mView.hideLoading();
-            }
-        }, 500);
+    public void onRequest(int pagerNumber) {
+        CloudApi.homeVideoList(pagerNumber)
+                .doOnSubscribe(disposable -> {})
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<BaseResponseBean<DataBean>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mView.addDisposable(d);
+                    }
+
+                    @Override
+                    public void onNext(Response<BaseResponseBean<DataBean>> baseResponseBeanResponse) {
+                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+                            DataBean data = baseResponseBeanResponse.body().data;
+                            List<DataBean> ad = data.getAd();
+                            List<DataBean> video = data.getVideo();
+                            for (int i = 0;i < video.size();i++){
+                                DataBean bean = video.get(i);
+                                if (ad.size() - 1 == i){
+                                    DataBean adBean = ad.get(i);
+                                    bean.setImage(adBean.getImgUrl());
+                                    bean.setLink(adBean.getLink());
+                                }
+                            }
+                            mView.setData(data.getVideo());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.onError(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mView.hideLoading();
+                    }
+                });
     }
 }

@@ -13,8 +13,8 @@
         android:id="@+id/iv_img"
         android:src="@mipmap/place_holder"
         android:scaleType="centerCrop"
-        android:layout_width="@dimen/px116"
-        android:layout_height="@dimen/px116"/>
+        android:layout_width="@dimen/px126"
+        android:layout_height="@dimen/px126"/>
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_title"

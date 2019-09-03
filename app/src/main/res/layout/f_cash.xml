@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/blue_15163d"
+        android:orientation="vertical">
+
+        <include layout="@layout/include_top" />
+
+        <ezy.ui.layout.LoadingLayout
+            android:id="@+id/loadinglayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+                android:id="@+id/refreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never" />
+
+            </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+        </ezy.ui.layout.LoadingLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            
+            <android.support.v7.widget.AppCompatTextView
+                android:text="@string/all"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:padding="@dimen/px40"
+                android:gravity="center"
+                android:background="@color/red_F72A61"
+                style="@style/Tv15white" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:text="@string/delete"
+                android:layout_weight="1"
+                android:background="@color/blue_3C3A68"
+                android:layout_width="0dp"
+                android:padding="@dimen/px40"
+                android:gravity="center"
+                style="@style/Tv15white" />
+            
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

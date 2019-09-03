@@ -9,6 +9,7 @@ import com.yc.mugua.databinding.FForgetBinding;
 import com.yc.mugua.impl.ForgetContract;
 import com.yc.mugua.presenter.ForgetPresenter;
 import com.yc.mugua.utils.CountDownTimerUtils;
+import com.yc.mugua.utils.cache.SharedAccount;
 
 /**
  * Created by Android Studio.
@@ -56,5 +57,11 @@ public class ForgetFrg extends BaseFragment<ForgetPresenter, FForgetBinding> imp
     @Override
     public void onCode() {
         new CountDownTimerUtils(act, 60000, 1000, mB.tvCode).start();
+    }
+
+    @Override
+    public void onForget(String phone, String pwd) {
+        SharedAccount.getInstance(act).save(phone, pwd);
+        pop();
     }
 }

@@ -15,6 +15,7 @@ public interface RegisterContract {
 
         void onCode();
 
+        void onResgist(String phone, String pwd);
     }
 
     abstract class Presenter extends BasePresenter<View> {

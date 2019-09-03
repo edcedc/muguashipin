@@ -32,15 +32,9 @@ public class LikeAdapter extends BaseRecyclerviewAdapter<DataBean> {
     protected void onBindViewHolde(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
         DataBean bean = listBean.get(position);
-
-        GlideLoadingUtils.load(act, "http://wx1.sinaimg.cn/mw600/62306eealy1g4xwb6ahatj20u01404qp.jpg", viewHolder.iv_img);
-        viewHolder.tv_title.setText("我是文字啊");
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                UIHelper.startVideoAct();
-            }
-        });
+        GlideLoadingUtils.load(act, bean.getImage(), viewHolder.iv_img);
+        viewHolder.tv_title.setText(bean.getTitle());
+        viewHolder.itemView.setOnClickListener(view -> UIHelper.startVideoAct(bean.getId()));
     }
 
     @Override

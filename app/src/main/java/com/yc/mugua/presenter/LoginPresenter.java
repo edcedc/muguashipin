@@ -1,18 +1,19 @@
 package com.yc.mugua.presenter;
 
-import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.Utils;
 import com.yc.mugua.R;
+import com.yc.mugua.base.User;
+import com.yc.mugua.callback.Code;
 import com.yc.mugua.controller.CloudApi;
 import com.yc.mugua.impl.LoginContract;
+import com.yc.mugua.utils.cache.ShareSessionIdCache;
 
 import org.json.JSONObject;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 
 /**
  * Created by wb  yyc
@@ -40,7 +41,40 @@ public class LoginPresenter extends LoginContract.Presenter {
             }
         }
 
+        CloudApi.userLogin(phone, pwd)
+                .doOnSubscribe(disposable -> {})
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<JSONObject>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mView.addDisposable(d);
+                    }
 
+                    @Override
+                    public void onNext(JSONObject jsonObject) {
+                        if (jsonObject.optInt("code") == Code.CODE_SUCCESS){
+                            JSONObject data = jsonObject.optJSONObject("data");
+//                            JSONObject user = data.optJSONObject("user");
+//                            User.getInstance().setUserObj(user);
+//                            User.getInstance().setLogin(true);
+                            ShareSessionIdCache.getInstance(Utils.getApp()).save(data.optString("token"));
+                            User.getInstance().setUserId(data.optString("userId"));
+                            User.getInstance().setLogin(true);
+                            mView.setLogin();
+                        }
+                        showToast(jsonObject.optString("message"));
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.onError(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mView.hideLoading();
+                    }
+                });
     }
 
 }

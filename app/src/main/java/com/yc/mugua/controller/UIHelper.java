@@ -9,17 +9,21 @@ import com.yc.mugua.view.CashFrg;
 import com.yc.mugua.view.CollectionFrg;
 import com.yc.mugua.view.FeedbackFrg;
 import com.yc.mugua.view.FindClassFrg;
+import com.yc.mugua.view.FindFrg;
 import com.yc.mugua.view.ForgetFrg;
 import com.yc.mugua.view.HistoryFrg;
 import com.yc.mugua.view.IncomeFrg;
 import com.yc.mugua.view.MainFrg;
 import com.yc.mugua.view.MsgFrg;
+import com.yc.mugua.view.MyPromoteFrg;
 import com.yc.mugua.view.PromoteFrg;
 import com.yc.mugua.view.RegisterFrg;
 import com.yc.mugua.view.SearchFrg;
 import com.yc.mugua.view.SearchTextFrg;
+import com.yc.mugua.view.ShareFrg;
 import com.yc.mugua.view.VipFrg;
 import com.yc.mugua.view.act.EquAct;
+import com.yc.mugua.view.act.HtmlAct;
 import com.yc.mugua.view.act.LoginAct;
 import com.yc.mugua.view.act.SetAct;
 import com.yc.mugua.view.act.VideoAct;
@@ -55,6 +59,17 @@ public final class UIHelper {
     public static void startSearchFrg(BaseFragment root) {
         SearchFrg frg = new SearchFrg();
         Bundle bundle = new Bundle();
+        frg.setArguments(bundle);
+        ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+    }
+
+    /**
+     *  首页分类
+     */
+    public static void startFindFrg(BaseFragment root, String id) {
+        FindFrg frg = new FindFrg();
+        Bundle bundle = new Bundle();
+        bundle.putString("id", id);
         frg.setArguments(bundle);
         ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
     }
@@ -96,9 +111,12 @@ public final class UIHelper {
 
     /**
      *  视频详情
+     * @param id
      */
-    public static void startVideoAct() {
-        ActivityUtils.startActivity(VideoAct.class);
+    public static void startVideoAct(String id) {
+        Bundle bundle = new Bundle();
+        bundle.putString("id", id);
+        ActivityUtils.startActivity(bundle, VideoAct.class);
     }
 
      /**
@@ -110,6 +128,15 @@ public final class UIHelper {
         Bundle bundle = new Bundle();
         frg.setArguments(bundle);
         root.start(frg);
+    }
+     /**
+     *  H5
+     */
+    public static void startHtmlAct(int type, String url) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("type", type);
+        bundle.putString("url", url);
+        ActivityUtils.startActivity(bundle, HtmlAct.class);
     }
 
     /**
@@ -201,4 +228,25 @@ public final class UIHelper {
         ActivityUtils.startActivity(EquAct.class);
     }
 
+    /**
+     *  立即推广
+     * @param root
+     */
+    public static void startShareFrg(BaseFragment root) {
+        ShareFrg frg = new ShareFrg();
+        Bundle bundle = new Bundle();
+        frg.setArguments(bundle);
+        root.start(frg);
+    }
+
+    /**
+     *  我的推广
+     * @param root
+     */
+    public static void startMyPromoteFrg(BaseFragment root) {
+        MyPromoteFrg frg = new MyPromoteFrg();
+        Bundle bundle = new Bundle();
+        frg.setArguments(bundle);
+        root.start(frg);
+    }
 }

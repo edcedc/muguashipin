@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:background="@color/blue_15163d"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/include_top" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/blue_3C3A68"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/Tv13black"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/px30"
+                android:text="@string/name"
+                android:textColor="@color/blue_A2A0CE" />
+
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/Tv13black"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/px30"
+                android:text="@string/phone"
+                android:textColor="@color/blue_A2A0CE" />
+
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/Tv13black"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/px30"
+                android:text="@string/crear_time"
+                android:textColor="@color/blue_A2A0CE" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_text"
+            android:layout_marginTop="@dimen/px300"
+            android:drawableTop="@mipmap/queshen_man"
+            android:drawablePadding="@dimen/px60"
+            android:text="@string/text4"
+            android:layout_gravity="center"
+            style="@style/Tv15white"/>
+
+        <ezy.ui.layout.LoadingLayout
+            android:visibility="gone"
+            android:id="@+id/loadinglayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+                android:id="@+id/refreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never" />
+
+            </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+        </ezy.ui.layout.LoadingLayout>
+
+    </LinearLayout>
+</layout>

@@ -20,7 +20,7 @@ public interface FeedbackContract {
 
         public abstract void onRequest();
 
-        public abstract void onFeed(String toString);
+        public abstract void onFeed(String text, String id);
     }
 
 }

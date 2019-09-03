@@ -8,7 +8,7 @@ public final class Code {
     /**
      * 访问成功
      */
-    public static final int CODE_SUCCESS = 1;
+    public static final int CODE_SUCCESS = 0;
     /**
      * 访问失败
      */

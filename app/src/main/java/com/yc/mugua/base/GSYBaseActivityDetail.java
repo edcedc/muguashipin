@@ -122,8 +122,6 @@ public abstract class GSYBaseActivityDetail<P extends BasePresenter, VB extends 
         isPlay = true;
     }
 
-
-
     @Override
     public void onClickStartIcon(String url, Object... objects) {
         LogUtils.e("onClickStartIcon");

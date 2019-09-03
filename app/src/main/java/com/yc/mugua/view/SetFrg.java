@@ -11,6 +11,7 @@ import com.yc.mugua.base.User;
 import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.databinding.FSetBinding;
 import com.yc.mugua.utils.cache.ShareEquCache;
+import com.yc.mugua.utils.cache.ShareSessionIdCache;
 import com.yc.mugua.utils.cache.SharedAccount;
 
 /**
@@ -67,6 +68,7 @@ public class SetFrg extends BaseFragment<BasePresenter, FSetBinding> implements 
             case R.id.bt_submit:
                 UIHelper.startLoginAct();
                 SharedAccount.getInstance(act).remove();
+                ShareSessionIdCache.getInstance(act).remove();
                 User.getInstance().setLogin(false);
                 User.getInstance().setUserObj(null);
                 ActivityUtils.finishAllActivities();

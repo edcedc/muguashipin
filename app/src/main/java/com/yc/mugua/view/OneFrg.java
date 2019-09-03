@@ -20,11 +20,12 @@ import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.databinding.FOneBinding;
 import com.yc.mugua.impl.OneContract;
 import com.yc.mugua.presenter.OnePresenter;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OneFrg extends BaseFragment<OnePresenter, FOneBinding> implements OneContract.View, View.OnClickListener {
+public class OneFrg extends BaseFragment<OnePresenter, FOneBinding> implements OneContract.View, View.OnClickListener, OnBannerListener {
 
     private AppCompatTextView tvLikeTitle;
     private RecyclerView rvLike;
@@ -81,32 +82,33 @@ public class OneFrg extends BaseFragment<OnePresenter, FOneBinding> implements O
         view.findViewById(R.id.et_search).setOnClickListener(this);
         view.findViewById(R.id.iv_dow).setOnClickListener(this);
         view.findViewById(R.id.iv_time).setOnClickListener(this);
+        mB.lyChange.setOnClickListener(this);
         if (likeAdapter == null){
-            likeAdapter = new LikeAdapter(act, listBanner);
+            likeAdapter = new LikeAdapter(act, listLike);
         }
         setRecyclerViewGridType(rvLike, 2, 60, 20, R.color.blue_15163d);
         rvLike.setAdapter(likeAdapter);
 
         if (adapter == null){
-            adapter = new HomeAdapter(act, listBean);
+            adapter = new HomeAdapter(act, this, listBean);
         }
         setRecyclerViewType(mB.recyclerView);
         mB.recyclerView.setAdapter(adapter);
 
         showLoadDataing();
         mB.refreshLayout.startRefresh();
+        mPresenter.onBanner();
+//        mPresenter.onListRequest();
         setRefreshLayout(mB.refreshLayout, new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-                mPresenter.onBanner();
-                mPresenter.onListRequest();
-                mPresenter.onRequest();
+                mPresenter.onRequest(pagerNumber = 1);
             }
 
             @Override
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
                 super.onLoadMore(refreshLayout);
-                mPresenter.onRequest();
+                mPresenter.onRequest(pagerNumber += 1);
             }
         });
     }
@@ -147,12 +149,14 @@ public class OneFrg extends BaseFragment<OnePresenter, FOneBinding> implements O
             case R.id.iv_time:
                 UIHelper.startHistoryFrg(this);
                 break;
+            case R.id.ly_change:
+                mPresenter.onListRequest();
+                break;
         }
     }
 
     @Override
     public void setBanner(List<DataBean> list) {
-        mB.refreshLayout.finishRefreshing();
         listBanner.clear();
         listBanner.addAll(list);
         homeBannerAdapter.notifyDataSetChanged();
@@ -160,9 +164,15 @@ public class OneFrg extends BaseFragment<OnePresenter, FOneBinding> implements O
 
     @Override
     public void setLike(List<DataBean> list) {
+        tvLikeTitle.setText("猜你喜欢");
         listLike.clear();
         listLike.addAll(list);
         likeAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void OnBannerClick(int position) {
+        DataBean bean = listBanner.get(position);
+
+    }
 }

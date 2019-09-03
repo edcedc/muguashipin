@@ -1,15 +1,10 @@
 package com.yc.mugua.mar;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 
-import com.blankj.utilcode.util.StringUtils;
 import com.nanchen.crashmanager.CrashApplication;
-import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.service.InitializeService;
-import com.yc.mugua.utils.cache.ShareEquCache;
 import com.yc.mugua.utils.lock.BackgroundUtil;
 import com.yc.mugua.utils.lock.Features;
 import com.yc.mugua.utils.lock.service.MyService;
@@ -25,7 +20,7 @@ public class MyApplication extends CrashApplication {
 //        ViewTarget.setTagId(R.id.tag_glide);//项目glide 图片ID找不到  会报null
 
         InitializeService.start(this);
-        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+        /*registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
             }
@@ -64,7 +59,7 @@ public class MyApplication extends CrashApplication {
             public void onActivityDestroyed(Activity activity) {
 
             }
-        });
+        });*/
 //        startService();
     }
 

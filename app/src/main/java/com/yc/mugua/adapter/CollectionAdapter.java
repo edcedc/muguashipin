@@ -13,6 +13,7 @@ import com.flyco.roundview.RoundTextView;
 import com.yc.mugua.R;
 import com.yc.mugua.base.BaseRecyclerviewAdapter;
 import com.yc.mugua.bean.DataBean;
+import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.utils.GlideLoadingUtils;
 
 import java.util.List;
@@ -41,30 +42,30 @@ public class CollectionAdapter extends BaseRecyclerviewAdapter<DataBean> {
         ViewHolder viewHolder = (ViewHolder) holder;
         DataBean bean = listBean.get(position);
 
-        GlideLoadingUtils.load(act, "http://wx1.sinaimg.cn/mw600/62306eealy1g4xwb6ahatj20u01404qp.jpg", viewHolder.iv_img);
-        viewHolder.tv_title.setText("我是文字啊，文字是我（16）");
+        GlideLoadingUtils.load(act, bean.getImage(), viewHolder.iv_img);
+        viewHolder.tv_title.setText(bean.getTitle());
 
-        String cash = "<font color='#F72A61'><small>" + 1899740 +
+        String cash = "<font color='#F72A61'><small>" + bean.getViewCount() +
                 "</small></font>" + "次播放";
         viewHolder.tv_content.setText(Html.fromHtml(cash));
 
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-        viewHolder.bt_submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
+        viewHolder.itemView.setOnClickListener(view -> UIHelper.startVideoAct(bean.getId()));
+        viewHolder.bt_submit.setOnClickListener(view -> {
+            if (listener != null)listener.onClick(position, bean.getId());
         });
         if (isCollection){
             viewHolder.bt_submit.setVisibility(View.VISIBLE);
         }else {
             viewHolder.bt_submit.setVisibility(View.GONE);
         }
+    }
+
+    private OnClickListener listener;
+    public void setOnClickListener(OnClickListener listener){
+        this.listener = listener;
+    }
+    public interface OnClickListener{
+        void onClick(int position, String id);
     }
 
     @Override

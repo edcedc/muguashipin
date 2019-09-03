@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import com.yc.mugua.R;
 import com.yc.mugua.base.BaseRecyclerviewAdapter;
 import com.yc.mugua.bean.DataBean;
-import com.yc.mugua.utils.GlideLoadingUtils;
 import com.yc.mugua.weight.CircleImageView;
 
 import java.util.List;
@@ -32,10 +31,10 @@ public class MsgAdapter extends BaseRecyclerviewAdapter<DataBean> {
         ViewHolder viewHolder = (ViewHolder) holder;
         DataBean bean = listBean.get(position);
 
-        GlideLoadingUtils.load(act, "http://wx1.sinaimg.cn/mw600/62306eealy1g4xwb6ahatj20u01404qp.jpg", viewHolder.iv_img);
-        viewHolder.tv_title.setText("title");
-        viewHolder.tv_content.setText("123");
-        viewHolder.tv_time.setText("time");
+//        GlideLoadingUtils.load(act, "http://wx1.sinaimg.cn/mw600/62306eealy1g4xwb6ahatj20u01404qp.jpg", viewHolder.iv_img);
+        viewHolder.tv_title.setText(bean.getTitle());
+        viewHolder.tv_content.setText(bean.getContext());
+        viewHolder.tv_time.setText(bean.getCreateTime());
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -54,19 +54,19 @@ public class BillboardFrg extends BaseFragment<ThreePresenter, BNotTitleRecycler
         mB.recyclerView.setAdapter(adapter);
 
         showLoadDataing();
-        mB.refreshLayout.startRefresh();
-        setRefreshLayout(mB.refreshLayout, new RefreshListenerAdapter() {
-            @Override
-            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-                mPresenter.onRequest(pagerNumber = 1);
-            }
+            mB.refreshLayout.startRefresh();
+            setRefreshLayout(mB.refreshLayout, new RefreshListenerAdapter() {
+                @Override
+                public void onRefresh(TwinklingRefreshLayout refreshLayout) {
+                    mPresenter.onRequest(pagerNumber = 1, type);
+                }
 
-            @Override
-            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
-                super.onLoadMore(refreshLayout);
-                mPresenter.onRequest(pagerNumber += 1);
-            }
-        });
+                @Override
+                public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
+                    super.onLoadMore(refreshLayout);
+                    mPresenter.onRequest(pagerNumber += 1, type);
+                }
+            });
     }
 
     @Override

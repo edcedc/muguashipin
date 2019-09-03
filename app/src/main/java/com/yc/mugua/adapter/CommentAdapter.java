@@ -32,12 +32,13 @@ public class CommentAdapter extends BaseRecyclerviewAdapter<DataBean> {
         ViewHolder viewHolder = (ViewHolder) holder;
         DataBean bean = listBean.get(position);
 
-        GlideLoadingUtils.load(act, "http://wx1.sinaimg.cn/mw600/62306eealy1g4xwb6ahatj20u01404qp.jpg", viewHolder.iv_head, true);
-        viewHolder.tv_title.setText("我是文字  |  楼主");
-        viewHolder.tv_content.setText("评论内容评论内容评论内容评论内容评论内容评 论内容评论内容评论内容。");
-        viewHolder.tv_time.setText("06-17 22:22" +
+        GlideLoadingUtils.load(act, bean.getHeadimg(), viewHolder.iv_head, true);
+        viewHolder.tv_title.setText(bean.getUserName() +
+                "  |  楼主");
+        viewHolder.tv_content.setText(bean.getContext());
+        viewHolder.tv_time.setText(bean.getCreateTime() +
                 "     " +
-                "21" +
+                bean.getLikeCount() +
                 "人赞过 >");
     }
 

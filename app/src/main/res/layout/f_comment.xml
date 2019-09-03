@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:ignore="MissingConstraints"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue_474578"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/px20">
+
+        <com.flyco.roundview.RoundLinearLayout
+            style="@style/Tv15white"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            app:rv_backgroundColor="#8886A1"
+            app:rv_cornerRadius="@dimen/px60" >
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_text"
+                android:background="@null"
+                android:padding="@dimen/px20"
+                android:hint="回复..."
+                android:textColorHint="@color/white"
+                android:textSize="@dimen/size30"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.flyco.roundview.RoundLinearLayout>
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/iv_xiao"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px60"
+            android:background="@mipmap/expression" />
+
+        <com.flyco.roundview.RoundTextView
+            android:id="@+id/bt_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px20"
+            android:ems="6"
+            android:gravity="center"
+            android:padding="@dimen/px20"
+            android:text="@string/release"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size26"
+            app:rv_backgroundColor="@color/red_F72A61"
+            app:rv_cornerRadius="@dimen/px60" />
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

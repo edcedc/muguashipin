@@ -14,13 +14,17 @@ import com.google.zxing.WriterException;
 import com.yc.mugua.R;
 import com.yc.mugua.adapter.PromoteAdapter;
 import com.yc.mugua.base.BaseFragment;
+import com.yc.mugua.base.User;
 import com.yc.mugua.bean.DataBean;
+import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.databinding.FPromoteBinding;
 import com.yc.mugua.impl.PromoteContract;
 import com.yc.mugua.presenter.PromotePresenter;
 import com.yc.mugua.utils.GlideLoadingUtils;
 import com.yc.mugua.utils.PopupWindowTool;
 import com.yc.mugua.weight.ZXingUtils;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +73,7 @@ public class PromoteFrg extends BaseFragment<PromotePresenter, FPromoteBinding> 
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.bt_submit:
-
+                UIHelper.startShareFrg(this);
                 break;
             case R.id.iv_zking:
                 PopupWindowTool.showZking(act);
@@ -78,14 +82,14 @@ public class PromoteFrg extends BaseFragment<PromotePresenter, FPromoteBinding> 
     }
 
     @Override
-    public void setData() {
+    public void setData(DataBean bean) {
         listBean.add(new DataBean());
         listBean.add(new DataBean());
         listBean.add(new DataBean());
         listBean.add(new DataBean());
         adapter.notifyDataSetChanged();
 
-        GlideLoadingUtils.load(act, "http://wx1.sinaimg.cn/mw600/62306eealy1g4xwb6ahatj20u01404qp.jpg", mB.ivHead);
+        GlideLoadingUtils.load(act, "http://wx1.sinaimg.cn/mw600/62306eealy1g4xwb6ahatj20u01404qp.jpg", mB.ivHead, true);
         mB.ivZking.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -100,9 +104,11 @@ public class PromoteFrg extends BaseFragment<PromotePresenter, FPromoteBinding> 
             }
         });
 
-        mB.tvName.setText("我是昵称啊YYTAX");
+        JSONObject userObj = User.getInstance().getUserObj();
+        mB.tvName.setText(userObj.optString("name"));
+        GlideLoadingUtils.load(act, userObj.optString("headimg"), mB.ivHead);
         mB.tvCode.setText("我的邀请码：" +
-                "6X3GS9");
+                userObj.optString("invitcode"));
 
         ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#F72A61"));
 
@@ -131,15 +137,20 @@ public class PromoteFrg extends BaseFragment<PromotePresenter, FPromoteBinding> 
         welfareText.setSpan(colorSpan, 0, 5, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         mB.tvWelfare.setText(welfareText);
 
-        mB.tvContent.setText(
-                "1、用户名注册" + "\n" +
-                " 文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字  " + "\n" + "\n" +
-                "2、手机号注册"  + "\n" +
-                " 文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字  " + "\n" + "\n" +
-                "3、填写邀请码"  + "\n" +
-                " 文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字  " + "\n" + "\n" +
-                "4、保存二维码"  + "\n" +
-                " 文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字  "
-        );
+
+        List<DataBean> wealTask = bean.getWealTask();
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0;i < wealTask.size();i++){
+            DataBean dataBean = wealTask.get(i);
+            String name = (i + 1) + "、" + dataBean.getName();
+            sb.append(name).append("\n").append(dataBean.getContext()).append("\n").append("\n");
+        }
+        mB.tvContent.setText(sb.toString());
+    }
+
+    @Override
+    protected void setOnRightClickListener() {
+        super.setOnRightClickListener();
+        UIHelper.startMyPromoteFrg(this);
     }
 }

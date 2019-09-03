@@ -10,9 +10,9 @@ import com.yc.mugua.R;
 import com.yc.mugua.adapter.MsgAdapter;
 import com.yc.mugua.base.BaseFragment;
 import com.yc.mugua.base.BaseListContract;
-import com.yc.mugua.base.BaseListPresenter;
 import com.yc.mugua.bean.DataBean;
 import com.yc.mugua.databinding.BRecyclerBinding;
+import com.yc.mugua.presenter.MsgPresenter;
 import com.yc.mugua.weight.LinearDividerItemDecoration;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import java.util.List;
  * Date: 2019/7/17
  * Time: 16:41
  */
-public class MsgFrg extends BaseFragment<BaseListPresenter, BRecyclerBinding> implements BaseListContract.View {
+public class MsgFrg extends BaseFragment<MsgPresenter, BRecyclerBinding> implements BaseListContract.View {
 
     private List<DataBean> listBean = new ArrayList<>();
     private MsgAdapter adapter;
@@ -59,13 +59,13 @@ public class MsgFrg extends BaseFragment<BaseListPresenter, BRecyclerBinding> im
         setRefreshLayout(mB.refreshLayout, new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-                mPresenter.onRequest("", pagerNumber = 1);
+                mPresenter.onRequest(null, pagerNumber = 1);
             }
 
             @Override
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
                 super.onLoadMore(refreshLayout);
-                mPresenter.onRequest("", pagerNumber += 1);
+                mPresenter.onRequest(null, pagerNumber += 1);
             }
         });
     }

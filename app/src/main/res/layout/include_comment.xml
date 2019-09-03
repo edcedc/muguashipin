@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/blue_15163d"
     android:orientation="vertical">
 
     <android.support.v7.widget.AppCompatTextView
@@ -45,14 +47,13 @@
         android:padding="@dimen/px20">
 
         <com.flyco.roundview.RoundTextView
-            android:id="@+id/et_text"
             style="@style/Tv15white"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:hint="回复..."
             android:padding="@dimen/px20"
-            android:textColorHint="@color/blue_474578"
-            app:rv_backgroundColor="@color/white"
+            android:textColorHint="@color/white"
+            app:rv_backgroundColor="#8886A1"
             app:rv_cornerRadius="@dimen/px60" />
 
         <android.support.v7.widget.AppCompatImageView
@@ -63,19 +64,18 @@
             android:layout_marginLeft="@dimen/px60"
             android:background="@mipmap/expression" />
 
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/iv_like"
+        <com.flyco.roundview.RoundTextView
+            android:text="@string/release"
+            android:ems="6"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/px20"
+            android:textSize="@dimen/size26"
+            app:rv_cornerRadius="@dimen/px60"
+            android:padding="@dimen/px20"
+            app:rv_backgroundColor="@color/red_F72A61"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px60"
-            android:layout_marginRight="@dimen/px60"
-            android:background="@mipmap/collection" />
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/iv_share1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/ashare" />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

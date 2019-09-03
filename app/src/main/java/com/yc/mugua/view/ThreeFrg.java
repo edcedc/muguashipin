@@ -53,7 +53,7 @@ public class ThreeFrg extends BaseFragment<BaseListPresenter, FThreeBinding> imp
         for (int i = 0; i < listStr.length; i++){
             BillboardFrg frg = new BillboardFrg();
             Bundle bundle = new Bundle();
-            bundle.putInt("type", i);
+            bundle.putInt("type", i + 1);
             frg.setArguments(bundle);
             mFragments.add(frg);
         }

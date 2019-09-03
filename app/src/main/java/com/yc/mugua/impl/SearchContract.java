@@ -27,8 +27,6 @@ public interface SearchContract {
 
         public abstract void onHot();
 
-        public abstract void onRecommend();
-
         public abstract void onSearch(BaseFragment root);
 
         public abstract void onRequest(int pagetNumber, String text);

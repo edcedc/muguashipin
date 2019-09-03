@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.yc.mugua.weight.LoadingLayout
+        <ezy.ui.layout.LoadingLayout
             android:id="@+id/loadinglayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -28,7 +28,31 @@
                 <com.yc.mugua.weight.GSYSampleADVideoPlayer
                     android:id="@+id/videoPlayer"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp" />
+                    android:layout_height="200dp"
+                    android:visibility="gone" />
+
+                <FrameLayout
+                    android:id="@+id/fy_adv"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:visibility="gone">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/iv_adv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/place_holder" />
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/iv_del"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:background="@mipmap/playdelete"
+                        android:scaleType="centerCrop" />
+
+                </FrameLayout>
 
                 <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
                     android:id="@+id/refreshLayout"
@@ -56,21 +80,37 @@
                                     android:id="@+id/tv_title"
                                     style="@style/Tv15white" />
 
+                                <android.support.v7.widget.AppCompatImageView
+                                    android:id="@+id/iv_zan"
+                                    android:layout_width="15dp"
+                                    android:layout_height="15dp"
+                                    android:layout_marginRight="@dimen/px20"
+                                    android:background="@mipmap/bofandianzan"
+                                    app:layout_constraintBottom_toBottomOf="@id/tv_zan"
+                                    app:layout_constraintRight_toLeftOf="@id/tv_zan"
+                                    app:layout_constraintTop_toTopOf="@id/tv_zan" />
+
                                 <android.support.v7.widget.AppCompatTextView
                                     android:id="@+id/tv_zan"
                                     style="@style/Tv15white"
                                     android:layout_marginRight="@dimen/px20"
-                                    android:drawableLeft="@mipmap/bofandianzan"
-                                    android:drawablePadding="@dimen/px10"
                                     android:text="0"
                                     android:textColor="#7F7E9B"
-                                    app:layout_constraintRight_toLeftOf="@id/tv_cai" />
+                                    app:layout_constraintRight_toLeftOf="@id/iv_cai" />
+
+                                <android.support.v7.widget.AppCompatImageView
+                                    android:id="@+id/iv_cai"
+                                    android:layout_width="15dp"
+                                    android:layout_height="15dp"
+                                    android:layout_marginRight="@dimen/px20"
+                                    android:background="@mipmap/bumanyi"
+                                    app:layout_constraintBottom_toBottomOf="@id/tv_cai"
+                                    app:layout_constraintRight_toLeftOf="@id/tv_cai"
+                                    app:layout_constraintTop_toTopOf="@id/tv_cai" />
 
                                 <android.support.v7.widget.AppCompatTextView
                                     android:id="@+id/tv_cai"
                                     style="@style/Tv15white"
-                                    android:drawableLeft="@mipmap/bumanyi"
-                                    android:drawablePadding="@dimen/px10"
                                     android:text="0"
                                     android:textColor="#7F7E9B"
                                     app:layout_constraintRight_toRightOf="parent" />
@@ -92,11 +132,13 @@
                                     android:id="@+id/layout"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
+                                    android:orientation="horizontal"
+                                    android:visibility="gone">
 
                                     <android.support.v7.widget.AppCompatTextView
                                         android:id="@+id/tv_biaoqian"
                                         style="@style/Tv12white"
+                                        android:layout_marginTop="@dimen/px20"
                                         android:text="@string/label" />
 
                                     <com.zhy.view.flowlayout.TagFlowLayout
@@ -179,7 +221,6 @@
 
                             <android.support.v7.widget.RecyclerView
                                 android:id="@+id/recyclerView"
-
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:nestedScrollingEnabled="false"
@@ -193,7 +234,8 @@
 
             </LinearLayout>
 
-        </com.yc.mugua.weight.LoadingLayout>
+
+        </ezy.ui.layout.LoadingLayout>
 
 
         <include
@@ -203,7 +245,7 @@
             android:layout_height="wrap_content"
             app:behavior_hideable="true"
             app:behavior_peekHeight="0dp"
-            app:layout_behavior="@string/bottom_sheet_behavior"/>
+            app:layout_behavior="@string/bottom_sheet_behavior" />
 
     </android.support.design.widget.CoordinatorLayout>
 

@@ -150,6 +150,7 @@
 
                 <com.yc.mugua.weight.RoundImageView
                     android:id="@+id/iv_img"
+                    android:visibility="gone"
                     style="@style/advert_img"
                     android:layout_marginTop="@dimen/px40"
                     app:layout_constraintTop_toBottomOf="@id/layout" />

@@ -26,6 +26,8 @@ import java.util.List;
  */
 public class FeedbackFrg extends BaseFragment<FeedbackPresenter, FFeedbackBinding> implements FeedbackContract.View, View.OnClickListener {
 
+    private String id;
+
     @Override
     public void initPresenter() {
         mPresenter.init(this);
@@ -53,7 +55,7 @@ public class FeedbackFrg extends BaseFragment<FeedbackPresenter, FFeedbackBindin
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.bt_submit:
-                mPresenter.onFeed(mB.etText.getText().toString());
+                mPresenter.onFeed(mB.etText.getText().toString(), id);
                 break;
         }
     }
@@ -69,10 +71,10 @@ public class FeedbackFrg extends BaseFragment<FeedbackPresenter, FFeedbackBindin
         mB.flLayout.removeAllViews();
         mB.flLayout.setAdapter(new TagAdapter<DataBean>(list){
             @Override
-            public View getView(FlowLayout parent, int position, DataBean dataBean) {
+            public View getView(FlowLayout parent, int position, DataBean bean) {
                 View view = View.inflate(act, R.layout.i_feed_label, null);
                 TextView tvText = view.findViewById(R.id.tv_text);
-                tvText.setText(position + "全部");
+                tvText.setText(bean.getName());
                 return view;
             }
 
@@ -81,8 +83,9 @@ public class FeedbackFrg extends BaseFragment<FeedbackPresenter, FFeedbackBindin
                 super.onSelected(position, view);
                 RoundTextView tvText = view.findViewById(R.id.tv_text);
                 RoundViewDelegate delegate = tvText.getDelegate();
-                delegate.setBackgroundColor(act.getColor(R.color.red_F72A61));
+                delegate.setBackgroundColor(act.getResources().getColor(R.color.red_F72A61));
                 DataBean bean = list.get(position);
+                id = bean.getId();
                 bean.setSelect(true);
             }
 
@@ -92,9 +95,10 @@ public class FeedbackFrg extends BaseFragment<FeedbackPresenter, FFeedbackBindin
                 RoundTextView tvText = view.findViewById(R.id.tv_text);
                 RoundViewDelegate delegate = tvText.getDelegate();
                 DataBean bean = list.get(position);
-                delegate.setStrokeColor(act.getColor(R.color.red_F72A61));
+                delegate.setStrokeColor(act.getResources().getColor(R.color.red_F72A61));
                 delegate.setStrokeWidth(1);
                 delegate.setBackgroundColor(0);
+                id = null;
                 bean.setSelect(false);
             }
         });

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.yc.mugua.R;
 import com.yc.mugua.base.BaseRecyclerviewAdapter;
 import com.yc.mugua.bean.DataBean;
+import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.utils.GlideLoadingUtils;
 
 import java.util.List;
@@ -31,18 +32,18 @@ public class HistoryAdapter extends BaseRecyclerviewAdapter<DataBean> {
     protected void onBindViewHolde(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
         DataBean bean = listBean.get(position);
-
-        GlideLoadingUtils.load(act, "http://wx1.sinaimg.cn/mw600/62306eealy1g4xwb6ahatj20u01404qp.jpg", viewHolder.iv_img);
-        viewHolder.tv_title.setText("我是文字啊，文字是我（16）");
-        viewHolder.tv_content.setText("关键字   关键字   关键字   关键字");
-        viewHolder.tv_time.setText("2019-01-01 23:00:00");
-
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
+        GlideLoadingUtils.load(act, bean.getImage(), viewHolder.iv_img);
+        viewHolder.tv_title.setText(bean.getTitle());
+        String[] tagsName = bean.getTagsName();
+        if (tagsName != null && tagsName.length != 0){
+            StringBuffer sb = new StringBuffer();
+            for (String s : tagsName){
+                sb.append(s).append("  ");
             }
-        });
+            viewHolder.tv_content.setText(sb.toString());
+        }
+        viewHolder.tv_time.setText(bean.getCreateTime());
+        viewHolder.itemView.setOnClickListener(view -> UIHelper.startVideoAct(bean.getId()));
     }
 
     @Override

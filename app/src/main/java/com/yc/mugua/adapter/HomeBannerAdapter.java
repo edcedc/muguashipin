@@ -31,12 +31,9 @@ public class HomeBannerAdapter extends BaseRecyclerviewAdapter<DataBean> {
     protected void onBindViewHolde(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
         DataBean bean = listBean.get(position);
-        GlideLoadingUtils.load(act, "http://wx1.sinaimg.cn/mw600/62306eealy1g4xwb6ahatj20u01404qp.jpg", viewHolder.iv_img);
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        GlideLoadingUtils.load(act, bean.getImgUrl(), viewHolder.iv_img);
+        viewHolder.itemView.setOnClickListener(view -> {
 
-            }
         });
     }
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.yc.mugua.weight;
+package ezy.ui.layout;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -73,7 +73,7 @@ public class LoadingLayout extends FrameLayout {
 
     int mErrorImage;
     CharSequence mErrorText, mRetryText;
-    OnClickListener mRetryButtonClickListener = new OnClickListener() {
+    View.OnClickListener mRetryButtonClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
             if (mRetryListener != null) {
@@ -81,7 +81,7 @@ public class LoadingLayout extends FrameLayout {
             }
         }
     };
-    OnClickListener mRetryListener;
+    View.OnClickListener mRetryListener;
 
     OnInflateListener mOnEmptyInflateListener;
     OnInflateListener mOnErrorInflateListener;

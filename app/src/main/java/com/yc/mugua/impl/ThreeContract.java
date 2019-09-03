@@ -17,7 +17,7 @@ public interface ThreeContract {
 
     abstract class Presenter extends BasePresenter<View> {
 
-        public abstract void onRequest(int pagetNumer);
+        public abstract void onRequest(int pagetNumer, int type);
 
     }
 

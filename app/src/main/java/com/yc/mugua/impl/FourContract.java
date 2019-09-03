@@ -15,12 +15,19 @@ public interface FourContract {
 
     interface View extends IBaseView {
         void setData(JSONObject userObj);
+
+        void setAd(JSONObject ad);
+
+        void setHotGroup(String url);
     }
 
     abstract class Presenter extends BasePresenter<View> {
 
         public abstract void onInfo();
 
+        public abstract void onCommonUserInfo();
+
+        public abstract void onHotGroup();
     }
 
 }

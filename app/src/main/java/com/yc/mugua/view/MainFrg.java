@@ -62,6 +62,7 @@ public class MainFrg extends BaseFragment<BasePresenter, FMainBinding> implement
         mB.ly4.setOnClickListener(this);
         setClick(position, mB.ly1);
         showHideFragment(mFragments[position], mFragments[prePosition]);
+        onProfitOne();
     }
 
     @Override
@@ -93,7 +94,7 @@ public class MainFrg extends BaseFragment<BasePresenter, FMainBinding> implement
     }
 
     private void setClick(int position, LinearLayout linearLayout){
-        linearLayout.setBackgroundColor(act.getColor(R.color.red_F72A61));
+        linearLayout.setBackgroundColor(act.getResources().getColor(R.color.red_F72A61));
     }
     private void setNoClick(int position, LinearLayout linearLayout){
         linearLayout.setBackgroundColor(0);
@@ -180,5 +181,49 @@ public class MainFrg extends BaseFragment<BasePresenter, FMainBinding> implement
         }
         prePosition = position;
     }
+
+
+    private void onProfitOne() {
+//        new Handler().postDelayed(() -> PopupWindowTool.showAdvertisement(act, null), 1000);
+        /*CloudApi.getNewOldUser()
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable){
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<BaseResponseBean<List<DataBean>>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        addDisposable(d);
+                    }
+
+                    @Override
+                    public void onNext(Response<BaseResponseBean<List<DataBean>>> baseResponseBeanResponse) {
+                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+                            final List<DataBean> list = baseResponseBeanResponse.body().result;
+                            if (list != null && list.size() != 0){
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        PopupWindowTool.showAdvertisement(act, list.get(0));
+                                    }
+                                }, 1000);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });*/
+    }
+
 
 }

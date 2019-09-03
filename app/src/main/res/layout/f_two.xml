@@ -1,57 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
-        android:background="@color/blue_15163d"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/blue_15163d"
         android:orientation="vertical">
 
         <LinearLayout
-            android:paddingTop="@dimen/px100"
-            android:paddingLeft="@dimen/px40"
-            android:paddingRight="@dimen/px40"
-            android:paddingBottom="@dimen/px20"
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/px40"
+            android:paddingTop="@dimen/px80"
+            android:paddingRight="@dimen/px40"
+            android:paddingBottom="@dimen/px20">
 
-            <include layout="@layout/include_search"/>
+            <include layout="@layout/include_search" />
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/iv_class"
-                android:layout_marginLeft="@dimen/px40"
-                android:background="@mipmap/more"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/px40"
+                android:background="@mipmap/more" />
 
         </LinearLayout>
 
-        <com.yc.mugua.weight.LoadingLayout
+        <ezy.ui.layout.LoadingLayout
             android:id="@+id/loadinglayout"
-            android:layout_marginLeft="@dimen/px40"
-            android:layout_marginRight="@dimen/px40"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/px40"
+            android:layout_marginRight="@dimen/px40">
 
-            <LinearLayout
+            <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+                android:id="@+id/refreshLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_search"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:nestedScrollingEnabled="false"
-                    android:layout_marginBottom="@dimen/px20"
-                    android:overScrollMode="never" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
-                    android:id="@+id/refreshLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    <com.zhy.view.flowlayout.TagFlowLayout
+                        android:id="@+id/fl_search"
+                        app:max_select="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/px30"/>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/px20"
+                        android:nestedScrollingEnabled="false"
+                        android:overScrollMode="never" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recyclerView"
@@ -60,11 +68,11 @@
                         android:nestedScrollingEnabled="false"
                         android:overScrollMode="never" />
 
-                </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+                </LinearLayout>
 
-            </LinearLayout>
+            </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 
-        </com.yc.mugua.weight.LoadingLayout>
+        </ezy.ui.layout.LoadingLayout>
 
     </LinearLayout>
 </layout>

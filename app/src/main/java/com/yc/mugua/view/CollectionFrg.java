@@ -8,10 +8,10 @@ import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.yc.mugua.R;
 import com.yc.mugua.adapter.CollectionAdapter;
 import com.yc.mugua.base.BaseFragment;
-import com.yc.mugua.base.BaseListContract;
-import com.yc.mugua.base.BaseListPresenter;
 import com.yc.mugua.bean.DataBean;
 import com.yc.mugua.databinding.BRecyclerBinding;
+import com.yc.mugua.impl.CollectionContract;
+import com.yc.mugua.presenter.CollectionPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ import java.util.List;
  * Time: 16:08
  *  收藏
  */
-public class CollectionFrg extends BaseFragment<BaseListPresenter, BRecyclerBinding> implements BaseListContract.View {
+public class CollectionFrg extends BaseFragment<CollectionPresenter, BRecyclerBinding> implements CollectionContract.View {
 
     private List<DataBean> listBean = new ArrayList<>();
     private CollectionAdapter adapter;
@@ -57,15 +57,16 @@ public class CollectionFrg extends BaseFragment<BaseListPresenter, BRecyclerBind
         setRefreshLayout(mB.refreshLayout, new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-                mPresenter.onRequest("", pagerNumber = 1);
+                mPresenter.onRequest(pagerNumber = 1);
             }
 
             @Override
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
                 super.onLoadMore(refreshLayout);
-                mPresenter.onRequest("", pagerNumber += 1);
+                mPresenter.onRequest(pagerNumber += 1);
             }
         });
+        adapter.setOnClickListener((position, id) -> mPresenter.onCollect(position, id));
     }
 
     @Override
@@ -92,4 +93,10 @@ public class CollectionFrg extends BaseFragment<BaseListPresenter, BRecyclerBind
         adapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void setCollState(int position) {
+        listBean.remove(position);
+        adapter.notifyItemRemoved(position);
+        adapter.notifyItemChanged(position);
+    }
 }

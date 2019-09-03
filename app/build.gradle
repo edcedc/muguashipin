@@ -48,6 +48,7 @@ android {
             signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             debuggable true
+            minifyEnabled false
             zipAlignEnabled false
         }
     }
@@ -110,7 +111,7 @@ dependencies {
     implementation 'me.jessyan:autosize:1.0.6'
 
     //工具类
-    implementation 'com.blankj:utilcode:1.17.1'
+    implementation 'com.blankj:utilcode:1.25.8'
 
     //防 崩溃
     implementation 'com.github.nanchen2251:AppManager:1.0.1'
@@ -182,7 +183,7 @@ dependencies {
     implementation files('libs/tbs_sdk_thirdapp_v3.6.0.1352_43618_sharewithdownload_withoutGame_obfs_20180918_120327.jar')
 
     //加载样式
-    implementation project(path: ':library')
+    implementation project(path: ':loadingLibrary')
 
     //点击加载框
     implementation project(path: ':ToprightmenuLibrary')

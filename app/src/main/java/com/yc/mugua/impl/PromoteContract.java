@@ -2,6 +2,7 @@ package com.yc.mugua.impl;
 
 import com.yc.mugua.base.BasePresenter;
 import com.yc.mugua.base.IBaseView;
+import com.yc.mugua.bean.DataBean;
 
 /**
  * Created by Android Studio.
@@ -13,7 +14,7 @@ public interface PromoteContract {
 
     interface View extends IBaseView {
 
-        void setData();
+        void setData(DataBean bean);
     }
 
     abstract class Presenter extends BasePresenter<View> {

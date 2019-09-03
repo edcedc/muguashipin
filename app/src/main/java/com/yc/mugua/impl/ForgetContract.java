@@ -15,6 +15,7 @@ public interface ForgetContract {
 
         void onCode();
 
+        void onForget(String phone, String pwd);
     }
 
     abstract class Presenter extends BasePresenter<View> {

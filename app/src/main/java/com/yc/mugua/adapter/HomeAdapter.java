@@ -11,13 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yc.mugua.R;
+import com.yc.mugua.base.BaseFragment;
 import com.yc.mugua.base.BaseRecyclerviewAdapter;
 import com.yc.mugua.bean.DataBean;
+import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.utils.GlideLoadingUtils;
 import com.yc.mugua.weight.GridDividerItemDecoration;
 import com.yc.mugua.weight.RoundImageView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,31 +29,37 @@ import java.util.List;
  */
 public class HomeAdapter extends BaseRecyclerviewAdapter<DataBean> {
 
-    public HomeAdapter(Context act, List<DataBean> listBean) {
-        super(act, listBean);
+    public HomeAdapter(Context act, BaseFragment root, List<DataBean> listBean) {
+        super(act, root, listBean);
     }
 
     @Override
     protected void onBindViewHolde(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
         DataBean bean = listBean.get(position);
-        GlideLoadingUtils.load(act, "http://wx1.sinaimg.cn/mw600/62306eealy1g4xwb6ahatj20u01404qp.jpg", viewHolder.iv_img);
-
-        List<DataBean> list = new ArrayList<>();
-        list.add(new DataBean());
-        list.add(new DataBean());
-        list.add(new DataBean());
-        list.add(new DataBean());
-        list.add(new DataBean());
-        list.add(new DataBean());
-        list.add(new DataBean());
-        list.add(new DataBean());
-        LikeAdapter adapter = new LikeAdapter(act, list);
-        viewHolder.recyclerView.setLayoutManager(new GridLayoutManager(act, 2));
-        viewHolder.recyclerView.setHasFixedSize(true);
-        viewHolder.recyclerView.setItemAnimator(new DefaultItemAnimator());
-        viewHolder.recyclerView.addItemDecoration(new GridDividerItemDecoration(60, 20, ContextCompat.getColor(act,R.color.blue_15163d)));
-        viewHolder.recyclerView.setAdapter(adapter);
+        String image = bean.getImage();
+        if (image == null){
+            viewHolder.iv_img.setVisibility(View.GONE);
+        }else {
+            GlideLoadingUtils.load(act, image, viewHolder.iv_img);
+            viewHolder.iv_img.setVisibility(View.VISIBLE);
+        }
+        viewHolder.tv_like_title.setText(bean.getName());
+        viewHolder.tv_like_title.setCompoundDrawablesWithIntrinsicBounds(null,
+                null, act.getResources().getDrawable(R.mipmap.home_more, null), null);
+        List<DataBean> video = bean.getVideo();
+        if (video != null && video.size() != 0){
+            viewHolder.recyclerView.setVisibility(View.VISIBLE);
+            LikeAdapter adapter = new LikeAdapter(act, video);
+            viewHolder.recyclerView.setLayoutManager(new GridLayoutManager(act, 2));
+            viewHolder.recyclerView.setHasFixedSize(true);
+            viewHolder.recyclerView.setItemAnimator(new DefaultItemAnimator());
+            viewHolder.recyclerView.addItemDecoration(new GridDividerItemDecoration(60, 20, ContextCompat.getColor(act,R.color.blue_15163d)));
+            viewHolder.recyclerView.setAdapter(adapter);
+        }else {
+            viewHolder.recyclerView.setVisibility(View.GONE);
+        }
+        viewHolder.tv_like_title.setOnClickListener(view -> UIHelper.startFindFrg(root, bean.getId()));
     }
 
     @Override

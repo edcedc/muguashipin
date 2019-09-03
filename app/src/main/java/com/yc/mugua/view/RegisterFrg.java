@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
-import android.widget.CompoundButton;
 
 import com.yc.mugua.R;
 import com.yc.mugua.base.BaseFragment;
@@ -12,6 +11,7 @@ import com.yc.mugua.databinding.FRegisterBinding;
 import com.yc.mugua.impl.RegisterContract;
 import com.yc.mugua.presenter.RegisterPresenter;
 import com.yc.mugua.utils.CountDownTimerUtils;
+import com.yc.mugua.utils.cache.SharedAccount;
 
 /**
  * Created by Android Studio.
@@ -43,17 +43,14 @@ public class RegisterFrg extends BaseFragment<RegisterPresenter, FRegisterBindin
         mB.tvCode.setOnClickListener(this);
         mB.btSubmit.setOnClickListener(this);
         mB.tvLogin.setOnClickListener(this);
-        mB.ivPwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                int passwordLength = mB.etPwd.getText().length();
-                if (b){
-                    mB.etPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                }else {
-                    mB.etPwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                }
-                mB.etPwd.setSelection(passwordLength);
+        mB.ivPwd.setOnCheckedChangeListener((compoundButton, b) -> {
+            int passwordLength = mB.etPwd.getText().length();
+            if (b){
+                mB.etPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            }else {
+                mB.etPwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
             }
+            mB.etPwd.setSelection(passwordLength);
         });
     }
 
@@ -76,4 +73,11 @@ public class RegisterFrg extends BaseFragment<RegisterPresenter, FRegisterBindin
     public void onCode() {
         new CountDownTimerUtils(act, 60000, 1000, mB.tvCode).start();
     }
+
+    @Override
+    public void onResgist(String phone, String pwd) {
+        SharedAccount.getInstance(act).save(phone, pwd);
+        pop();
+    }
+
 }

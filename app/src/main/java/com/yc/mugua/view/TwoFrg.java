@@ -2,7 +2,10 @@ package com.yc.mugua.view;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
+import com.flyco.roundview.RoundTextView;
+import com.flyco.roundview.RoundViewDelegate;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.yc.mugua.R;
@@ -12,8 +15,14 @@ import com.yc.mugua.base.BaseFragment;
 import com.yc.mugua.bean.DataBean;
 import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.databinding.FTwoBinding;
+import com.yc.mugua.event.FindInEvent;
 import com.yc.mugua.impl.TwoContract;
 import com.yc.mugua.presenter.TwoPresenter;
+import com.zhy.view.flowlayout.FlowLayout;
+import com.zhy.view.flowlayout.TagAdapter;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +41,9 @@ public class TwoFrg extends BaseFragment<TwoPresenter, FTwoBinding> implements T
 
     private List<DataBean> listSearch = new ArrayList<>();
     private SearchAdapter searchAdapter;
+    private String field;
+    private String categoryId;
+    private String tagsId;
 
     @Override
     public void initPresenter() {
@@ -49,6 +61,7 @@ public class TwoFrg extends BaseFragment<TwoPresenter, FTwoBinding> implements T
 
     @Override
     protected void initView(View view) {
+        setSwipeBackEnable(false);
         mB.ivClass.setOnClickListener(this);
         view.findViewById(R.id.et_search).setOnClickListener(this);
         if (searchAdapter == null){
@@ -65,25 +78,73 @@ public class TwoFrg extends BaseFragment<TwoPresenter, FTwoBinding> implements T
 
         showLoadDataing();
         mB.refreshLayout.startRefresh();
+        mB.refreshLayout.setEnableLoadmore(false);
         mPresenter.onSearch();
         setRefreshLayout(mB.refreshLayout, new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-                mPresenter.onRequest(pagerNumber = 1);
+                mPresenter.onRequest(pagerNumber = 1, field, categoryId, tagsId);
             }
 
             @Override
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
                 super.onLoadMore(refreshLayout);
-                mPresenter.onRequest(pagerNumber += 1);
+                mPresenter.onRequest(pagerNumber += 1, field, categoryId, tagsId);
             }
         });
+        searchAdapter.setListener((position, keyword, categoryId) -> {
+            this.categoryId = categoryId;
+            mB.refreshLayout.startRefresh();
+        });
+        EventBus.getDefault().register(this);
+    }
+
+    private boolean isSearchData = false;
+    @Override
+    public void setSearch(final List<DataBean> listBean) {
+//        listSearch.clear();
+        if (isSearchData)return;
+        isSearchData = true;
+        listSearch.addAll(listBean);
+        searchAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void setSearch(final List<DataBean> listBean) {
-        listSearch.addAll(listBean);
-        searchAdapter.notifyDataSetChanged();
+    public void setSearchOne(List<DataBean> list) {
+        mB.flSearch.removeAllViews();
+        mB.flSearch.setAdapter(new TagAdapter<DataBean>(list){
+            @Override
+            public View getView(FlowLayout parent, int position, DataBean dataBean) {
+                View view = View.inflate(act, R.layout.i_search_label, null);
+                TextView tvText = view.findViewById(R.id.tv_text);
+                tvText.setText(dataBean.getName());
+                return view;
+            }
+
+            @Override
+            public void onSelected(int position, View view) {
+                super.onSelected(position, view);
+                RoundTextView tvText = view.findViewById(R.id.tv_text);
+                RoundViewDelegate delegate = tvText.getDelegate();
+                DataBean bean = list.get(position);
+                delegate.setBackgroundColor(act.getColor(R.color.red_F72A61));
+                bean.setSelect(true);
+                field = bean.getId();
+                mB.refreshLayout.startRefresh();
+            }
+
+            @Override
+            public void unSelected(int position, View view) {
+                super.unSelected(position, view);
+                RoundTextView tvText = view.findViewById(R.id.tv_text);
+                RoundViewDelegate delegate = tvText.getDelegate();
+                DataBean bean = list.get(position);
+                delegate.setBackgroundColor(0);
+                bean.setSelect(false);
+                field = null;
+                mB.refreshLayout.startRefresh();
+            }
+        });
     }
 
     @Override
@@ -122,4 +183,18 @@ public class TwoFrg extends BaseFragment<TwoPresenter, FTwoBinding> implements T
         }
     }
 
+    @Subscribe
+    public void onMainFindInEvent(FindInEvent event){
+        if (event.field == null && event.categoryId == null && event.tagsId == null)return;
+        this.field = event.field;
+        this.categoryId = event.categoryId;
+        this.tagsId = event.tagsId;
+        mB.refreshLayout.startRefresh();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

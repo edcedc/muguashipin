@@ -10,17 +10,12 @@ import java.util.List;
 public class BaseListBean<T> implements Serializable {
 
     private int totalRow;
-    private int pageNumber;
+    private int pageIndex;
     private int totalPage;
     private int pageSize;
     private boolean firstPage;
     private boolean lastPage;
     private List<T> list;
-    private String money;
-
-    public String getMoney() {
-        return money;
-    }
 
     public int getTotalRow() {
         return totalRow;
@@ -31,11 +26,11 @@ public class BaseListBean<T> implements Serializable {
     }
 
     public int getPageNumber() {
-        return pageNumber;
+        return pageIndex;
     }
 
     public void setPageNumber(int pageNumber) {
-        this.pageNumber = pageNumber;
+        this.pageIndex = pageNumber;
     }
 
     public int getTotalPage() {

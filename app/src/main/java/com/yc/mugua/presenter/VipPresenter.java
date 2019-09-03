@@ -1,12 +1,15 @@
 package com.yc.mugua.presenter;
 
-import android.os.Handler;
-
+import com.lzy.okgo.model.Response;
+import com.yc.mugua.bean.BaseResponseBean;
 import com.yc.mugua.bean.DataBean;
+import com.yc.mugua.callback.Code;
+import com.yc.mugua.controller.CloudApi;
 import com.yc.mugua.impl.VipContract;
 
-import java.util.ArrayList;
-import java.util.List;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by Android Studio.
@@ -17,16 +20,32 @@ import java.util.List;
 public class VipPresenter extends VipContract.Presenter{
     @Override
     public void onRequest(int pagerNumber) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                List<DataBean> list = new ArrayList<>();
-                for (int i = 0;i<5;i++){
-                    list.add(new DataBean());
-                }
-                mView.setData(list);
-                mView.hideLoading();
-            }
-        }, 500);
+        CloudApi.mineVipWares()
+                .doOnSubscribe(disposable -> {})
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<BaseResponseBean<DataBean>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mView.addDisposable(d);
+                    }
+
+                    @Override
+                    public void onNext(Response<BaseResponseBean<DataBean>> baseResponseBeanResponse) {
+                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+                            DataBean data = baseResponseBeanResponse.body().data;
+                            mView.setData(data.getVipWares());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.onError(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mView.hideLoading();
+                    }
+                });
     }
 }

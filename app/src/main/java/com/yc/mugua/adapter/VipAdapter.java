@@ -31,23 +31,17 @@ public class VipAdapter extends BaseRecyclerviewAdapter<DataBean> {
     protected void onBindViewHolde(RecyclerView.ViewHolder holder, final int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
         DataBean bean = listBean.get(position);
-        viewHolder.tv_title.setText("00.00");
-        viewHolder.tv_content.setText("我是文字我是文字我是文字 我是文字我是文字我是文字 我是文字我是文字我是文字 我是文字");
-        viewHolder.tv_vip.setText("XX会员");
+        viewHolder.tv_title.setText(bean.getPrice() + "");
+        viewHolder.tv_content.setText(bean.getContext());
+        viewHolder.tv_vip.setText(bean.getName());
 
-        viewHolder.bt_submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (listener != null){
-                    listener.onClick(position);
-                }
+        viewHolder.bt_submit.setOnClickListener(view -> {
+            if (listener != null){
+                listener.onClick(position);
             }
         });
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        viewHolder.itemView.setOnClickListener(view -> {
 
-            }
         });
     }
 

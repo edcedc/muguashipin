@@ -18,13 +18,14 @@ public interface TwoContract {
 
         void setSearch(List<DataBean> list);
 
+        void setSearchOne(List<DataBean> list);
     }
 
     abstract class Presenter extends BasePresenter<View> {
 
         public abstract void onSearch();
 
-        public abstract void onRequest(int pagerNumber);
+        public abstract void onRequest(int pagerNumber, String keyword, String categoryId, String tagId);
 
     }
 

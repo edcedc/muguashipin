@@ -4,33 +4,27 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
-import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.StringUtils;
-import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
 import com.yanzhenjie.permission.Setting;
 import com.yc.mugua.R;
 import com.yc.mugua.base.BaseFragment;
 import com.yc.mugua.base.BasePresenter;
+import com.yc.mugua.base.User;
 import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.databinding.FSplashBinding;
 import com.yc.mugua.utils.CountDownTimer;
-import com.yc.mugua.utils.GlideImageLoader;
-import com.yc.mugua.utils.cache.ShareIsLoginCache;
 import com.yc.mugua.utils.cache.ShareSessionIdCache;
 import com.yc.mugua.weight.RuntimeRationale;
 import com.youth.banner.listener.OnBannerListener;
-import com.youth.banner.transformer.DefaultTransformer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,14 +71,15 @@ public class SplashFrg extends BaseFragment<BasePresenter, FSplashBinding> imple
     protected void initView(View view) {
         act = getActivity();
         final List<String> images = new ArrayList<>();
-        images.add("http://wx1.sinaimg.cn/mw600/0076BSS5ly1g4286f37zhj30p80zvtfc.jpg");
-        images.add("http://wx3.sinaimg.cn/mw600/0076BSS5ly1g425w3lk61j30bq0kw43c.jpg");
-        images.add("http://wx3.sinaimg.cn/mw600/0076BSS5ly1g425ebwtm7j30k00u8e81.jpg");
-        mB.banner.setImages(images)
-                .setImageLoader(new GlideImageLoader())
-                .setOnBannerListener(this)
-                .setBannerAnimation(DefaultTransformer.class);
-        new Handler().postDelayed(new Runnable() {
+//        images.add("http://wx1.sinaimg.cn/mw600/0076BSS5ly1g4286f37zhj30p80zvtfc.jpg");
+//        images.add("http://wx3.sinaimg.cn/mw600/0076BSS5ly1g425w3lk61j30bq0kw43c.jpg");
+//        images.add("http://wx3.sinaimg.cn/mw600/0076BSS5ly1g425ebwtm7j30k00u8e81.jpg");
+//        mB.banner.setImages(images)
+//                .setImageLoader(new GlideImageLoader())
+//                .setOnBannerListener(this)
+//                .setBannerAnimation(DefaultTransformer.class);
+        handler.sendEmptyMessageDelayed(mHandle_permission, 1000);
+        /*new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 if (ShareIsLoginCache.getInstance(act).getIsLogin()){
@@ -97,8 +92,8 @@ public class SplashFrg extends BaseFragment<BasePresenter, FSplashBinding> imple
                     downTimer.start();
                 }
             }
-        }, 1000);
-        mB.banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        }, 1000);*/
+        /*mB.banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -115,10 +110,10 @@ public class SplashFrg extends BaseFragment<BasePresenter, FSplashBinding> imple
             public void onPageScrollStateChanged(int state) {
 
             }
-        });
+        });*/
     }
 
-    private CountDownTimer downTimer = new CountDownTimer(3000, 1000) {
+    private CountDownTimer downTimer = new CountDownTimer(1000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) {
             mB.tvText.setText(3 - millisUntilFinished / 1000 + "");
@@ -166,20 +161,12 @@ public class SplashFrg extends BaseFragment<BasePresenter, FSplashBinding> imple
                         Manifest.permission.CAMERA//拍照权限, 允许访问摄像头进行拍照
                 )
                 .rationale(new RuntimeRationale())
-                .onGranted(new Action<List<String>>() {
-                    @Override
-                    public void onAction(List<String> permissions) {
-                        setPermissionOk();
-                    }
-                })
-                .onDenied(new Action<List<String>>() {
-                    @Override
-                    public void onAction(@NonNull List<String> permissions) {
-                        if (AndPermission.hasAlwaysDeniedPermission(SplashFrg.this, permissions)) {
-                            showSettingDialog(act, permissions);
-                        } else {
-                            setPermissionCancel();
-                        }
+                .onGranted(permissions -> setPermissionOk())
+                .onDenied(permissions -> {
+                    if (AndPermission.hasAlwaysDeniedPermission(SplashFrg.this, permissions)) {
+                        showSettingDialog(act, permissions);
+                    } else {
+                        setPermissionCancel();
                     }
                 })
                 .start();
@@ -196,18 +183,8 @@ public class SplashFrg extends BaseFragment<BasePresenter, FSplashBinding> imple
                 .setCancelable(false)
                 .setTitle(R.string.title_dialog)
                 .setMessage(message)
-                .setPositiveButton(R.string.setting, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        setPermission();
-                    }
-                })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        setPermissionCancel();
-                    }
-                })
+                .setPositiveButton(R.string.setting, (dialog, which) -> setPermission())
+                .setNegativeButton(R.string.cancel, (dialog, which) -> setPermissionCancel())
                 .show();
     }
 
@@ -241,9 +218,9 @@ public class SplashFrg extends BaseFragment<BasePresenter, FSplashBinding> imple
     private void setPermissionOk() {
         String sessionId = ShareSessionIdCache.getInstance(act).getSessionId();
         if (!StringUtils.isEmpty(sessionId)) {
-
+            User.getInstance().setLogin(true);
         } else {
-
+            User.getInstance().setLogin(false);
         }
         startNext();
     }

@@ -14,9 +14,9 @@ public class TUtil {
         } catch (InstantiationException e) {
             LogUtils.e(e.getMessage());
         } catch (IllegalAccessException e) {
-            LogUtils.e(e.getMessage());
+//            LogUtils.e(e.getMessage());
         } catch (ClassCastException e) {
-            LogUtils.e(e.getMessage());
+//            LogUtils.e(e.getMessage());
         }
         return null;
     }
