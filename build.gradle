@@ -28,6 +28,7 @@ allprojects {
         maven { url "https://dl.google.com/dl/android/maven2/"}
         maven { url "https://jitpack.io"}
         maven { url 'https://oss.jfrog.org/libs-snapshot' }
+        maven { url 'https://dl.bintray.com//release' }
         maven { url 'https://dl.bintray.com/umsdk/release' }
     }
 

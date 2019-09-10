@@ -35,6 +35,7 @@ import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.PushAgent;
 import com.yc.mugua.R;
 import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.utils.Constants;
@@ -99,6 +100,7 @@ public abstract class BaseActivity<P extends BasePresenter, VB extends ViewDataB
 
         api = WXAPIFactory.createWXAPI(act, Constants.WX_APPID);
         getSwipeBackLayout().setEdgeOrientation(SwipeBackLayout.EDGE_ALL);
+        PushAgent.getInstance(act).onAppStart();
     }
 
     protected abstract void initPresenter();
@@ -466,14 +468,11 @@ public abstract class BaseActivity<P extends BasePresenter, VB extends ViewDataB
     }
 
     protected void setRefreshLayout(final int pagerNumber, final TwinklingRefreshLayout refreshLayout) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (pagerNumber == 1) {
-                    refreshLayout.finishRefreshing();
-                } else {
-                    refreshLayout.finishLoadmore();
-                }
+        new Handler().postDelayed(() -> {
+            if (pagerNumber == 1) {
+                refreshLayout.finishRefreshing();
+            } else {
+                refreshLayout.finishLoadmore();
             }
         }, 300);
 

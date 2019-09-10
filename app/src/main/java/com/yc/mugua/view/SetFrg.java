@@ -52,7 +52,7 @@ public class SetFrg extends BaseFragment<BasePresenter, FSetBinding> implements 
         mB.lyEqu.setOnClickListener(this);
         mB.lyEqu1.setOnClickListener(this);
         mB.btSubmit.setOnClickListener(this);
-
+        mB.btSubmit.setVisibility(User.getInstance().isLogin() ? View.VISIBLE : View.GONE);
     }
 
     @Override

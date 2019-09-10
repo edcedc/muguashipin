@@ -28,6 +28,7 @@ public class VipFrg extends BaseFragment<VipPresenter, BRecyclerBinding> impleme
 
     private List<DataBean> listBean = new ArrayList<>();
     private VipAdapter adapter;
+    private List<DataBean> listPay = new ArrayList<>();
 
     @Override
     public void initPresenter() {
@@ -52,7 +53,8 @@ public class VipFrg extends BaseFragment<VipPresenter, BRecyclerBinding> impleme
         }
         setRecyclerViewType(mB.recyclerView);
         mB.recyclerView.setAdapter(adapter);
-        adapter.setOnClickListener(position -> PopupWindowTool.showPay(act, (pos, text) -> {
+        mPresenter.onPay();
+        adapter.setOnClickListener(position -> PopupWindowTool.showPay(act,listPay, (pos, text) -> {
             DataBean bean = listBean.get(pos);
             String id = bean.getId();
 
@@ -98,4 +100,8 @@ public class VipFrg extends BaseFragment<VipPresenter, BRecyclerBinding> impleme
         adapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void setPay(List<DataBean> list) {
+        listPay.addAll(list);
+    }
 }

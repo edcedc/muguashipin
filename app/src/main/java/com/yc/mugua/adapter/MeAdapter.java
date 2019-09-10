@@ -44,10 +44,10 @@ public class MeAdapter extends BaseListViewAdapter<DataBean> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         final DataBean bean = listBean.get(position);
-        if (bean.getImg() != 0){
-            viewHolder.ivImg.setVisibility(View.VISIBLE);
-            viewHolder.ivImg.setImageResource(bean.getImg());
-        }
+//        if (bean.getImg() != 0){
+//            viewHolder.ivImg.setVisibility(View.VISIBLE);
+//            viewHolder.ivImg.setImageResource(bean.getImg());
+//        }
         viewHolder.tvName.setText(bean.getName());
         viewHolder.ivBack.setVisibility(isImg == true ? View.VISIBLE : View.GONE);
 

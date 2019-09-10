@@ -23,7 +23,7 @@ public class IncomePresenter extends IncomeContract.Presenter{
 
     @Override
     public void onSubmit(String name, String moble, String balance, double withd) {
-        if (Double.valueOf(balance) > withd){
+        if (!StringUtils.isEmpty(balance) && Double.valueOf(balance) > withd){
             showToast("可提现余额不足");
             return;
         }

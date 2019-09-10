@@ -36,6 +36,8 @@ public class FourPresenter extends FourContract.Presenter {
                     @Override
                     public void onNext(JSONObject jsonObject) {
                         setData(jsonObject);
+                        User.getInstance().setLogin(true);
+                        qrCodeInfo();
                     }
 
                     @Override
@@ -48,6 +50,7 @@ public class FourPresenter extends FourContract.Presenter {
                         mView.hideLoading();
                     }
                 });
+
     }
 
     @Override
@@ -64,6 +67,7 @@ public class FourPresenter extends FourContract.Presenter {
                     @Override
                     public void onNext(JSONObject jsonObject) {
                         setData(jsonObject);
+                        User.getInstance().setLogin(false);
                     }
 
                     @Override
@@ -74,6 +78,42 @@ public class FourPresenter extends FourContract.Presenter {
                     @Override
                     public void onComplete() {
                         mView.hideLoading();
+                    }
+                });
+    }
+
+    private void qrCodeInfo(){
+        CloudApi.qrCodeInfo()
+                .doOnSubscribe(disposable -> {})
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<BaseResponseBean<DataBean>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mView.addDisposable(d);
+                    }
+
+                    @Override
+                    public void onNext(Response<BaseResponseBean<DataBean>> baseResponseBeanResponse) {
+                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+                            DataBean data = baseResponseBeanResponse.body().data;
+                            try {
+                                JSONObject userObj = User.getInstance().getUserObj();
+                                userObj.put("invitCode", data.getInvitCode());
+                                userObj.put("link", data.getLink());
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.onError(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
                     }
                 });
     }
@@ -114,9 +154,12 @@ public class FourPresenter extends FourContract.Presenter {
             JSONObject data = jsonObject.optJSONObject("data");
             mView.setAd(data.optJSONObject("ad"));
             try {
+                int currentCount = data.optInt("currentCount");
+                int belowCount = data.optInt("belowCount");
                 JSONObject user = data.optJSONObject("user");
+                user.put("currentCount", currentCount);
+                user.put("belowCount", belowCount);
                 User.getInstance().setUserObj(user);
-                User.getInstance().setLogin(true);
                 user.put("history", data.optInt("history"));
                 user.put("link", data.optInt("link"));
                 mView.setData(user);

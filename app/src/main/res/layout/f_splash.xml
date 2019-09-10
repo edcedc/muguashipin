@@ -25,13 +25,14 @@
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/iv_img"
-            android:visibility="gone"
+            android:visibility="visible"
+            android:background="@mipmap/cpic"
             android:scaleType="fitXY"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
         <FrameLayout
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/fy_close"
             android:layout_margin="@dimen/px40"
             android:layout_gravity="right"
@@ -47,7 +48,7 @@
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/tv_text"
                 android:textColor="@color/white"
-                android:text="0"
+                android:text="X"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:textSize="15sp"

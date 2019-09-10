@@ -154,6 +154,18 @@ public class VideoAct extends GSYBaseActivityDetail<VideoPresenter, FVideoBindin
                 mPresenter.onCommentRequest(pagerNumberComment += 1, id);
             }
         });
+        commentAdapter.setOnClickListener(new CommentAdapter.OnClickListener() {
+            @Override
+            public void onZanClick(int position, String id) {
+                if (!((BaseActivity)act).isLogin())return;
+                mPresenter.onCommetnZan(position, id);
+            }
+
+            @Override
+            public void onReportClick(int position, String id) {
+                mPresenter.onCommetnZan(position, id);
+            }
+        });
 
         //普通模式
         initVideo();
@@ -196,7 +208,6 @@ public class VideoAct extends GSYBaseActivityDetail<VideoPresenter, FVideoBindin
 
     @Override
     public void onClick(View view) {
-        if (!((BaseActivity)act).isLogin())return;
         switch (view.getId()){
             case R.id.tv_comment:
                 if(behavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
@@ -206,6 +217,7 @@ public class VideoAct extends GSYBaseActivityDetail<VideoPresenter, FVideoBindin
                 }
                 break;
             case R.id.iv_coll:
+                if (!((BaseActivity)act).isLogin())return;
                 mPresenter.onCollVideo(id, isColl);
                 break;
             case R.id.iv_dow:
@@ -229,10 +241,11 @@ public class VideoAct extends GSYBaseActivityDetail<VideoPresenter, FVideoBindin
                 commentBottomFrg.show(getSupportFragmentManager(), "dialog");
                 break;
             case R.id.iv_zan:
-
+                if (!((BaseActivity)act).isLogin())return;
                 mPresenter.onLike(id, 1);
                 break;
             case R.id.iv_cai:
+                if (!((BaseActivity)act).isLogin())return;
                 mPresenter.onLike(id, 2);
                 break;
         }
@@ -363,7 +376,7 @@ public class VideoAct extends GSYBaseActivityDetail<VideoPresenter, FVideoBindin
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         GlideLoadingUtils.load(act, bean.getImage(), imageView);
         mB.videoPlayer.setThumbImageView(imageView);
-        setVideoPlay("http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4");
+//        setVideoPlay("http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4");
 
         mB.tvZan.setText(bean.getLikeNum() + "");
         mB.tvCai.setText(bean.getBadNum() + "");
@@ -385,7 +398,7 @@ public class VideoAct extends GSYBaseActivityDetail<VideoPresenter, FVideoBindin
 
     @Override
     public void setPlayUrl(String videoUrl) {
-        videoUrl = "http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4";
+//        videoUrl = "http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4";
         this.videoUrl = videoUrl;
         mB.fyAdv.setVisibility(View.GONE);
         mB.videoPlayer.setVisibility(View.VISIBLE);
@@ -413,6 +426,13 @@ public class VideoAct extends GSYBaseActivityDetail<VideoPresenter, FVideoBindin
     public void setFirstComment(DataBean data) {
         listComment.add(0, data);
         commentAdapter.notifyItemChanged(0);
+    }
+
+    @Override
+    public void setCommentZan(int position) {
+        DataBean bean = listComment.get(position);
+        bean.setLikeCount(bean.getLikeCount() + 1);
+        commentAdapter.notifyItemChanged(position);
     }
 
 }

@@ -11,7 +11,9 @@ import com.yc.mugua.R;
 import com.yc.mugua.base.BaseFragment;
 import com.yc.mugua.base.BaseRecyclerviewAdapter;
 import com.yc.mugua.bean.DataBean;
+import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.utils.GlideLoadingUtils;
+import com.yc.mugua.view.act.HtmlAct;
 
 import java.util.List;
 
@@ -33,7 +35,11 @@ public class HomeBannerAdapter extends BaseRecyclerviewAdapter<DataBean> {
         DataBean bean = listBean.get(position);
         GlideLoadingUtils.load(act, bean.getImgUrl(), viewHolder.iv_img);
         viewHolder.itemView.setOnClickListener(view -> {
-
+            if (bean.getType() == 0){
+                UIHelper.startVideoAct(bean.getId());
+            }else {
+                UIHelper.startHtmlAct(HtmlAct.BANNER, bean.getLink());
+            }
         });
     }
 

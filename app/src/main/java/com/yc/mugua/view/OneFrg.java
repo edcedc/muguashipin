@@ -20,12 +20,11 @@ import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.databinding.FOneBinding;
 import com.yc.mugua.impl.OneContract;
 import com.yc.mugua.presenter.OnePresenter;
-import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OneFrg extends BaseFragment<OnePresenter, FOneBinding> implements OneContract.View, View.OnClickListener, OnBannerListener {
+public class OneFrg extends BaseFragment<OnePresenter, FOneBinding> implements OneContract.View, View.OnClickListener {
 
     private AppCompatTextView tvLikeTitle;
     private RecyclerView rvLike;
@@ -170,9 +169,4 @@ public class OneFrg extends BaseFragment<OnePresenter, FOneBinding> implements O
         likeAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void OnBannerClick(int position) {
-        DataBean bean = listBanner.get(position);
-
-    }
 }

@@ -6,12 +6,21 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.lzy.okgo.model.Response;
 import com.yc.mugua.R;
 import com.yc.mugua.base.BaseFragment;
 import com.yc.mugua.base.BasePresenter;
 import com.yc.mugua.base.IBaseView;
+import com.yc.mugua.bean.BaseResponseBean;
+import com.yc.mugua.bean.DataBean;
+import com.yc.mugua.callback.Code;
+import com.yc.mugua.controller.CloudApi;
 import com.yc.mugua.databinding.FMainBinding;
+import com.yc.mugua.utils.PopupWindowTool;
 
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import me.yokeyword.fragmentation.SupportFragment;
 
 /**
@@ -184,45 +193,36 @@ public class MainFrg extends BaseFragment<BasePresenter, FMainBinding> implement
 
 
     private void onProfitOne() {
-//        new Handler().postDelayed(() -> PopupWindowTool.showAdvertisement(act, null), 1000);
-        /*CloudApi.getNewOldUser()
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable){
-                    }
+        CloudApi.commonQueryAPPAgreement(1)
+                .doOnSubscribe(disposable -> {
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Response<BaseResponseBean<List<DataBean>>>>() {
+                .subscribe(new Observer<Response<BaseResponseBean<DataBean>>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         addDisposable(d);
                     }
 
                     @Override
-                    public void onNext(Response<BaseResponseBean<List<DataBean>>> baseResponseBeanResponse) {
+                    public void onNext(Response<BaseResponseBean<DataBean>> baseResponseBeanResponse) {
                         if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
-                            final List<DataBean> list = baseResponseBeanResponse.body().result;
-                            if (list != null && list.size() != 0){
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        PopupWindowTool.showAdvertisement(act, list.get(0));
-                                    }
-                                }, 1000);
+                            DataBean data = baseResponseBeanResponse.body().data;
+                            if (data != null){
+                                PopupWindowTool.showAdvertisement(act, data);
                             }
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        MainFrg.this.onError(e);
                     }
 
                     @Override
                     public void onComplete() {
 
                     }
-                });*/
+                });
     }
 
 

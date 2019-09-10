@@ -78,7 +78,7 @@ public class SplashFrg extends BaseFragment<BasePresenter, FSplashBinding> imple
 //                .setImageLoader(new GlideImageLoader())
 //                .setOnBannerListener(this)
 //                .setBannerAnimation(DefaultTransformer.class);
-        handler.sendEmptyMessageDelayed(mHandle_permission, 1000);
+//        handler.sendEmptyMessageDelayed(mHandle_permission, 1000);
         /*new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -111,6 +111,9 @@ public class SplashFrg extends BaseFragment<BasePresenter, FSplashBinding> imple
 
             }
         });*/
+        mB.fyClose.setOnClickListener(view1 -> {
+            handler.sendEmptyMessageDelayed(mHandle_permission, 1000);
+        });
     }
 
     private CountDownTimer downTimer = new CountDownTimer(1000, 1000) {

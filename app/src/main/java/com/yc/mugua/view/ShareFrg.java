@@ -9,10 +9,13 @@ import com.google.zxing.WriterException;
 import com.yc.mugua.R;
 import com.yc.mugua.base.BaseFragment;
 import com.yc.mugua.base.BasePresenter;
+import com.yc.mugua.base.User;
 import com.yc.mugua.databinding.FShareBinding;
 import com.yc.mugua.utils.ClipboardUtils;
 import com.yc.mugua.utils.ImageUtils;
 import com.yc.mugua.weight.ZXingUtils;
+
+import org.json.JSONObject;
 
 /**
  * Created by Android Studio.
@@ -41,16 +44,17 @@ public class ShareFrg extends BaseFragment<BasePresenter, FShareBinding> impleme
     @Override
     protected void initView(View view) {
         setTitle(getString(R.string.text3));
-        mB.tvCopy.setOnClickListener(this::initView);
-        mB.tvSave.setOnClickListener(this::initView);
-        mB.tvCopyUrl.setOnClickListener(this::initView);
-        mB.tvCode.setText("YESOOP");
+        mB.tvCopy.setOnClickListener(this);
+        mB.tvSave.setOnClickListener(this);
+        mB.tvCopyUrl.setOnClickListener(this);
+        JSONObject userObj = User.getInstance().getUserObj();
+        mB.tvCode.setText(userObj.optString("invitcode"));
         mB.ivZking.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 mB.ivZking.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 try {
-                    Bitmap bitmap = ZXingUtils.creatBarcode("https://www.baidu.com/", mB.ivZking.getWidth());
+                    Bitmap bitmap = ZXingUtils.creatBarcode(userObj.optString("link"), mB.ivZking.getWidth());
                     mB.ivZking.setImageBitmap(bitmap);
                 } catch (WriterException e) {
                     e.printStackTrace();

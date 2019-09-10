@@ -29,6 +29,7 @@
 
         </LinearLayout>
 
+
         <ezy.ui.layout.LoadingLayout
             android:id="@+id/loadinglayout"
             android:layout_width="match_parent"
@@ -41,38 +42,46 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <LinearLayout
+                <android.support.v4.widget.NestedScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent">
 
-                    <com.zhy.view.flowlayout.TagFlowLayout
-                        android:id="@+id/fl_search"
-                        app:max_select="1"
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/px30"/>
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rv_search"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/px20"
-                        android:nestedScrollingEnabled="false"
-                        android:overScrollMode="never" />
+                        <com.zhy.view.flowlayout.TagFlowLayout
+                            android:id="@+id/fl_search"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/px30"
+                            app:max_select="1" />
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recyclerView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:nestedScrollingEnabled="false"
-                        android:overScrollMode="never" />
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rv_search"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/px20"
+                            android:nestedScrollingEnabled="false"
+                            android:overScrollMode="never" />
 
-                </LinearLayout>
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:nestedScrollingEnabled="false"
+                            android:overScrollMode="never" />
+
+                    </LinearLayout>
+
+                </android.support.v4.widget.NestedScrollView>
 
             </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 
         </ezy.ui.layout.LoadingLayout>
+
 
     </LinearLayout>
 </layout>

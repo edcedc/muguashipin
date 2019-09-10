@@ -43,10 +43,12 @@
             android:layout_marginLeft="@dimen/px40"
             android:layout_marginRight="@dimen/px40"
             android:text="xxxxxxxxxx"
+            android:layout_marginBottom="@dimen/px40"
             android:textColor="#41427E" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/tv_name"
+            android:visibility="gone"
             android:text="xxxxxxxxxx"
             android:layout_gravity="center"
             android:layout_margin="@dimen/px40"

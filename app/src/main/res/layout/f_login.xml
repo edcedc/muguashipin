@@ -14,7 +14,6 @@
 
         <LinearLayout
             android:layout_marginTop="@dimen/px60"
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -23,8 +22,7 @@
                 android:layout_margin="@dimen/px40"
                 android:layout_marginRight="@dimen/px60"
                 android:id="@+id/tb_layout"
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 tl:tl_iconVisible="false"
                 tl:tl_textSelectColor="@color/white"
@@ -33,6 +31,11 @@
                 tl:tl_indicator_height="4dp"
                 tl:tl_indicator_width_equal_title="true"
                 tl:tl_textsize="19sp"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
 
             <FrameLayout
                 android:id="@+id/fy_close"

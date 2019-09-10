@@ -88,6 +88,23 @@ public class CloudApi {
     }
 
     /**
+     * 给评论点赞
+     */
+    public static Observable<Response<BaseResponseBean>> commonLikeComment(String commentId) {
+        return OkGo.<BaseResponseBean>get(SERVLET_URL + "common/likeComment")
+                .headers("auth-authorization", ShareSessionIdCache.getInstance(Utils.getApp()).getSessionId())
+                .params("commentId", commentId)
+                .converter(new JsonCallback<BaseResponseBean>() {
+                    @Override
+                    public void onSuccess(Response<BaseResponseBean> response) {
+
+                    }
+                })
+                .adapt(new ObservableResponse<>())
+                .subscribeOn(Schedulers.io());
+    }
+
+    /**
      * 登陆接口
      */
     public static Observable<JSONObject> userLogin(String mobile, String password) {
@@ -179,6 +196,22 @@ public class CloudApi {
     }
 
     /**
+     * 普通用户-获取二维码
+     */
+    public static Observable<Response<BaseResponseBean<DataBean>>> qrCodeInfo() {
+        return OkGo.<BaseResponseBean<DataBean>>get(SERVLET_URL + "qrCode/info")
+                .headers("auth-authorization", ShareSessionIdCache.getInstance(Utils.getApp()).getSessionId())
+                .converter(new NewsCallback<BaseResponseBean<DataBean>>() {
+                    @Override
+                    public void onSuccess(Response<BaseResponseBean<DataBean>> response) {
+
+                    }
+                })
+                .adapt(new ObservableResponse<>())
+                .subscribeOn(Schedulers.io());
+    }
+
+    /**
      * 火爆交流群
      */
     public static Observable<Response<BaseResponseBean<DataBean>>> mineHotGroup() {
@@ -235,6 +268,24 @@ public class CloudApi {
     public static Observable<Response<BaseResponseBean<DataBean>>> commonHistory(int pagetNumer) {
         return OkGo.<BaseResponseBean<DataBean>>get(SERVLET_URL + "common/history")
                 .headers("auth-authorization", ShareSessionIdCache.getInstance(Utils.getApp()).getSessionId())
+                .params("pageIndex", pagetNumer)
+                .params("pageSize", Constants.pageSize)
+                .converter(new NewsCallback<BaseResponseBean<DataBean>>() {
+                    @Override
+                    public void onSuccess(Response<BaseResponseBean<DataBean>> response) {
+
+                    }
+                })
+                .adapt(new ObservableResponse<>())
+                .subscribeOn(Schedulers.io());
+    }
+
+    /**
+     * 游客历史列表
+     */
+    public static Observable<Response<BaseResponseBean<DataBean>>> commonTourist(int pagetNumer) {
+        return OkGo.<BaseResponseBean<DataBean>>get(SERVLET_URL + "common/tourist")
+                .params("udid", DeviceUtils.getUniqueDeviceId())
                 .params("pageIndex", pagetNumer)
                 .params("pageSize", Constants.pageSize)
                 .converter(new NewsCallback<BaseResponseBean<DataBean>>() {
@@ -342,6 +393,37 @@ public class CloudApi {
      */
     public static Observable<Response<BaseResponseBean<DataBean>>> mineVipWares() {
         return OkGo.<BaseResponseBean<DataBean>>get(SERVLET_URL + "mine/vipWares")
+                .converter(new NewsCallback<BaseResponseBean<DataBean>>() {
+                    @Override
+                    public void onSuccess(Response<BaseResponseBean<DataBean>> response) {
+
+                    }
+                })
+                .adapt(new ObservableResponse<>())
+                .subscribeOn(Schedulers.io());
+    }
+
+    /**
+     * 公告 -用户协议
+     */
+    public static Observable<Response<BaseResponseBean<DataBean>>> commonQueryAPPAgreement(int flag) {
+        return OkGo.<BaseResponseBean<DataBean>>get(SERVLET_URL + "common/queryAPPAgreement")
+                .params("flag", flag)
+                .converter(new NewsCallback<BaseResponseBean<DataBean>>() {
+                    @Override
+                    public void onSuccess(Response<BaseResponseBean<DataBean>> response) {
+
+                    }
+                })
+                .adapt(new ObservableResponse<>())
+                .subscribeOn(Schedulers.io());
+    }
+
+    /**
+     * 渠道列表
+     */
+    public static Observable<Response<BaseResponseBean<DataBean>>> vdPayChannelList() {
+        return OkGo.<BaseResponseBean<DataBean>>get(SERVLET_URL + "vdPayChannel/list")
                 .converter(new NewsCallback<BaseResponseBean<DataBean>>() {
                     @Override
                     public void onSuccess(Response<BaseResponseBean<DataBean>> response) {

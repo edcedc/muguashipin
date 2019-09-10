@@ -1,6 +1,8 @@
 package com.yc.mugua.presenter;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.lzy.okgo.model.Response;
+import com.yc.mugua.base.User;
 import com.yc.mugua.bean.BaseResponseBean;
 import com.yc.mugua.bean.DataBean;
 import com.yc.mugua.callback.Code;
@@ -20,7 +22,45 @@ import io.reactivex.disposables.Disposable;
 public class HistoryPresenter extends HistoryContract.Presenter{
     @Override
     public void onRequest(int pagetNumber) {
+        if (User.getInstance().isLogin()){
+            user(pagetNumber);
+        }else {
+            tourist(pagetNumber);
+        }
+    }
+
+    private void user(int pagetNumber) {
         CloudApi.commonHistory(pagetNumber)
+                .doOnSubscribe(disposable -> {})
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<BaseResponseBean<DataBean>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mView.addDisposable(d);
+                    }
+
+                    @Override
+                    public void onNext(Response<BaseResponseBean<DataBean>> baseResponseBeanResponse) {
+                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+                            DataBean data = baseResponseBeanResponse.body().data;
+                            mView.setData(data.getVedios());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.onError(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mView.hideLoading();
+                    }
+                });
+    }
+
+    private void tourist(int pagetNumber) {
+        CloudApi.commonTourist(pagetNumber)
                 .doOnSubscribe(disposable -> {})
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Response<BaseResponseBean<DataBean>>>() {

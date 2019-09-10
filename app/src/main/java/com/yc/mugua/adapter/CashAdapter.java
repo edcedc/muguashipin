@@ -20,12 +20,10 @@ import com.yc.mugua.R;
 import com.yc.mugua.base.BaseRecyclerviewAdapter;
 import com.yc.mugua.bean.DataBean;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
 import static android.provider.MediaStore.Video.Thumbnails.MINI_KIND;
-import static com.blankj.utilcode.util.ActivityUtils.startActivity;
 
 /**
  * Created by Android Studio.
@@ -57,12 +55,10 @@ public class CashAdapter extends BaseRecyclerviewAdapter<DataBean> {
         viewHolder.tv_title.setText(bean.getTitle());
         viewHolder.tv_content.setText(bean.getContext());
         viewHolder.itemView.setOnClickListener(view -> {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            String path = bean.getContent();//该路径可以自定义
-            File file = new File(path);
-            Uri uri = Uri.fromFile(file);
-            intent.setDataAndType(uri, "video/*");
-            startActivity(intent);
+            Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
+            Uri data = Uri.parse(bean.getContent());
+            intent.setDataAndType(data, "video/mp4");
+            act.startActivity(intent);
         });
     }
 

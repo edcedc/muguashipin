@@ -35,7 +35,7 @@ public class CollectionPresenter extends CollectionContract.Presenter{
                             DataBean data = baseResponseBeanResponse.body().data;
                             mView.setData(data.getCollectList());
                         }
-                        showToast(baseResponseBeanResponse.body().message);
+//                        showToast(baseResponseBeanResponse.body().message);
                     }
 
                     @Override

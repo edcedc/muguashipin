@@ -106,9 +106,9 @@
                             android:orientation="horizontal">
 
                             <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/iv_zlevel"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@mipmap/champion" />
+                                android:layout_height="wrap_content"/>
 
                             <FrameLayout
                                 android:layout_width="@dimen/px280"
@@ -128,9 +128,9 @@
                             </FrameLayout>
 
                             <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/iv_ylevel"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@mipmap/runner_up" />
+                                android:layout_height="wrap_content"/>
 
                         </LinearLayout>
 

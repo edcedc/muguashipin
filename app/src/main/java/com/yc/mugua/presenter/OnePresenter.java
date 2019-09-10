@@ -102,14 +102,16 @@ public class OnePresenter extends OneContract.Presenter{
                             DataBean data = baseResponseBeanResponse.body().data;
                             List<DataBean> ad = data.getAd();
                             List<DataBean> video = data.getVideo();
+
                             for (int i = 0;i < video.size();i++){
                                 DataBean bean = video.get(i);
-                                if (ad.size() - 1 == i){
+                                if (ad.size() - 1 >= i){
                                     DataBean adBean = ad.get(i);
                                     bean.setImage(adBean.getImgUrl());
                                     bean.setLink(adBean.getLink());
                                 }
                             }
+
                             mView.setData(data.getVideo());
                         }
                     }

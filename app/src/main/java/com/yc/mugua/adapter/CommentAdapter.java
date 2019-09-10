@@ -40,11 +40,27 @@ public class CommentAdapter extends BaseRecyclerviewAdapter<DataBean> {
                 "     " +
                 bean.getLikeCount() +
                 "人赞过 >");
+        viewHolder.tv_zan.setText(bean.getLikeCount() + "");
+        viewHolder.tv_zan.setOnClickListener(view -> {
+            if (listener != null)listener.onZanClick(position, bean.getId());
+        });
+        viewHolder.tv_report.setOnClickListener(view -> {
+            if (listener != null)listener.onReportClick(position, bean.getId());
+        });
     }
 
     @Override
     protected RecyclerView.ViewHolder onCreateViewHolde(ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.i_comment, parent, false));
+    }
+
+    private OnClickListener listener;
+    public void setOnClickListener(OnClickListener listener){
+        this.listener = listener;
+    }
+    public interface OnClickListener{
+        void onZanClick(int position, String id);
+        void onReportClick(int position, String id);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{

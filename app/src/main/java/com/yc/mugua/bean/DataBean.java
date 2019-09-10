@@ -12,7 +12,6 @@ import java.util.List;
 public class DataBean implements Serializable {
 
     private String name;
-    private int img;
     private boolean isSelect = false;
     private int position;
     private double price;
@@ -47,6 +46,31 @@ public class DataBean implements Serializable {
     private double canPullMoney;
     private String cost;
     private String tel;
+    private int count;
+    private int growth;
+    private String invitCode;
+    private String img;
+    private String icon;
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public String getInvitCode() {
+        return invitCode;
+    }
+
+    public int getGrowth() {
+        return growth;
+    }
+
+    public int getCount() {
+        return count;
+    }
 
     public String getTel() {
         return tel;
@@ -128,6 +152,10 @@ public class DataBean implements Serializable {
         this.link = link;
     }
 
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
+
     public String getLink() {
         return link;
     }
@@ -150,14 +178,6 @@ public class DataBean implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getImg() {
-        return img;
-    }
-
-    public void setImg(int img) {
-        this.img = img;
     }
 
     public boolean isSelect() {
@@ -255,6 +275,8 @@ public class DataBean implements Serializable {
     private DataBean videoAd;
     private DataBean listAd;
     private DataBean videoInfo;
+    private DataBean shareTask;
+    private DataBean dayTask;
 
     public DataBean getVideoInfo() {
         return videoInfo;
@@ -269,18 +291,30 @@ public class DataBean implements Serializable {
     }
 
     private List<DataBean> banners, vedios, ad, video, videos, tags, hot, recommend, videoList,
-            comment, reasons, noticeList, vipWares, collectList, shareTask, wealTask, user;
+            comment, reasons, noticeList, vipWares, collectList, user, wealTask, levelList, payChannel;
 
-    public List<DataBean> getUser() {
-        return user;
+    public List<DataBean> getLevelList() {
+        return levelList;
     }
 
     public List<DataBean> getWealTask() {
         return wealTask;
     }
 
-    public List<DataBean> getShareTask() {
+    public List<DataBean> getPayChannel() {
+        return payChannel;
+    }
+
+    public DataBean getDayTask() {
+        return dayTask;
+    }
+
+    public DataBean getShareTask() {
         return shareTask;
+    }
+
+    public List<DataBean> getUser() {
+        return user;
     }
 
     public List<DataBean> getCollectList() {

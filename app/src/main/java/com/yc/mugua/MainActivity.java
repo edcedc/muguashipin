@@ -10,6 +10,10 @@ import com.yc.mugua.view.MainFrg;
 
 public class MainActivity extends BaseActivity {
 
+    public static boolean isForeground = false;
+    public static final String KEY_MESSAGE = "message";
+    public static final String KEY_EXTRAS = "extras";
+    public static final String MESSAGE_RECEIVED_ACTION = "com.example.jpushdemo.MESSAGE_RECEIVED_ACTION";
 
     @Override
     protected void initPresenter() {

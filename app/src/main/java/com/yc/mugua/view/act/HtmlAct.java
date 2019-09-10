@@ -27,6 +27,7 @@ public class HtmlAct extends BaseActivity<BasePresenter, AHtmlBinding> {
     private String url;
 
     public static final int HOTGROUP = 1;//火爆交流群
+    public static final int BANNER = 2;//轮播图跳进来
 
 
     @Override
@@ -50,6 +51,10 @@ public class HtmlAct extends BaseActivity<BasePresenter, AHtmlBinding> {
         switch (type){
             case HOTGROUP:
                 setTitle("火爆交流群");
+                mB.webView.loadUrl(url);
+                break;
+            case BANNER:
+                setTitle("广告");
                 mB.webView.loadUrl(url);
                 break;
             default:

@@ -46,6 +46,7 @@ public class FindFrg extends BaseFragment<FindPresenter, BRecyclerBinding> imple
 
     @Override
     protected void initView(View view) {
+        setTitle("");
         setSwipeBackEnable(false);
         if (adapter == null){
             adapter = new BillboardAdapter(act, listBean);

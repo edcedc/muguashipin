@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
+
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.Utils;
 import com.lzy.okgo.OkGo;
@@ -17,6 +18,8 @@ import com.lzy.okgo.model.HttpHeaders;
 import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
+import com.umeng.message.IUmengRegisterCallback;
+import com.umeng.message.PushAgent;
 import com.umeng.socialize.PlatformConfig;
 import com.yc.mugua.mar.MyApplication;
 import com.yc.mugua.utils.Constants;
@@ -26,9 +29,11 @@ import java.security.cert.X509Certificate;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
+
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509TrustManager;
+
 import me.jessyan.autosize.AutoSize;
 import me.jessyan.autosize.AutoSizeConfig;
 import me.jessyan.autosize.onAdaptListener;
@@ -67,7 +72,7 @@ public class InitializeService extends IntentService {
         initOkGo();
         initAutoSizeConfig();
 //        initQbSdk();
-        initShare();
+//        initShare();
 //        LogUtils.getConfig().setLogSwitch(false);
         // 设置崩溃后自动重启 APP
 //        UncaughtExceptionHandlerImpl.getInstance().init(this, BuildConfig.DEBUG, true, 0, MainActivity.class);
@@ -75,13 +80,24 @@ public class InitializeService extends IntentService {
     }
 
     private void initShare() {
-        UMConfigure.init(this, Constants.ShareID, "Umeng", UMConfigure.DEVICE_TYPE_PHONE,null);
+        UMConfigure.init(this, Constants.ShareID, "Umeng", UMConfigure.DEVICE_TYPE_PHONE,Constants.ShareSecret);
         PlatformConfig.setWeixin(Constants.WX_APPID, Constants.WX_SECRER);
         PlatformConfig.setQQZone(Constants.QQ_APPID, Constants.QQ_SECRET);
         PlatformConfig.setSinaWeibo(Constants.WB_APPID, Constants.WB_SECRET, "https://api.weibo.com/oauth5/default.html");
         //设置LOG开关，默认为false
         UMConfigure.setLogEnabled(true);
         MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
+        PushAgent.getInstance(this).register(new IUmengRegisterCallback(){
+            @Override
+            public void onSuccess(String s) {
+                LogUtils.e(s);
+            }
+
+            @Override
+            public void onFailure(String s, String s1) {
+                LogUtils.e("walle", "--->>> onFailure, s is " + s + ", s1 is " + s1);
+            }
+        });
     }
 
     private void initQbSdk() {

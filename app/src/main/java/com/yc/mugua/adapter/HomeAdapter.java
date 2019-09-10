@@ -16,6 +16,7 @@ import com.yc.mugua.base.BaseRecyclerviewAdapter;
 import com.yc.mugua.bean.DataBean;
 import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.utils.GlideLoadingUtils;
+import com.yc.mugua.view.act.HtmlAct;
 import com.yc.mugua.weight.GridDividerItemDecoration;
 import com.yc.mugua.weight.RoundImageView;
 
@@ -43,6 +44,9 @@ public class HomeAdapter extends BaseRecyclerviewAdapter<DataBean> {
         }else {
             GlideLoadingUtils.load(act, image, viewHolder.iv_img);
             viewHolder.iv_img.setVisibility(View.VISIBLE);
+            viewHolder.iv_img.setOnClickListener(view -> {
+                UIHelper.startHtmlAct(HtmlAct.BANNER, bean.getLink());
+            });
         }
         viewHolder.tv_like_title.setText(bean.getName());
         viewHolder.tv_like_title.setCompoundDrawablesWithIntrinsicBounds(null,

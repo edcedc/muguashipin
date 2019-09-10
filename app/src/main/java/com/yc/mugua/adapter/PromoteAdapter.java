@@ -30,29 +30,25 @@ public class PromoteAdapter extends BaseRecyclerviewAdapter<DataBean> {
     protected void onBindViewHolde(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
         DataBean bean = listBean.get(position);
-        String text = "";
         switch (position){
             case 0:
                 viewHolder.iv_img.setBackgroundResource(R.mipmap.champion);
-                text = "入门徽章";
                 break;
             case 1:
                 viewHolder.iv_img.setBackgroundResource(R.mipmap.runner_up);
-                text = "进阶徽章";
                 break;
             case 2:
                 viewHolder.iv_img.setBackgroundResource(R.mipmap.third);
-                text = "略观徽章";
                 break;
             case 3:
                 viewHolder.iv_img.setBackgroundResource(R.mipmap.fourth);
-                text = "鉴黄徽章";
                 break;
         }
-        viewHolder.tv_text.setText(text + "\n" + "推广" +
-                "0" +
+        viewHolder.tv_text.setText(bean.getName() + "\n" + "推广" +
+                bean.getGrowth() +
                 "人-每日观影次数 +" +
-                "10");
+                bean.getCount());
+        viewHolder.itemView.setOnClickListener(view -> {});
     }
 
     @Override

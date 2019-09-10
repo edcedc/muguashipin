@@ -40,6 +40,7 @@ public class PromoteFrg extends BaseFragment<PromotePresenter, FPromoteBinding> 
 
     private List<DataBean> listBean = new ArrayList<>();
     private PromoteAdapter adapter;
+    private String link;
 
     @Override
     public void initPresenter() {
@@ -76,27 +77,29 @@ public class PromoteFrg extends BaseFragment<PromotePresenter, FPromoteBinding> 
                 UIHelper.startShareFrg(this);
                 break;
             case R.id.iv_zking:
-                PopupWindowTool.showZking(act);
+                PopupWindowTool.showZking(act, link);
                 break;
         }
     }
 
     @Override
     public void setData(DataBean bean) {
-        listBean.add(new DataBean());
-        listBean.add(new DataBean());
-        listBean.add(new DataBean());
-        listBean.add(new DataBean());
+        listBean.addAll(bean.getLevelList());
         adapter.notifyDataSetChanged();
 
-        GlideLoadingUtils.load(act, "http://wx1.sinaimg.cn/mw600/62306eealy1g4xwb6ahatj20u01404qp.jpg", mB.ivHead, true);
+        JSONObject userObj = User.getInstance().getUserObj();
+        mB.tvName.setText(userObj.optString("name"));
+        GlideLoadingUtils.load(act, userObj.optString("headimg"), mB.ivHead);
+        mB.tvCode.setText("我的邀请码：" +
+                userObj.optString("invitcode"));
+        link = userObj.optString("link");
         mB.ivZking.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 mB.ivZking.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
                 try {
-                    Bitmap bitmap = ZXingUtils.creatBarcode("https://www.baidu.com/", mB.ivZking.getWidth());
+                    Bitmap bitmap = ZXingUtils.creatBarcode(link, mB.ivZking.getWidth());
                     mB.ivZking.setImageBitmap(bitmap);
                 } catch (WriterException e) {
                     e.printStackTrace();
@@ -104,39 +107,59 @@ public class PromoteFrg extends BaseFragment<PromotePresenter, FPromoteBinding> 
             }
         });
 
-        JSONObject userObj = User.getInstance().getUserObj();
-        mB.tvName.setText(userObj.optString("name"));
-        GlideLoadingUtils.load(act, userObj.optString("headimg"), mB.ivHead);
-        mB.tvCode.setText("我的邀请码：" +
-                userObj.optString("invitcode"));
-
         ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#F72A61"));
-
-        final int one = 14;
-        final int two = 15;
-        String promoteText ="<font color='#F72A61'><small>" + one +
-                "</small></font>" + "/" + two;
+        int currentCount = userObj.optInt("currentCount");
+        int belowCount = userObj.optInt("belowCount");
+        String promoteText ="<font color='#F72A61'><small>" + currentCount +
+                "</small></font>" + "/" + belowCount;
         mB.tvPromoteNum.setText(Html.fromHtml(promoteText));
-
-        mB.progressBarHealthy.setMax(two);
-        mB.progressBarHealthy.setProgress(one);
-
+        mB.progressBarHealthy.setMax(belowCount);
+        mB.progressBarHealthy.setProgress(currentCount);
         mB.tvDifferenceNum.setText("距离下一等级还差 " +
-                "1" +
+                (belowCount - currentCount) +
                 " 人");
-        mB.tvAvailableToday.setText("1");
-        mB.tvMovieWatches.setText("1");
+        mB.tvAvailableToday.setText(userObj.optString("totaltimes"));
+        mB.tvMovieWatches.setText(userObj.optString("lastTimes"));
+        int level = userObj.optInt("level");//判断等级
+        switch (level){
+            default:
+                mB.ivZlevel.setBackgroundResource(R.mipmap.champion);
+                mB.ivYlevel.setBackgroundResource(R.mipmap.runner_up);
+                break;
+            case 2:
+                mB.ivZlevel.setBackgroundResource(R.mipmap.runner_up);
+                mB.ivYlevel.setBackgroundResource(R.mipmap.third);
+                break;
+            case 3:
+                mB.ivZlevel.setBackgroundResource(R.mipmap.third);
+                mB.ivYlevel.setBackgroundResource(R.mipmap.fourth);
+                break;
+            case 4:
+                mB.ivZlevel.setBackgroundResource(R.mipmap.fourth);
+                break;
+        }
 
-        SpannableString dailyTex = new SpannableString("#每日任务" + "：" + "我是文字我是");
-        dailyTex.setSpan(colorSpan, 0, 5, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-        mB.tvDaily.setText(dailyTex);
-        SpannableString extensionText = new SpannableString("#推广任务" + "：" + "我是文字我是");
-        extensionText.setSpan(colorSpan, 0, 5, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-        mB.tvExtension.setText(extensionText);
+        DataBean dayTask = bean.getDayTask();
+        if (dayTask != null){
+            String name = dayTask.getName();
+            String context = dayTask.getContext();
+            SpannableString dailyTex = new SpannableString("#" +
+                    name + "：" + context);
+            dailyTex.setSpan(colorSpan, 0, name.length() + 2, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            mB.tvDaily.setText(dailyTex);
+        }
+        DataBean shareTask = bean.getShareTask();
+        if (shareTask != null){
+            String name = shareTask.getName();
+            String context = shareTask.getContext();
+            SpannableString extensionText = new SpannableString("#" +
+                    name + "：" + context);
+            extensionText.setSpan(colorSpan, 0, name.length() + 2, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            mB.tvExtension.setText(extensionText);
+        }
         SpannableString welfareText = new SpannableString("#福利任务" + "：");
         welfareText.setSpan(colorSpan, 0, 5, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         mB.tvWelfare.setText(welfareText);
-
 
         List<DataBean> wealTask = bean.getWealTask();
         StringBuffer sb = new StringBuffer();

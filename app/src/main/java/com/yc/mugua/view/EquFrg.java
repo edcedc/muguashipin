@@ -11,7 +11,6 @@ import com.yc.mugua.base.BasePresenter;
 import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.databinding.FEquBinding;
 import com.yc.mugua.utils.cache.ShareEquCache;
-import com.yc.mugua.weight.NumLockPanel;
 
 /**
  * Created by Android Studio.
@@ -51,20 +50,18 @@ public class EquFrg extends BaseFragment<BasePresenter, FEquBinding> implements 
         setSwipeBackEnable(false);
         mB.tvFeek.setOnClickListener(this);
         equCache = ShareEquCache.getInstance(act);
-        mB.numLock.setInputListener(new NumLockPanel.InputListener() {
-            @Override
-            public void inputFinish(String result) {
-                LogUtils.e(result);
-
-                if (StringUtils.isEmpty(equCache.getEquPwd())){
-                    equCache.save(result);
-                    mB.numLock.resetResult();
-                    showToast("设置密码成功，请再重复输入一遍");
-                }else if (equCache.getEquPwd().equals(result)){
-                    act.finish();
-                }else {
-                    mB.numLock.showErrorStatus();
-                }
+        mB.numLock.setInputListener(result -> {
+            LogUtils.e(result);
+            if (StringUtils.isEmpty(equCache.getEquPwd())){
+                equCache.save(result);
+                mB.numLock.resetResult();
+                showToast("设置密码成功，请再重复输入一遍");
+            }else if (!StringUtils.isEmpty(equCache.getEquPwd()) && !equCache.getEquPwd().equals(result)){
+                showToast("密码错误");
+            } else if (equCache.getEquPwd().equals(result)){
+                act.finish();
+            }else {
+                mB.numLock.showErrorStatus();
             }
         });
     }

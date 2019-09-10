@@ -86,7 +86,9 @@ public class VideoPresenter extends VideoContract.Presenter{
     @Override
     public void onVideoInfo(String id) {
         CloudApi.commonInfo(id)
-                .doOnSubscribe(disposable -> {mView.showLoadDataing();})
+                .doOnSubscribe(disposable -> {
+//                    mView.showLoadDataing();
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Response<BaseResponseBean<DataBean>>>() {
                     @Override
@@ -283,5 +285,36 @@ public class VideoPresenter extends VideoContract.Presenter{
     public void onVideoDownload(String videoUrl, String title) {
         if (videoUrl == null)return;
         FileSaveUtils.saveVideo(act, videoUrl, title);
+    }
+
+    @Override
+    public void onCommetnZan(int position, String id) {
+        CloudApi.commonLikeComment(id)
+                .doOnSubscribe(disposable -> {})
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<BaseResponseBean>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mView.addDisposable(d);
+                    }
+
+                    @Override
+                    public void onNext(Response<BaseResponseBean> baseResponseBeanResponse) {
+                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+                            mView.setCommentZan(position);
+                        }
+                        showToast(baseResponseBeanResponse.body().message);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.onError(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mView.hideLoading();
+                    }
+                });
     }
 }
