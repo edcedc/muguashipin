@@ -22,7 +22,7 @@
         android:id="@+id/iv_img"
         app:layout_constraintLeft_toRightOf="@id/cb"
         android:src="@mipmap/place_holder"
-        android:scaleType="centerCrop"
+        android:scaleType="fitXY"
         android:layout_width="@dimen/px116"
         android:layout_height="@dimen/px116"/>
 

@@ -3,16 +3,17 @@ package com.yc.mugua.view;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.google.zxing.WriterException;
 import com.yc.mugua.R;
 import com.yc.mugua.adapter.PromoteAdapter;
+import com.yc.mugua.base.BaseActivity;
 import com.yc.mugua.base.BaseFragment;
 import com.yc.mugua.base.User;
 import com.yc.mugua.bean.DataBean;
@@ -21,7 +22,6 @@ import com.yc.mugua.databinding.FPromoteBinding;
 import com.yc.mugua.impl.PromoteContract;
 import com.yc.mugua.presenter.PromotePresenter;
 import com.yc.mugua.utils.GlideLoadingUtils;
-import com.yc.mugua.utils.PopupWindowTool;
 import com.yc.mugua.weight.ZXingUtils;
 
 import org.json.JSONObject;
@@ -72,12 +72,14 @@ public class PromoteFrg extends BaseFragment<PromotePresenter, FPromoteBinding> 
 
     @Override
     public void onClick(View view) {
+        if (!((BaseActivity) act).isLogin()) return;
         switch (view.getId()){
             case R.id.bt_submit:
                 UIHelper.startShareFrg(this);
                 break;
             case R.id.iv_zking:
-                PopupWindowTool.showZking(act, link);
+                UIHelper.startShareFrg(this);
+//                PopupWindowTool.showZking(act, link);
                 break;
         }
     }
@@ -93,26 +95,27 @@ public class PromoteFrg extends BaseFragment<PromotePresenter, FPromoteBinding> 
         mB.tvCode.setText("我的邀请码：" +
                 userObj.optString("invitcode"));
         link = userObj.optString("link");
-        mB.ivZking.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                mB.ivZking.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-
-                try {
-                    Bitmap bitmap = ZXingUtils.creatBarcode(link, mB.ivZking.getWidth());
-                    mB.ivZking.setImageBitmap(bitmap);
-                } catch (WriterException e) {
-                    e.printStackTrace();
+        if (!link.equals("null") && !StringUtils.isEmpty(link)){
+            mB.ivZking.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    mB.ivZking.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    try {
+                        Bitmap bitmap = ZXingUtils.creatBarcode(link, mB.ivZking.getWidth());
+                        mB.ivZking.setImageBitmap(bitmap);
+                    } catch (WriterException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-        });
+            });
+        }
 
         ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#F72A61"));
         int currentCount = userObj.optInt("currentCount");
         int belowCount = userObj.optInt("belowCount");
-        String promoteText ="<font color='#F72A61'><small>" + currentCount +
-                "</small></font>" + "/" + belowCount;
-        mB.tvPromoteNum.setText(Html.fromHtml(promoteText));
+        SpannableString cText = new SpannableString(currentCount + "/" + belowCount);
+        cText.setSpan(new ForegroundColorSpan(Color.parseColor("#F72A61")), 0, String.valueOf(currentCount).length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        mB.tvPromoteNum.setText(cText);
         mB.progressBarHealthy.setMax(belowCount);
         mB.progressBarHealthy.setProgress(currentCount);
         mB.tvDifferenceNum.setText("距离下一等级还差 " +
@@ -174,6 +177,7 @@ public class PromoteFrg extends BaseFragment<PromotePresenter, FPromoteBinding> 
     @Override
     protected void setOnRightClickListener() {
         super.setOnRightClickListener();
+        if (!((BaseActivity) act).isLogin()) return;
         UIHelper.startMyPromoteFrg(this);
     }
 }

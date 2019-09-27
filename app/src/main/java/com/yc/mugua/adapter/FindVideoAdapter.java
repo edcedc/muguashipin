@@ -33,10 +33,9 @@ public class FindVideoAdapter extends BaseRecyclerviewAdapter<DataBean> {
         ViewHolder viewHolder = (ViewHolder) holder;
         DataBean bean = listBean.get(position);
         GlideLoadingUtils.load(act, bean.getImage(), viewHolder.iv_img);
-        viewHolder.tv_time.setText(bean.getDuration());
+        viewHolder.tv_title.setText(bean.getTitle() + " " + (bean.getDuration() == null ? "" : bean.getDuration()));
+        viewHolder.tv_time.setText(bean.getViewCount() + "");
         viewHolder.tv_zan.setText(bean.getLikeNum() + "");
-        viewHolder.tv_title.setText(bean.getTitle());
-
         viewHolder.itemView.setOnClickListener(view -> UIHelper.startVideoAct(bean.getId()));
     }
 

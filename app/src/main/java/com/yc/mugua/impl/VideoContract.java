@@ -33,6 +33,10 @@ public interface VideoContract {
         void setFirstComment(DataBean data);
 
         void setCommentZan(int position);
+
+        void setTwoComment(DataBean data, int position);
+
+        void setCommentChildZan(int position);
     }
 
     abstract class Presenter extends BasePresenter<View> {
@@ -56,6 +60,10 @@ public interface VideoContract {
         public abstract void onVideoDownload(String videoUrl, String title);
 
         public abstract void onCommetnZan(int position, String id);
+
+        public abstract void onCommonSaveChildComment(int position, String text, String id, String parentId);
+
+        public abstract void onChildZan(int position, String id);
     }
 
 }

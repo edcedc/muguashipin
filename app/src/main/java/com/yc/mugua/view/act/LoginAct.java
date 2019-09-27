@@ -1,9 +1,7 @@
 package com.yc.mugua.view.act;
 
-import android.content.Intent;
 import android.os.Bundle;
 
-import com.umeng.socialize.UMShareAPI;
 import com.yc.mugua.R;
 import com.yc.mugua.base.BaseActivity;
 import com.yc.mugua.view.LoginFrg;
@@ -34,9 +32,9 @@ public class LoginAct extends BaseActivity {
 
     @Override
     protected void initView() {
-        if (findFragment(LoginFrg.class) == null) {
-            loadRootFragment(R.id.fl_container, LoginFrg.newInstance());
-        }
+            if (findFragment(LoginFrg.class) == null) {
+                loadRootFragment(R.id.fl_container, LoginFrg.newInstance());
+            }
     }
 
 }

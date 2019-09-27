@@ -55,13 +55,12 @@ public class VipFrg extends BaseFragment<VipPresenter, BRecyclerBinding> impleme
         mB.recyclerView.setAdapter(adapter);
         mPresenter.onPay();
         adapter.setOnClickListener(position -> PopupWindowTool.showPay(act,listPay, (pos, text) -> {
-            DataBean bean = listBean.get(pos);
-            String id = bean.getId();
-
+            mPresenter.onPayCode(text);
         }));
 
         showLoadDataing();
-        mB.refreshLayout.startRefresh();
+        mPresenter.onRequest(pagerNumber = 1);
+        mB.refreshLayout.setPureScrollModeOn();
         setRefreshLayout(mB.refreshLayout, new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {

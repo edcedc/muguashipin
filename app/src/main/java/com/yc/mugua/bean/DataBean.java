@@ -51,6 +51,31 @@ public class DataBean implements Serializable {
     private String invitCode;
     private String img;
     private String icon;
+    private String qrcodeUrl;
+    private int platform;
+    private String downloadUrl;
+    private String appVersion;
+    private String value;
+
+    public String getValue() {
+        return value;
+    }
+
+    public String getAppVersion() {
+        return appVersion;
+    }
+
+    public String getDownloadUrl() {
+        return downloadUrl;
+    }
+
+    public int getPlatform() {
+        return platform;
+    }
+
+    public String getQrcodeUrl() {
+        return qrcodeUrl;
+    }
 
     public String getIcon() {
         return icon;
@@ -236,6 +261,10 @@ public class DataBean implements Serializable {
         return type;
     }
 
+    public void setIsLike(int isLike) {
+        this.isLike = isLike;
+    }
+
     public void setType(int type) {
         this.type = type;
     }
@@ -291,7 +320,25 @@ public class DataBean implements Serializable {
     }
 
     private List<DataBean> banners, vedios, ad, video, videos, tags, hot, recommend, videoList,
-            comment, reasons, noticeList, vipWares, collectList, user, wealTask, levelList, payChannel;
+            comment, reasons, noticeList, vipWares, collectList, user, wealTask, levelList, payChannel, page, version;
+
+    public List<DataBean> getVersion() {
+        return version;
+    }
+
+    private List<DataBean> videoCommentList = new ArrayList<>();
+
+    public List<DataBean> getVideoCommentList() {
+        return videoCommentList;
+    }
+
+    public void setVideoCommentList(List<DataBean> videoCommentList) {
+        this.videoCommentList = videoCommentList;
+    }
+
+    public List<DataBean> getPage() {
+        return page;
+    }
 
     public List<DataBean> getLevelList() {
         return levelList;

@@ -28,15 +28,20 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.gyf.immersionbar.ImmersionBar;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
+import com.lzy.okgo.model.Response;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.PushAgent;
 import com.yc.mugua.R;
+import com.yc.mugua.bean.BaseResponseBean;
+import com.yc.mugua.callback.Code;
+import com.yc.mugua.controller.CloudApi;
 import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.utils.Constants;
 import com.yc.mugua.utils.TUtil;
@@ -49,6 +54,8 @@ import org.json.JSONObject;
 import java.util.Map;
 
 import ezy.ui.layout.LoadingLayout;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import me.yokeyword.fragmentation.SwipeBackLayout;
@@ -106,7 +113,11 @@ public abstract class BaseActivity<P extends BasePresenter, VB extends ViewDataB
     protected abstract void initPresenter();
 
     protected void setSofia(boolean isFullScreen) {
-
+        if (!isFullScreen){
+            ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(false).init();
+        }else {
+            ImmersionBar.with(this).statusBarColor(R.color.blue_15163d).statusBarDarkFont(false).init();
+        }
     }
 
     protected abstract int bindLayout();
@@ -501,5 +512,32 @@ public abstract class BaseActivity<P extends BasePresenter, VB extends ViewDataB
             return false;
         }
     }
+
+    public void commonAdApi(){
+        CloudApi.commonAdApi()
+                .doOnSubscribe(disposable -> {})
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<BaseResponseBean>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onNext(Response<BaseResponseBean> baseResponseBeanResponse) {
+                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+    }
+
 
 }

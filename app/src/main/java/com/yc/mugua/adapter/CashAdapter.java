@@ -50,7 +50,7 @@ public class CashAdapter extends BaseRecyclerviewAdapter<DataBean> {
 
         viewHolder.bt_submit.setVisibility(View.GONE);
         viewHolder.cb.setVisibility(isVisibbility ? View.VISIBLE : View.GONE);
-
+        viewHolder.cb.setOnCheckedChangeListener((compoundButton, b) -> bean.setSelect(b));
         viewHolder.iv_img.setImageBitmap(getVideoThumbnail(bean.getContent(), 100, 100, MINI_KIND));
         viewHolder.tv_title.setText(bean.getTitle());
         viewHolder.tv_content.setText(bean.getContext());

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 
+import com.blankj.utilcode.util.FileUtils;
 import com.yc.mugua.R;
 import com.yc.mugua.adapter.CashAdapter;
 import com.yc.mugua.base.BaseFragment;
@@ -11,6 +12,7 @@ import com.yc.mugua.bean.DataBean;
 import com.yc.mugua.databinding.FCashBinding;
 import com.yc.mugua.impl.CashContract;
 import com.yc.mugua.presenter.CashPresenter;
+import com.yc.mugua.utils.PopupWindowTool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +24,7 @@ import java.util.List;
  * Time: 20:17
  *  缓存
  */
-public class CashFrg extends BaseFragment<CashPresenter, FCashBinding> implements CashContract.View {
+public class CashFrg extends BaseFragment<CashPresenter, FCashBinding> implements CashContract.View, View.OnClickListener {
 
     private List<DataBean> listBean = new ArrayList<>();
     private CashAdapter adapter;
@@ -47,6 +49,8 @@ public class CashFrg extends BaseFragment<CashPresenter, FCashBinding> implement
     protected void initView(View view) {
         setTitle(getString(R.string.local_cache), getString(R.string.manage));
         topRight = view.findViewById(R.id.top_right);
+        mB.tvAllDel.setOnClickListener(this);
+        mB.tvDel.setOnClickListener(this);
         if (adapter == null){
             adapter = new CashAdapter(act, listBean);
         }
@@ -99,5 +103,47 @@ public class CashFrg extends BaseFragment<CashPresenter, FCashBinding> implement
             adapter.setVisibbility(false);
         }
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.tv_all_del:
+                PopupWindowTool.showDialog(act, PopupWindowTool.clear, 0, new PopupWindowTool.DialogListener() {
+                    @Override
+                    public void onClick() {
+                        for (DataBean bean :listBean){
+                            boolean b = FileUtils.deleteFile(bean.getContent());
+                        }
+                        listBean.clear();
+                        adapter.notifyDataSetChanged();
+                        if (listBean.size() == 0){
+                            showLoadEmpty();
+                        }
+                    }
+
+                    @Override
+                    public void onDismiss() {
+
+                    }
+                });
+                break;
+            case R.id.tv_del:
+                List<DataBean> list = new ArrayList<>();
+                for (DataBean bean :listBean){
+                    if (bean.isSelect()){
+                        list.add(bean);
+                        FileUtils.deleteFile(bean.getContent());
+                    }
+                }
+                listBean.removeAll(list);
+                if (listBean.size() == 0){
+                    showLoadEmpty();
+                }
+                mB.layout.setVisibility(View.GONE);
+                adapter.setVisibbility(false);
+                adapter.notifyDataSetChanged();
+                break;
+        }
     }
 }

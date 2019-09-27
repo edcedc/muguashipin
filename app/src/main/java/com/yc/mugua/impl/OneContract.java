@@ -19,6 +19,8 @@ public interface OneContract {
         void setBanner(List<DataBean> list);
 
         void setLike(List<DataBean> list);
+
+        void setVersion(int type, String downloadUrl, String appVersion);
     }
 
     abstract class Presenter extends BasePresenter<View> {
@@ -29,6 +31,7 @@ public interface OneContract {
 
         public abstract void onRequest(int pagerNumber);
 
+        public abstract void onVersionList();
     }
 
 }

@@ -50,7 +50,7 @@ public class BillboardFrg extends BaseFragment<ThreePresenter, BNotTitleRecycler
         if (adapter == null){
             adapter = new BillboardAdapter(act, listBean);
         }
-        setRecyclerViewGridType(mB.recyclerView, 2, 60, 20, R.color.blue_15163d);
+        setRecyclerViewGridType(mB.recyclerView, 2, 40, 20, R.color.blue_15163d);
         mB.recyclerView.setAdapter(adapter);
 
         showLoadDataing();

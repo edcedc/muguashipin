@@ -5,13 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.nanchen.crashmanager.CrashApplication;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
-import com.umeng.message.IUmengRegisterCallback;
-import com.umeng.message.PushAgent;
 import com.umeng.socialize.PlatformConfig;
 import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.service.InitializeService;
@@ -38,7 +36,7 @@ public class MyApplication extends CrashApplication {
         //设置LOG开关，默认为false
         UMConfigure.setLogEnabled(true);
         MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
-        PushAgent.getInstance(this).register(new IUmengRegisterCallback(){
+        /*PushAgent.getInstance(this).register(new IUmengRegisterCallback(){
             @Override
             public void onSuccess(String s) {
                 LogUtils.e(s);
@@ -48,8 +46,9 @@ public class MyApplication extends CrashApplication {
             public void onFailure(String s, String s1) {
                 LogUtils.e("walle", "--->>> onFailure, s is " + s + ", s1 is " + s1);
             }
-        });
+        });*/
         InitializeService.start(this);
+        CrashReport.initCrashReport(getApplicationContext(), "02bb70b5b5", false);
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {

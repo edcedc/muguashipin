@@ -1,6 +1,5 @@
 package com.yc.mugua.presenter;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.lzy.okgo.model.Response;
 import com.yc.mugua.base.User;
 import com.yc.mugua.bean.BaseResponseBean;
@@ -27,6 +26,37 @@ public class HistoryPresenter extends HistoryContract.Presenter{
         }else {
             tourist(pagetNumber);
         }
+    }
+
+    @Override
+    public void onDel() {
+        CloudApi.commonDeletetourist()
+                .doOnSubscribe(disposable -> {mView.showLoading();})
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<BaseResponseBean>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mView.addDisposable(d);
+                    }
+
+                    @Override
+                    public void onNext(Response<BaseResponseBean> baseResponseBeanResponse) {
+                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+                            mView.setDel();
+                        }
+                        showToast(baseResponseBeanResponse.body().message);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.onError(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mView.hideLoading();
+                    }
+                });
     }
 
     private void user(int pagetNumber) {

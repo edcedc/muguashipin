@@ -1,1 +1,1 @@
-include ':app','ToprightmenuLibrary','loadingLibrary'
+include ':app','ToprightmenuLibrary','loadingLibrary','ViewPagerGallery','okgo','okrx2'

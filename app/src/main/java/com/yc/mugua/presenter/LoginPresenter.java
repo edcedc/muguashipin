@@ -8,6 +8,7 @@ import com.yc.mugua.callback.Code;
 import com.yc.mugua.controller.CloudApi;
 import com.yc.mugua.impl.LoginContract;
 import com.yc.mugua.utils.cache.ShareSessionIdCache;
+import com.yc.mugua.utils.cache.SharedAccount;
 
 import org.json.JSONObject;
 
@@ -58,6 +59,7 @@ public class LoginPresenter extends LoginContract.Presenter {
 //                            User.getInstance().setUserObj(user);
 //                            User.getInstance().setLogin(true);
                             ShareSessionIdCache.getInstance(Utils.getApp()).save(data.optString("token"));
+                            SharedAccount.getInstance(Utils.getApp()).save(phone, pwd);
                             User.getInstance().setUserId(data.optString("userId"));
                             User.getInstance().setLogin(true);
                             mView.setLogin();

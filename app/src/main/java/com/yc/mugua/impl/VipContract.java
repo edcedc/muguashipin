@@ -24,6 +24,8 @@ public interface VipContract {
         public abstract void onRequest(int pagerNumber);
 
         public abstract void onPay();
+
+        public abstract void onPayCode(String text);
     }
 
 

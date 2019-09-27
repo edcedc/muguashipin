@@ -1,5 +1,6 @@
 package com.yc.mugua.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -36,9 +37,9 @@ public class HomeBannerAdapter extends BaseRecyclerviewAdapter<DataBean> {
         GlideLoadingUtils.load(act, bean.getImgUrl(), viewHolder.iv_img);
         viewHolder.itemView.setOnClickListener(view -> {
             if (bean.getType() == 0){
-                UIHelper.startVideoAct(bean.getId());
+                UIHelper.startVideoAct(bean.getLink());
             }else {
-                UIHelper.startHtmlAct(HtmlAct.BANNER, bean.getLink());
+                UIHelper.startHtmlAct((Activity) act, HtmlAct.BANNER, bean.getLink());
             }
         });
     }

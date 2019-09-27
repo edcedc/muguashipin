@@ -1,5 +1,6 @@
 package com.yc.mugua.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatTextView;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yc.mugua.R;
+import com.yc.mugua.base.BaseActivity;
 import com.yc.mugua.base.BaseFragment;
 import com.yc.mugua.base.BaseRecyclerviewAdapter;
 import com.yc.mugua.bean.DataBean;
@@ -45,7 +47,8 @@ public class HomeAdapter extends BaseRecyclerviewAdapter<DataBean> {
             GlideLoadingUtils.load(act, image, viewHolder.iv_img);
             viewHolder.iv_img.setVisibility(View.VISIBLE);
             viewHolder.iv_img.setOnClickListener(view -> {
-                UIHelper.startHtmlAct(HtmlAct.BANNER, bean.getLink());
+                ((BaseActivity)act).commonAdApi();
+                UIHelper.startHtmlAct((Activity) act, HtmlAct.BANNER, bean.getLink());
             });
         }
         viewHolder.tv_like_title.setText(bean.getName());
@@ -58,7 +61,9 @@ public class HomeAdapter extends BaseRecyclerviewAdapter<DataBean> {
             viewHolder.recyclerView.setLayoutManager(new GridLayoutManager(act, 2));
             viewHolder.recyclerView.setHasFixedSize(true);
             viewHolder.recyclerView.setItemAnimator(new DefaultItemAnimator());
-            viewHolder.recyclerView.addItemDecoration(new GridDividerItemDecoration(60, 20, ContextCompat.getColor(act,R.color.blue_15163d)));
+            if (viewHolder.recyclerView.getItemDecorationCount() == 0) {
+                viewHolder.recyclerView.addItemDecoration(new GridDividerItemDecoration(60, 20, ContextCompat.getColor(act,R.color.blue_15163d)));
+            }
             viewHolder.recyclerView.setAdapter(adapter);
         }else {
             viewHolder.recyclerView.setVisibility(View.GONE);

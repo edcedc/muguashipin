@@ -2,7 +2,6 @@ package com.yc.mugua.view.bottomFrg;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -39,8 +38,11 @@ public class CommentBottomFrg extends BaseBottomSheetFrag implements TextView.On
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetEdit);
-
+//        setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetEdit);
+//        int screenHeight = getScreenHeight((Activity) act);
+//        int statusBarHeight = getStatusBarHeight(getContext());
+//        int dialogHeight = screenHeight - statusBarHeight;
+//        act.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, dialogHeight == 0 ? ViewGroup.LayoutParams.MATCH_PARENT : dialogHeight);
     }
 
     @Override
@@ -54,7 +56,7 @@ public class CommentBottomFrg extends BaseBottomSheetFrag implements TextView.On
                 listener.onFirstComment(s);
                 dismiss();
             }else if (listener != null && type == 2){
-                listener.onSecondComment(position, infoId, discussId, s, pUserId);
+                listener.onSecondComment(position, s);
                 dismiss();
             }
         });
@@ -118,7 +120,7 @@ public class CommentBottomFrg extends BaseBottomSheetFrag implements TextView.On
                         listener.onFirstComment(s);
                         dismiss();
                     }else if (listener != null && type == 2){
-                        listener.onSecondComment(position, infoId, discussId, s, pUserId);
+                        listener.onSecondComment(position, s);
                         dismiss();
                     }
                 }
@@ -132,21 +134,17 @@ public class CommentBottomFrg extends BaseBottomSheetFrag implements TextView.On
         this.listener = listener;
     }
 
-    private String infoId;
-    private String discussId;
+    private String videoId;
     private int position;
-    private String pUserId;
-    public void onSecondComment(int position, int type, String infoId, String discussId, String pUserId) {
-        this.infoId = infoId;
-        this.discussId = discussId;
+    public void onSecondComment(int position, int type, String videoId) {
+        this.videoId = videoId;
         this.type = type;
         this.position = position;
-        this.pUserId = pUserId;
     }
 
     public interface onCommentListener{
         void onFirstComment(String text);
-        void onSecondComment(int position, String infoId, String discussId, String text, String pUserId);
+        void onSecondComment(int position, String text);
     }
 
 }

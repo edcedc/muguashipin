@@ -6,6 +6,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 import com.lzy.okrx2.adapter.ObservableBody;
 import com.lzy.okrx2.adapter.ObservableResponse;
+import com.yc.mugua.base.User;
 import com.yc.mugua.bean.BaseListBean;
 import com.yc.mugua.bean.BaseResponseBean;
 import com.yc.mugua.bean.DataBean;
@@ -15,6 +16,7 @@ import com.yc.mugua.callback.NewsCallback;
 import com.yc.mugua.utils.Constants;
 import com.yc.mugua.utils.cache.ShareSessionIdCache;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -36,7 +38,7 @@ public class CloudApi {
             "52.82.32.62:9000";
 
 
-    public static final String SERVLET_URL = "http://" +
+    public static String SERVLET_URL = "http://" +
             url + "/api/";
 
     public static final String SERVLET_IMG_URL = SERVLET_URL + "attach/showPic?attachId=";
@@ -73,7 +75,7 @@ public class CloudApi {
      * 重置密码
      */
     public static Observable<Response<BaseResponseBean>> userResetPwd(String iphone, String password, String vercoed) {
-        return OkGo.<BaseResponseBean>post(SERVLET_URL + "user/resetPwd")
+        return OkGo.<BaseResponseBean>post(SERVLET_URL + "auth/reset")
                 .params("mobile", iphone)
                 .params("code", vercoed)
                 .params("password", password)
@@ -181,10 +183,86 @@ public class CloudApi {
     }
 
     /**
+     * 清理历史列表
+     */
+    public static final String commonDeleteHistory = "common/deleteHistory";
+    /**
+     * 清理游客历史列表
+     */
+    public static final String commonDeletetourist = "common/deletetourist";
+
+    public static Observable<Response<BaseResponseBean>> commonDeletetourist() {
+        String url;
+        if (User.getInstance().isLogin()){
+            url = CloudApi.commonDeleteHistory;
+        }else {
+            url = CloudApi.commonDeletetourist;
+        }
+        return OkGo.<BaseResponseBean>post(SERVLET_URL + url)
+                .headers("auth-authorization", ShareSessionIdCache.getInstance(Utils.getApp()).getSessionId())
+                .converter(new JsonCallback<BaseResponseBean>() {
+                    @Override
+                    public void onSuccess(Response<BaseResponseBean> response) {
+
+                    }
+                })
+                .adapt(new ObservableResponse<>())
+                .subscribeOn(Schedulers.io());
+    }
+
+    /**
      * 轮播
      */
     public static Observable<Response<BaseResponseBean<DataBean>>> homeGetBanner() {
         return OkGo.<BaseResponseBean<DataBean>>get(SERVLET_URL + "home/getBanner")
+                .converter(new NewsCallback<BaseResponseBean<DataBean>>() {
+                    @Override
+                    public void onSuccess(Response<BaseResponseBean<DataBean>> response) {
+
+                    }
+                })
+                .adapt(new ObservableResponse<>())
+                .subscribeOn(Schedulers.io());
+    }
+
+    /**
+     * 版本更新
+     */
+    public static Observable<Response<BaseResponseBean<DataBean>>> versionList() {
+        return OkGo.<BaseResponseBean<DataBean>>get(SERVLET_URL + "version/list")
+                .converter(new NewsCallback<BaseResponseBean<DataBean>>() {
+                    @Override
+                    public void onSuccess(Response<BaseResponseBean<DataBean>> response) {
+
+                    }
+                })
+                .adapt(new ObservableResponse<>())
+                .subscribeOn(Schedulers.io());
+    }
+
+    /**
+     * app启动时，从以下接口获取api域名
+     */
+//    public static Observable<JSONArray> mubgrabetv() {
+//        return OkGo.<JSONArray>get("https://api.github.com/orgs/mubgrabetv/repos")
+//                .converter(new JsonConvert<JSONArray>() {
+//                })
+//                .adapt(new ObservableBody<>())
+//                .subscribeOn(Schedulers.io());
+//    }
+    public static Observable<JSONArray> mubgrabetv() {
+        return OkGo.<JSONArray>get("https://api.github.com/orgs/mubgrabetv/repos")
+                .converter(new JsonConvert<JSONArray>() {
+                })
+                .adapt(new ObservableBody<>())
+                .subscribeOn(Schedulers.io());
+    }
+
+    /**
+     * 启动页
+     */
+    public static Observable<Response<BaseResponseBean<DataBean>>> commonGetAppStartupPage() {
+        return OkGo.<BaseResponseBean<DataBean>>get(SERVLET_URL + "common/getAppStartupPage")
                 .converter(new NewsCallback<BaseResponseBean<DataBean>>() {
                     @Override
                     public void onSuccess(Response<BaseResponseBean<DataBean>> response) {
@@ -226,6 +304,24 @@ public class CloudApi {
                 .subscribeOn(Schedulers.io());
     }
 
+    /**
+     * 点击广告接口
+     */
+    public static Observable<Response<BaseResponseBean>> commonAdApi() {
+        return OkGo.<BaseResponseBean>get(SERVLET_URL + "common/adApi")
+                .headers("auth-authorization", ShareSessionIdCache.getInstance(Utils.getApp()).getSessionId())
+                .params("token", ShareSessionIdCache.getInstance(Utils.getApp()).getSessionId())
+                .params("udid", DeviceUtils.getUniqueDeviceId())
+                .converter(new JsonCallback<BaseResponseBean>() {
+                    @Override
+                    public void onSuccess(Response<BaseResponseBean> response) {
+
+                    }
+                })
+                .adapt(new ObservableResponse<>())
+                .subscribeOn(Schedulers.io());
+    }
+
 
     /**
      * 榜单视频
@@ -252,6 +348,7 @@ public class CloudApi {
         return OkGo.<BaseResponseBean<DataBean>>get(SERVLET_URL + "common/info")
                 .headers("auth-authorization", ShareSessionIdCache.getInstance(Utils.getApp()).getSessionId())
                 .params("videoId", id)
+                .params("token", ShareSessionIdCache.getInstance(Utils.getApp()).getSessionId())
                 .converter(new NewsCallback<BaseResponseBean<DataBean>>() {
                     @Override
                     public void onSuccess(Response<BaseResponseBean<DataBean>> response) {
@@ -465,6 +562,23 @@ public class CloudApi {
                 .adapt(new ObservableResponse<>())
                 .subscribeOn(Schedulers.io());
     }
+
+    /**
+     * 激活码激活
+     */
+    public static Observable<Response<BaseResponseBean>> activateUpdate(String code) {
+        return OkGo.<BaseResponseBean>get(SERVLET_URL + "activate/update")
+                .headers("auth-authorization", ShareSessionIdCache.getInstance(Utils.getApp()).getSessionId())
+                .params("code", code)
+                .converter(new JsonCallback<BaseResponseBean>() {
+                    @Override
+                    public void onSuccess(Response<BaseResponseBean> response) {
+
+                    }
+                })
+                .adapt(new ObservableResponse<>())
+                .subscribeOn(Schedulers.io());
+    }
     /**
      * 提交意见反馈
      */
@@ -490,6 +604,25 @@ public class CloudApi {
         return OkGo.<BaseResponseBean<DataBean>>post(SERVLET_URL + "common/saveComment")
                 .headers("auth-authorization", ShareSessionIdCache.getInstance(Utils.getApp()).getSessionId())
                 .params("videoId", id)
+                .params("context", text)
+                .converter(new NewsCallback<BaseResponseBean<DataBean>>() {
+                    @Override
+                    public void onSuccess(Response<BaseResponseBean<DataBean>> response) {
+
+                    }
+                })
+                .adapt(new ObservableResponse<>())
+                .subscribeOn(Schedulers.io());
+    }
+
+    /**
+     * 发布-子评论
+     */
+    public static Observable<Response<BaseResponseBean<DataBean>>> commonSaveChildComment(String parentId, String text, String videoId) {
+        return OkGo.<BaseResponseBean<DataBean>>post(SERVLET_URL + "common/saveChildComment")
+                .headers("auth-authorization", ShareSessionIdCache.getInstance(Utils.getApp()).getSessionId())
+                .params("videoId", videoId)
+                .params("parentId", parentId)
                 .params("context", text)
                 .converter(new NewsCallback<BaseResponseBean<DataBean>>() {
                     @Override

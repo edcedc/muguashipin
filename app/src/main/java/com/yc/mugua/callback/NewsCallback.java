@@ -15,9 +15,13 @@ package com.yc.mugua.callback;/*
  */
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.blankj.utilcode.util.Utils;
 import com.google.gson.stream.JsonReader;
 import com.lzy.okgo.callback.AbsCallback;
+import com.yc.mugua.base.User;
 import com.yc.mugua.bean.BaseResponseBean;
+import com.yc.mugua.controller.UIHelper;
+import com.yc.mugua.utils.cache.ShareSessionIdCache;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -58,9 +62,12 @@ public abstract class NewsCallback<T> extends AbsCallback<T> {
                 ToastUtils.showShort(gankResponse.message);
                 response.close();
                 throw new IllegalStateException(gankResponse.message);
-            } else if (gankResponse.code == 2){
+            } else if (gankResponse.code == 3){
                 response.close();
-                throw new IllegalStateException("用户在第三方登录");
+                UIHelper.startLoginAct();
+                User.getInstance().setLogin(false);
+                ShareSessionIdCache.getInstance(Utils.getApp()).remove();
+                throw new IllegalStateException("请登录");
             }else {
                 response.close();
                 throw new IllegalStateException("服务端接口错误");
@@ -70,4 +77,5 @@ public abstract class NewsCallback<T> extends AbsCallback<T> {
             throw new IllegalStateException("基类错误无法解析!");
         }
     }
+
 }

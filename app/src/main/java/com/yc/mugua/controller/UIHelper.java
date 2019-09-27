@@ -1,8 +1,12 @@
 package com.yc.mugua.controller;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.yc.mugua.MainActivity;
 import com.yc.mugua.base.BaseFragment;
 import com.yc.mugua.view.CashFrg;
@@ -23,7 +27,6 @@ import com.yc.mugua.view.SearchTextFrg;
 import com.yc.mugua.view.ShareFrg;
 import com.yc.mugua.view.VipFrg;
 import com.yc.mugua.view.act.EquAct;
-import com.yc.mugua.view.act.HtmlAct;
 import com.yc.mugua.view.act.LoginAct;
 import com.yc.mugua.view.act.SetAct;
 import com.yc.mugua.view.act.VideoAct;
@@ -132,11 +135,15 @@ public final class UIHelper {
      /**
      *  H5
      */
-    public static void startHtmlAct(int type, String url) {
-        Bundle bundle = new Bundle();
-        bundle.putInt("type", type);
-        bundle.putString("url", url);
-        ActivityUtils.startActivity(bundle, HtmlAct.class);
+    public static void startHtmlAct(Activity act, int type, String url) {
+        if (StringUtils.isEmpty(url))return;
+        Uri uri = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        act.startActivity(intent);
+//        Bundle bundle = new Bundle();
+//        bundle.putInt("type", type);
+//        bundle.putString("url", url);
+//        ActivityUtils.startActivity(bundle, HtmlAct.class);
     }
 
     /**

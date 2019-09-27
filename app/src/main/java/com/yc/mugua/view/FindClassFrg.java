@@ -105,7 +105,7 @@ public class FindClassFrg extends BaseFragment<FindClassPresenter, FFindClassBin
                 RoundTextView tvText = view.findViewById(R.id.tv_text);
                 RoundViewDelegate delegate = tvText.getDelegate();
                 DataBean bean = list.get(position);
-                delegate.setBackgroundColor(act.getColor(R.color.red_F72A61));
+                delegate.setBackgroundColor(act.getResources().getColor(R.color.red_F72A61));
                 bean.setSelect(true);
                 field = bean.getId();
             }
@@ -141,7 +141,7 @@ public class FindClassFrg extends BaseFragment<FindClassPresenter, FFindClassBin
                 RoundTextView tvText = view.findViewById(R.id.tv_text);
                 RoundViewDelegate delegate = tvText.getDelegate();
                 DataBean bean = list.get(position);
-                delegate.setBackgroundColor(act.getColor(R.color.red_F72A61));
+                delegate.setBackgroundColor(act.getResources().getColor(R.color.red_F72A61));
                 bean.setSelect(true);
                 categoryId = bean.getId();
             }
@@ -177,7 +177,7 @@ public class FindClassFrg extends BaseFragment<FindClassPresenter, FFindClassBin
                 RoundTextView tvText = view.findViewById(R.id.tv_text);
                 RoundViewDelegate delegate = tvText.getDelegate();
                 DataBean bean = list.get(position);
-                delegate.setBackgroundColor(act.getColor(R.color.red_F72A61));
+                delegate.setBackgroundColor(act.getResources().getColor(R.color.red_F72A61));
                 bean.setSelect(true);
                 StringBuilder sb = new StringBuilder();
                 for (DataBean dataBean : list){

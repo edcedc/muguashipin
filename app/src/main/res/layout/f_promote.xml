@@ -74,7 +74,7 @@
                                 android:id="@+id/iv_zking"
                                 android:layout_width="@dimen/px70"
                                 android:layout_height="@dimen/px70"
-                                android:src="@mipmap/place_holder" />
+                                android:src="@mipmap/qrcode" />
 
                             <android.support.v7.widget.AppCompatTextView
                                 style="@style/Tv12white"

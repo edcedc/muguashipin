@@ -12,6 +12,7 @@ import com.yc.mugua.bean.DataBean;
 import com.yc.mugua.databinding.BRecyclerBinding;
 import com.yc.mugua.impl.HistoryContract;
 import com.yc.mugua.presenter.HistoryPresenter;
+import com.yc.mugua.utils.PopupWindowTool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +46,7 @@ public class HistoryFrg extends BaseFragment<HistoryPresenter, BRecyclerBinding>
 
     @Override
     protected void initView(View view) {
-        setTitle(getString(R.string.viewing_history));
+        setTitle(getString(R.string.viewing_history), getString(R.string.clear_all));
         if (adapter == null){
             adapter = new HistoryAdapter(act, listBean);
         }
@@ -95,6 +96,26 @@ public class HistoryFrg extends BaseFragment<HistoryPresenter, BRecyclerBinding>
     @Override
     protected void setOnRightClickListener() {
         super.setOnRightClickListener();
+        if (listBean.size() == 0)return;
+        PopupWindowTool.showDialog(act, PopupWindowTool.clear, 0, new PopupWindowTool.DialogListener() {
+            @Override
+            public void onClick() {
+                mPresenter.onDel();
+            }
+
+            @Override
+            public void onDismiss() {
+
+            }
+        });
     }
 
+    @Override
+    public void setDel() {
+        listBean.clear();
+        adapter.notifyDataSetChanged();
+        if (listBean.size() == 0){
+            showLoadEmpty();
+        }
+    }
 }

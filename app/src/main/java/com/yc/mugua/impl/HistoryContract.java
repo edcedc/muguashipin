@@ -13,11 +13,14 @@ public interface HistoryContract {
 
     interface View extends IBaseListView {
 
+        void setDel();
     }
 
     abstract class Presenter extends BasePresenter<View> {
 
         public abstract void onRequest(int pagetNumber);
+
+        public abstract void onDel();
     }
 
 }

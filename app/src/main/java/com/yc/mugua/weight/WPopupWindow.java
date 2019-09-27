@@ -20,7 +20,7 @@ import android.widget.PopupWindow;
 public class WPopupWindow extends PopupWindow {
 
     private Context context;
-    private boolean isBgAlpha=true;
+    private boolean isBgAlpha=false;
     private float alpha=0.5f;
 
     public WPopupWindow(View contentView) {

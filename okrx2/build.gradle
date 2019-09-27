@@ -1,0 +1,23 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion as Integer
+        targetSdkVersion rootProject.ext.targetSdkVersion as Integer
+        versionCode rootProject.ext.versionCode as Integer
+        versionName rootProject.ext.versionName as String
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.1'
+//    compile "com.lzy.net:okgo:$versionName_okgo"
+    implementation 'com.squareup.okhttp3:okhttp:3.8.1'
+
+    implementation project(':okgo')
+}
+
+//apply from: 'bintray.gradle'

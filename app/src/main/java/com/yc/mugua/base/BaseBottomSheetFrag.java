@@ -1,15 +1,19 @@
 package com.yc.mugua.base;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialogFragment;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,8 +61,6 @@ public abstract class BaseBottomSheetFrag extends BottomSheetDialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-
         //每次打开都调用该方法 类似于onCreateView 用于返回一个Dialog实例
         dialog = super.onCreateDialog(savedInstanceState);
         if (rootView == null) {
@@ -73,22 +75,19 @@ public abstract class BaseBottomSheetFrag extends BottomSheetDialogFragment {
 //                    ScreenUtils.getScreenHeight() / 3 * 2 ));
         }
         resetView();
-        //设置View重新关联
         dialog.getWindow().getAttributes().windowAnimations = R.style.FragmentDialogAnimation;
+        //设置View重新关联
         dialog.setContentView(rootView);
         mBehavior = BottomSheetBehavior.from((View) rootView.getParent());
         mBehavior.setHideable(true);
         //圆角边的关键
         ((View) rootView.getParent()).setBackgroundColor(Color.TRANSPARENT);
-        rootView.post(new Runnable() {
-            @Override
-            public void run() {
-                /**
-                 * PeekHeight默认高度256dp 会在该高度上悬浮
-                 * 设置等于view的高 就不会卡住
-                 */
-                mBehavior.setPeekHeight(rootView.getHeight());
-            }
+        rootView.post(() -> {
+            /**
+             * PeekHeight默认高度256dp 会在该高度上悬浮
+             * 设置等于view的高 就不会卡住
+             */
+            mBehavior.setPeekHeight(rootView.getHeight());
         });
         // 初始化参数
         Bundle bundle = getArguments();
@@ -99,8 +98,31 @@ public abstract class BaseBottomSheetFrag extends BottomSheetDialogFragment {
         initView(rootView);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//            dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         }
+
         return dialog;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    protected static int getScreenHeight(Activity activity) {
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        return displaymetrics.heightPixels;
+    }
+
+    protected static int getStatusBarHeight(Context context) {
+        int statusBarHeight = 0;
+        Resources res = context.getResources();
+        int resourceId = res.getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            statusBarHeight = res.getDimensionPixelSize(resourceId);
+        }
+        return statusBarHeight;
     }
 
     protected abstract void initParms(Bundle bundle);

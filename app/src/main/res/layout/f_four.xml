@@ -75,6 +75,15 @@
                     app:rv_cornerRadius="@dimen/px60" />
 
                 <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_vip_time"
+                    android:padding="@dimen/px30"
+                    android:visibility="gone"
+                    android:textColor="@color/red_F72A61"
+                    app:layout_constraintTop_toBottomOf="@id/tv_vip"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_vip"
+                    style="@style/Tv12white" />
+
+                <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/tv_name"
                     style="@style/Tv15white"
                     android:layout_marginTop="@dimen/px30"

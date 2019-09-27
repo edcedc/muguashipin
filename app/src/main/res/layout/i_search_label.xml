@@ -11,9 +11,9 @@
         android:id="@+id/tv_text"
         android:paddingTop="@dimen/px5"
         android:paddingBottom="@dimen/px5"
-        android:paddingLeft="@dimen/px30"
+        android:paddingLeft="@dimen/px20"
         app:rv_strokeWidth="@dimen/px2"
-        android:paddingRight="@dimen/px30"
+        android:paddingRight="@dimen/px20"
         android:gravity="center"
         app:rv_cornerRadius="@dimen/px20"
         style="@style/Tv12white"/>

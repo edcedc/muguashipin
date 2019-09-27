@@ -9,7 +9,7 @@ import android.os.Environment;
 public class Constants {
 
    public static final int ITEMCOUNT = 10;
-   public static final int pageSize = 100;
+   public static final int pageSize = 10;
 
    public static final String ShareID = "5d7780b8570df35ebf000cfa";
    public static final String ShareSecret = "9ada4c69184f78ea48e1f9ffdcd4a121";

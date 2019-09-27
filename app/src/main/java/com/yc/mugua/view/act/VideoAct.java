@@ -1,10 +1,12 @@
 package com.yc.mugua.view.act;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +29,7 @@ import com.yc.mugua.base.BaseActivity;
 import com.yc.mugua.base.GSYBaseActivityDetail;
 import com.yc.mugua.base.User;
 import com.yc.mugua.bean.DataBean;
+import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.databinding.FVideoBinding;
 import com.yc.mugua.impl.VideoContract;
 import com.yc.mugua.presenter.VideoPresenter;
@@ -51,18 +54,26 @@ public class VideoAct extends GSYBaseActivityDetail<VideoPresenter, FVideoBindin
     private List<DataBean> listBean = new ArrayList<>();
     private CollectionAdapter adapter;
     private BottomSheetBehavior behavior;
-    private RecyclerView rvComment;
-    private TwinklingRefreshLayout refreshLayoutComment;
     private AppCompatEditText etText;
     private AppCompatImageView ivXiao;
+    private RecyclerView rvChildComment;
 
     private List<DataBean> listComment = new ArrayList<>();
     private CommentAdapter commentAdapter;
+    private List<DataBean> listChildComment = new ArrayList<>();
+    private CommentAdapter commentChildAdapter;
     private int pagerNumberComment = 1;
     private String id;
     private boolean isColl;
     private CommentBottomFrg commentBottomFrg;
     private String videoUrl;
+    private AppCompatTextView tvCommentTitle;
+    private int isLike;
+    private View lyChild;
+    private String parentId;
+    private int parentPosition;
+    private String adLink;
+    private String imgLink;
 
     @Override
     protected void initPresenter() {
@@ -84,11 +95,15 @@ public class VideoAct extends GSYBaseActivityDetail<VideoPresenter, FVideoBindin
         ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(false).init();
         View bottomSheet = findViewById(R.id.bottom_sheet);
         bottomSheet.setOnClickListener(this);
-        rvComment = findViewById(R.id.rv_comment);
-        refreshLayoutComment = findViewById(R.id.refreshLayout1);
         etText = findViewById(R.id.et_text);
         ivXiao = findViewById(R.id.iv_xiao);
-        findViewById(R.id.tv_comment_title).setOnClickListener(this);
+        tvCommentTitle = findViewById(R.id.tv_comment_title);
+        rvChildComment = findViewById(R.id.rv_child_comment);
+        lyChild = findViewById(R.id.ly_child);
+        lyChild.setOnClickListener(this);
+        tvCommentTitle.setOnClickListener(this);
+        mB.ivAdv.setOnClickListener(this);
+        mB.ivImg.setOnClickListener(this);
 
         commentBottomFrg = new CommentBottomFrg();
         commentBottomFrg.setOnCommentListener(new CommentBottomFrg.onCommentListener() {
@@ -98,9 +113,10 @@ public class VideoAct extends GSYBaseActivityDetail<VideoPresenter, FVideoBindin
             }
 
             @Override
-            public void onSecondComment(int position, String infoId, String discussId, String text, String pUserId) {
-
+            public void onSecondComment(int position, String text) {
+                mPresenter.onCommonSaveChildComment(position, text, id, parentId);
             }
+
         });
         mB.tvComment.setOnClickListener(this);
         mB.ivDel.setOnClickListener(this);
@@ -110,6 +126,7 @@ public class VideoAct extends GSYBaseActivityDetail<VideoPresenter, FVideoBindin
         mB.tvBiaoqian.setOnClickListener(this);
         mB.ivZan.setOnClickListener(this);
         mB.ivCai.setOnClickListener(this);
+        mB.lyLayout.setOnClickListener(this);
         //设置视频屏幕的三分之一
         ViewGroup.LayoutParams params = mB.videoPlayer.getLayoutParams();
         params.height = ScreenUtils.getScreenHeight() / 3;
@@ -131,29 +148,29 @@ public class VideoAct extends GSYBaseActivityDetail<VideoPresenter, FVideoBindin
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 mPresenter.onRequest(pagerNumber = 1, id);
+                mPresenter.onCommentRequest(pagerNumberComment = 1, id);
             }
 
             @Override
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
                 super.onLoadMore(refreshLayout);
-                mPresenter.onRequest(pagerNumber += 1, id);
+//                mPresenter.onRequest(pagerNumber += 1, id);
+                mPresenter.onCommentRequest(pagerNumberComment += 1, id);
             }
         });
 
         if (commentAdapter == null){
-            commentAdapter = new CommentAdapter(act, listComment);
+            commentAdapter = new CommentAdapter(act, listComment, 0);
         }
-        setRecyclerViewType(rvComment);
-        rvComment.setAdapter(commentAdapter);
-        mPresenter.onCommentRequest(pagerNumberComment = 1, id);
-        refreshLayoutComment.setEnableRefresh(false);
-        setRefreshLayout(refreshLayoutComment, new RefreshListenerAdapter() {
-            @Override
-            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
-                super.onLoadMore(refreshLayout);
-                mPresenter.onCommentRequest(pagerNumberComment += 1, id);
-            }
-        });
+        setRecyclerViewType(mB.rvComment);
+        mB.rvComment.setAdapter(commentAdapter);
+
+        if (commentChildAdapter == null){
+            commentChildAdapter = new CommentAdapter(act, listChildComment, 1);
+        }
+        setRecyclerViewType(rvChildComment);
+        rvChildComment.setAdapter(commentChildAdapter);
+
         commentAdapter.setOnClickListener(new CommentAdapter.OnClickListener() {
             @Override
             public void onZanClick(int position, String id) {
@@ -163,7 +180,43 @@ public class VideoAct extends GSYBaseActivityDetail<VideoPresenter, FVideoBindin
 
             @Override
             public void onReportClick(int position, String id) {
-                mPresenter.onCommetnZan(position, id);
+//                mPresenter.onCommetnZan(position, id);
+            }
+
+            @Override
+            public void onChildComment(int position, DataBean bean, List<DataBean> videoCommentList) {
+//                if (!((BaseActivity)act).isLogin())return;
+                listChildComment.clear();
+                listChildComment.add(bean);
+                listChildComment.addAll(videoCommentList);
+                commentChildAdapter.notifyDataSetChanged();
+                tvCommentTitle.setText(listChildComment.size() + "条回复");
+                parentId = bean.getId();
+                parentPosition = position;
+                if(behavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+                    behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                    listChildComment.clear();
+                }else {
+                    behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                }
+            }
+        });
+
+        commentChildAdapter.setOnClickListener(new CommentAdapter.OnClickListener() {
+            @Override
+            public void onZanClick(int position, String id) {
+                if (!((BaseActivity)act).isLogin())return;
+                mPresenter.onChildZan(position, id);
+            }
+
+            @Override
+            public void onReportClick(int position, String id) {
+//                mPresenter.onCommetnZan(position, id);
+            }
+
+            @Override
+            public void onChildComment(int position, DataBean bean, List<DataBean> videoCommentList) {
+//                if (!((BaseActivity)act).isLogin())return;
             }
         });
 
@@ -209,6 +262,11 @@ public class VideoAct extends GSYBaseActivityDetail<VideoPresenter, FVideoBindin
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            case R.id.ly_child:
+                if (!((BaseActivity)act).isLogin())return;
+                commentBottomFrg.onSecondComment(parentPosition, 2, id);
+                commentBottomFrg.show(getSupportFragmentManager(), "dialog");
+                break;
             case R.id.tv_comment:
                 if(behavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
                     behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
@@ -237,16 +295,27 @@ public class VideoAct extends GSYBaseActivityDetail<VideoPresenter, FVideoBindin
                 }
 //                mB.videoPlayer.startPlayLogic();
                 break;
-            case R.id.bottom_sheet:
+            case R.id.ly_layout:
+                if (!((BaseActivity)act).isLogin())return;
                 commentBottomFrg.show(getSupportFragmentManager(), "dialog");
                 break;
             case R.id.iv_zan:
                 if (!((BaseActivity)act).isLogin())return;
+                if (isLike == 1)return;
                 mPresenter.onLike(id, 1);
                 break;
             case R.id.iv_cai:
                 if (!((BaseActivity)act).isLogin())return;
+                if (isLike == 2)return;
                 mPresenter.onLike(id, 2);
+                break;
+            case R.id.iv_adv:
+                ((BaseActivity)act).commonAdApi();
+                UIHelper.startHtmlAct((Activity) act, HtmlAct.BANNER, adLink);
+                break;
+             case R.id.iv_img:
+                ((BaseActivity)act).commonAdApi();
+                UIHelper.startHtmlAct((Activity) act, HtmlAct.BANNER, imgLink);
                 break;
         }
     }
@@ -254,14 +323,12 @@ public class VideoAct extends GSYBaseActivityDetail<VideoPresenter, FVideoBindin
     @Override
     public void setRefreshLayoutMode(int totalRow) {
         super.setRefreshLayoutMode(listBean.size(), totalRow, mB.refreshLayout);
-        super.setRefreshLayoutMode(listComment.size(), totalRow, refreshLayoutComment);
     }
 
     @Override
     public void hideLoading() {
         super.hideLoading();
         super.setRefreshLayout(pagerNumber, mB.refreshLayout);
-        super.setRefreshLayout(pagerNumberComment, refreshLayoutComment);
     }
 
     @Override
@@ -269,9 +336,9 @@ public class VideoAct extends GSYBaseActivityDetail<VideoPresenter, FVideoBindin
         List<DataBean> list = (List<DataBean>) data;
         if (pagerNumber == 1) {
             listBean.clear();
-            mB.refreshLayout.finishRefreshing();
+//            mB.refreshLayout.finishRefreshing();
         } else {
-            mB.refreshLayout.finishLoadmore();
+//            mB.refreshLayout.finishLoadmore();
         }
         listBean.addAll(list);
         adapter.notifyDataSetChanged();
@@ -328,25 +395,38 @@ public class VideoAct extends GSYBaseActivityDetail<VideoPresenter, FVideoBindin
     public void setCommentData(List<DataBean> list) {
         if (pagerNumberComment == 1) {
             listComment.clear();
-            refreshLayoutComment.finishRefreshing();
+            mB.refreshLayout.finishRefreshing();
         } else {
-            refreshLayoutComment.finishLoadmore();
+            mB.refreshLayout.finishLoadmore();
         }
         listComment.addAll(list);
         commentAdapter.notifyDataSetChanged();
+//        tvCommentTitle.setText(listComment.size() + "条评论");
+        mB.tvComm.setText(listComment.size() + "条评论");
     }
 
     @Override
     public void setVideoAd(DataBean bean) {
+        if (bean == null){
+            mB.videoPlayer.setVisibility(View.VISIBLE);
+            if (User.getInstance().isLogin()){
+                mPresenter.onPlayVideo(id);
+            }else {
+                mPresenter.onCommonVideo(id);
+            }
+            return;
+        }
         String imgUrl = bean.getImgUrl();
         if (!StringUtils.isEmpty(imgUrl)){
             mB.fyAdv.setVisibility(View.VISIBLE);
             GlideLoadingUtils.load(act, imgUrl, mB.ivAdv);
+            adLink = bean.getLink();
         }
     }
 
     @Override
     public void setVideoListAd(DataBean bean) {
+        imgLink = bean.getLink();
         GlideLoadingUtils.load(act, bean.getImgUrl(), mB.ivImg);
     }
 
@@ -380,25 +460,49 @@ public class VideoAct extends GSYBaseActivityDetail<VideoPresenter, FVideoBindin
 
         mB.tvZan.setText(bean.getLikeNum() + "");
         mB.tvCai.setText(bean.getBadNum() + "");
-        mB.tvComment.setText(bean.getCommentCount() + "点评");
-//        setCollState(bean.getIsLike());
-        setZan(bean.getIsLike());
-    }
-
-    @Override
-    public void setZan(int isLike) {
+//        setCollState(bean.isCollect());
+//        setZan(bean.getIsLike());
+        isLike = bean.getIsLike();
         if (isLike == 1){
             mB.ivCai.setBackgroundResource(R.mipmap.bumanyi);
-            mB.ivZan.setBackgroundResource(R.mipmap.y6);
-        }else {
+            mB.ivZan.setBackgroundResource(R.mipmap.y10);
+        }else if (isLike == 2){
             mB.ivCai.setBackgroundResource(R.mipmap.y7);
             mB.ivZan.setBackgroundResource(R.mipmap.bofandianzan);
         }
     }
 
     @Override
+    public void setZan(int isLike) {
+        if (this.isLike == 1){
+            mB.tvCai.setText((Integer.valueOf(mB.tvCai.getText().toString()) + 1) + "");
+            mB.tvZan.setText(((Integer.valueOf(mB.tvZan.getText().toString()) - 1)) + "");
+            mB.ivCai.setBackgroundResource(R.mipmap.y7);
+            mB.ivZan.setBackgroundResource(R.mipmap.bofandianzan);
+        }else if (this.isLike == 2){
+            mB.tvZan.setText((Integer.valueOf(mB.tvZan.getText().toString()) + 1) + "");
+            mB.tvCai.setText(((Integer.valueOf(mB.tvCai.getText().toString()) - 1)) + "");
+            mB.ivCai.setBackgroundResource(R.mipmap.bumanyi);
+            mB.ivZan.setBackgroundResource(R.mipmap.y10);
+        }else if (isLike == 1){
+            mB.tvZan.setText((Integer.valueOf(mB.tvZan.getText().toString()) + 1) + "");
+            mB.ivCai.setBackgroundResource(R.mipmap.bumanyi);
+            mB.ivZan.setBackgroundResource(R.mipmap.y10);
+        }else if (isLike == 2){
+            mB.tvCai.setText((Integer.valueOf(mB.tvCai.getText().toString()) + 1) + "");
+            mB.ivCai.setBackgroundResource(R.mipmap.y7);
+            mB.ivZan.setBackgroundResource(R.mipmap.bofandianzan);
+        }
+        this.isLike = isLike;
+    }
+
+    @Override
     public void setPlayUrl(String videoUrl) {
-//        videoUrl = "http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4";
+        if (StringUtils.isEmpty(videoUrl)){
+            showToast("当前无视频");
+            mB.videoPlayer.setVisibility(View.GONE);
+            return;
+        }
         this.videoUrl = videoUrl;
         mB.fyAdv.setVisibility(View.GONE);
         mB.videoPlayer.setVisibility(View.VISIBLE);
@@ -425,14 +529,57 @@ public class VideoAct extends GSYBaseActivityDetail<VideoPresenter, FVideoBindin
     @Override
     public void setFirstComment(DataBean data) {
         listComment.add(0, data);
-        commentAdapter.notifyItemChanged(0);
+        commentAdapter.notifyDataSetChanged();
+        mB.tvComm.setText(listComment.size()+ "条评论");
     }
 
     @Override
     public void setCommentZan(int position) {
         DataBean bean = listComment.get(position);
         bean.setLikeCount(bean.getLikeCount() + 1);
+        bean.setIsLike(1);
         commentAdapter.notifyItemChanged(position);
+        commentChildAdapter.notifyDataSetChanged();
+
+
+        if (listChildComment != null && listChildComment.size() != 0){
+//            DataBean bean1 = listChildComment.get(0);
+//            bean1.setLikeCount(bean1.getLikeCount() + 1);
+//            bean1.setIsLike(1);
+            commentChildAdapter.notifyDataSetChanged();
+        }
+
     }
 
+    @Override
+    public void setTwoComment(DataBean data, int position) {
+        DataBean bean = listComment.get(position);
+        List<DataBean> videoCommentList = bean.getVideoCommentList();
+        videoCommentList.add(data);
+        bean.setVideoCommentList(videoCommentList);
+        commentAdapter.notifyDataSetChanged();
+
+        listChildComment.add(1, data);
+        commentChildAdapter.notifyDataSetChanged();
+        tvCommentTitle.setText(listChildComment.size() - 1 + "条回复");
+    }
+
+    @Override
+    public void setCommentChildZan(int position) {
+        DataBean bean = listChildComment.get(position);
+        bean.setLikeCount(bean.getLikeCount() + 1);
+        bean.setIsLike(1);
+
+//        DataBean bean1 = listComment.get(parentPosition);
+//        DataBean bean2 = bean1.getVideoCommentList().get(position);
+//        bean2.setLikeCount(bean2.getLikeCount() + 1);
+//        bean2.setIsLike(1);
+
+        commentChildAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void setOnRightClickListener() {
+        super.setOnRightClickListener();
+    }
 }

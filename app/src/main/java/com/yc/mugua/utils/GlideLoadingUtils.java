@@ -31,7 +31,7 @@ public class GlideLoadingUtils {
 
     public static void load(Context act, Object url, ImageView imageView) {
         RequestOptions options = new RequestOptions();
-        options.placeholder(R.mipmap.place_holder);
+        options.placeholder(R.drawable.no_banner);
         Glide.with(act).load(url).apply(options).into(imageView);
     }
 

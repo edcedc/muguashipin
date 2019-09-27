@@ -62,6 +62,7 @@ public class RegisterPresenter extends RegisterContract.Presenter {
     @Override
     public void register(String phone, String pwd, String invitation, String code) {
         if (!RegexUtils.isMobileExact(phone)) {
+
             showToast(act.getString(R.string.error_phone));
             return;
         }
@@ -69,6 +70,12 @@ public class RegisterPresenter extends RegisterContract.Presenter {
             showToast(act.getString(R.string.error_));
             return;
         }
+        boolean ss = true;
+        if (ss){
+
+        }
+
+
         CloudApi.userResgist(phone, pwd, code, invitation)
                 .doOnSubscribe(disposable -> {})
                 .observeOn(AndroidSchedulers.mainThread())

@@ -23,29 +23,56 @@ import java.util.List;
  */
 public class CommentAdapter extends BaseRecyclerviewAdapter<DataBean> {
 
-    public CommentAdapter(Context act, List<DataBean> listBean) {
+    public CommentAdapter(Context act, List<DataBean> listBean, int type) {
         super(act, listBean);
+        this.type = type;
     }
+
+    private int type = 0;
 
     @Override
     protected void onBindViewHolde(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
         DataBean bean = listBean.get(position);
 
+        if (type == 0){
+            viewHolder.tv_title.setText(bean.getUserName() +
+                    "  |  【楼主】" );
+            viewHolder.tv_time.setText(bean.getCreateTime() +
+                    "     " +
+                    (bean.getVideoCommentList() == null ? "" : bean.getVideoCommentList().size()) +
+                    "回复");
+        }else {
+            viewHolder.tv_title.setText(bean.getUserName() +
+                    ( position == 0 ? "  |  【楼主】" : ""));
+            viewHolder.tv_time.setText(bean.getCreateTime() +
+                    "     " );
+        }
+
         GlideLoadingUtils.load(act, bean.getHeadimg(), viewHolder.iv_head, true);
-        viewHolder.tv_title.setText(bean.getUserName() +
-                "  |  楼主");
+
         viewHolder.tv_content.setText(bean.getContext());
-        viewHolder.tv_time.setText(bean.getCreateTime() +
-                "     " +
-                bean.getLikeCount() +
-                "人赞过 >");
+
         viewHolder.tv_zan.setText(bean.getLikeCount() + "");
+        if (bean.getIsLike() == 0){
+            viewHolder.tv_zan.setCompoundDrawablesWithIntrinsicBounds(act.getResources().getDrawable(R.mipmap.bofandianzan, null),
+                    null, null, null);
+            viewHolder.tv_zan.setTextColor(act.getResources().getColor(R.color.blue_7F7E9B));
+        }else {
+            viewHolder.tv_zan.setCompoundDrawablesWithIntrinsicBounds(act.getResources().getDrawable(R.mipmap.y10, null),
+                    null, null, null);
+            viewHolder.tv_zan.setTextColor(act.getResources().getColor(R.color.red_F72A61));
+        }
+
+
         viewHolder.tv_zan.setOnClickListener(view -> {
             if (listener != null)listener.onZanClick(position, bean.getId());
         });
         viewHolder.tv_report.setOnClickListener(view -> {
             if (listener != null)listener.onReportClick(position, bean.getId());
+        });
+        viewHolder.itemView.setOnClickListener(view -> {
+            if (listener != null && bean.getVideoCommentList() != null)listener.onChildComment(position, bean, bean.getVideoCommentList());
         });
     }
 
@@ -61,6 +88,7 @@ public class CommentAdapter extends BaseRecyclerviewAdapter<DataBean> {
     public interface OnClickListener{
         void onZanClick(int position, String id);
         void onReportClick(int position, String id);
+        void onChildComment(int position, DataBean bean, List<DataBean> videoCommentList);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{

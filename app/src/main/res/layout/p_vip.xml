@@ -13,26 +13,47 @@
         app:rv_cornerRadius="@dimen/px40">
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/tv_title"
             style="@style/Tv15white"
             android:layout_gravity="center"
             android:layout_margin="@dimen/px40"
             android:text="选择支付方式"
             android:textColor="@color/black" />
 
-        <com.yc.mugua.weight.WithScrollGridView
-            android:id="@+id/listView"
-            android:divider="@null"
-            android:numColumns="3"
+        <LinearLayout
+            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/iv_img"
-            android:visibility="gone"
-            android:layout_gravity="center"
-            android:layout_width="100dp"
-            android:layout_height="100dp" />
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_wx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@mipmap/weixin"
+                android:drawablePadding="@dimen/px20"
+                android:gravity="center"
+                android:text="微信"
+                android:textColor="#25AE21" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_zfb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@mipmap/zhifubao"
+                android:drawablePadding="@dimen/px20"
+                android:gravity="center"
+                android:text="支付宝"
+                android:textColor="#2397D9" />
+
+            <ImageView
+                android:id="@+id/iv_zking"
+                android:visibility="gone"
+                android:layout_width="100dp"
+                android:layout_height="100dp" />
+
+        </LinearLayout>
 
         <com.flyco.roundview.RoundLinearLayout
             android:layout_width="match_parent"
@@ -48,7 +69,6 @@
 
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/et_text"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"

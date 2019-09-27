@@ -53,9 +53,10 @@ public class FourFrg extends BaseFragment<FourPresenter, FFourBinding> implement
         if (isRequest) {
             mB.refreshLayout.startRefresh();
         }
-        mB.tvLogin.setVisibility(User.getInstance().isLogin() ? View.GONE : View.VISIBLE);
+        mB.tvLogin.setVisibility(User.getInstance().isLogin() ? View.INVISIBLE : View.VISIBLE);
+        mB.tvLogin.setEnabled(User.getInstance().isLogin() ?  false : true);
         List<File> files = FileUtils.listFilesInDir(Constants.videoUrl);
-        if (files != null){
+        if (files != null) {
             ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#09FBFC"));
             SpannableString cText = new SpannableString("目前本地缓存" + files.size() + "部");
             cText.setSpan(colorSpan, 6, cText.length() - 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
@@ -99,10 +100,10 @@ public class FourFrg extends BaseFragment<FourPresenter, FFourBinding> implement
         setRefreshLayout(mB.refreshLayout, new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-                if (User.getInstance().isLogin()){
+                if (User.getInstance().isLogin()) {
                     mPresenter.onInfo();
 //                    isRequest = false;
-                }else {
+                } else {
                     mPresenter.onCommonUserInfo();
                 }
             }
@@ -111,35 +112,36 @@ public class FourFrg extends BaseFragment<FourPresenter, FFourBinding> implement
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.tv_income_withdrawal:
-                if (!((BaseActivity)act).isLogin())return;
+                if (!((BaseActivity) act).isLogin()) return;
                 UIHelper.startIncomeFrg(this);
                 break;
             case R.id.tv_login:
                 UIHelper.startLoginAct();
                 break;
             case R.id.tv_vip:
-                if (!((BaseActivity)act).isLogin())return;
+                if (!((BaseActivity) act).isLogin()) return;
                 UIHelper.startVipFrg(this);
                 break;
             case R.id.tv_promote:
-                if (!((BaseActivity)act).isLogin())return;
+//                if (!((BaseActivity) act).isLogin()) return;
                 UIHelper.startPromoteFrg(this);
                 break;
             case R.id.tv_feedback:
-                if (!((BaseActivity)act).isLogin())return;
+                if (!((BaseActivity) act).isLogin()) return;
                 UIHelper.startFeedbackFrg(this, 0);
                 break;
             case R.id.tv_message:
-                if (!((BaseActivity)act).isLogin())return;
+                if (!((BaseActivity) act).isLogin()) return;
                 UIHelper.startMsgFrg(this);
                 break;
             case R.id.tv_hot:
-                UIHelper.startHtmlAct(HtmlAct.HOTGROUP, hotUrl);
+                UIHelper.startHtmlAct(act, HtmlAct.HOTGROUP, hotUrl);
                 break;
             case R.id.iv_img:
-//                UIHelper.startHtmlAct(HtmlAct.BANNER, link);
+                ((BaseActivity)act).commonAdApi();
+                UIHelper.startHtmlAct(act, HtmlAct.BANNER, link);
                 break;
             case R.id.ly_history:
                 UIHelper.startHistoryFrg(this);
@@ -148,7 +150,7 @@ public class FourFrg extends BaseFragment<FourPresenter, FFourBinding> implement
                 UIHelper.startCashFrg(this);
                 break;
             case R.id.ly_like:
-                if (!((BaseActivity)act).isLogin())return;
+                if (!((BaseActivity) act).isLogin()) return;
                 UIHelper.startCollectionFrg(this);
                 break;
             case R.id.ly_equ:
@@ -160,7 +162,7 @@ public class FourFrg extends BaseFragment<FourPresenter, FFourBinding> implement
 
     @Override
     public void setData(JSONObject userObj) {
-        if (userObj == null)return;
+        if (userObj == null) return;
         ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#09FBFC"));
         SpannableString hText = new SpannableString("历史观看" + userObj.optInt("history") + "部");
         hText.setSpan(colorSpan, 4, hText.length() - 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
@@ -170,15 +172,21 @@ public class FourFrg extends BaseFragment<FourPresenter, FFourBinding> implement
         mB.tvLike.setText(lText);
         GlideLoadingUtils.load(act, userObj.optString("headimg"), mB.ivHead, true);
         mB.tvName.setText(userObj.optString("name"));
+        if (userObj.optString("vipExpirationTime") != "null"){
+            mB.tvVipTime.setVisibility(View.VISIBLE);
+            mB.tvVipTime.setText("VIP到期时间：" + userObj.optString("vipExpirationTime"));
+        }else {
+            mB.tvVipTime.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void setAd(JSONObject ad) {
-        if (ad != null){
+        if (ad != null) {
             link = ad.optString("link");
             GlideLoadingUtils.load(act, ad.optString("imgUrl"), mB.ivImg);
             mB.ivImg.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             mB.ivImg.setVisibility(View.GONE);
         }
     }

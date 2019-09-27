@@ -6,7 +6,9 @@ import com.yc.mugua.bean.BaseResponseBean;
 import com.yc.mugua.bean.DataBean;
 import com.yc.mugua.callback.Code;
 import com.yc.mugua.controller.CloudApi;
+import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.impl.FourContract;
+import com.yc.mugua.utils.cache.ShareSessionIdCache;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -159,13 +161,17 @@ public class FourPresenter extends FourContract.Presenter {
                 JSONObject user = data.optJSONObject("user");
                 user.put("currentCount", currentCount);
                 user.put("belowCount", belowCount);
-                User.getInstance().setUserObj(user);
                 user.put("history", data.optInt("history"));
-                user.put("link", data.optInt("link"));
+                user.put("like", data.optInt("like"));
+                User.getInstance().setUserObj(user);
                 mView.setData(user);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }else {
+            UIHelper.startLoginAct();
+            ShareSessionIdCache.getInstance(act).remove();
+            showToast("身份信息失效,请重新登陆");
         }
     }
 }

@@ -34,7 +34,6 @@ public class VideoPresenter extends VideoContract.Presenter{
                     public void onNext(Response<BaseResponseBean<DataBean>> baseResponseBeanResponse) {
                         if(baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
                             DataBean data = baseResponseBeanResponse.body().data;
-                            mView.setCollState(data.isCollect());
                             mView.setData(data.getVideos());
                         }
                     }
@@ -66,7 +65,6 @@ public class VideoPresenter extends VideoContract.Presenter{
                     public void onNext(Response<BaseResponseBean<DataBean>> baseResponseBeanResponse) {
                         if(baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
                             DataBean data = baseResponseBeanResponse.body().data;
-                            mView.setCollState(data.isCollect());
                             mView.setCommentData(data.getComment());
                         }
                     }
@@ -102,9 +100,15 @@ public class VideoPresenter extends VideoContract.Presenter{
                             DataBean data = baseResponseBeanResponse.body().data;
                             if (data != null){
                                 mView.setVideoAd(data.getVideoAd());
-                                mView.setVideoListAd(data.getListAd());
-                                mView.setVideoDesc(data.getVideoInfo());
-                                mView.setZan(data.getIsLike());
+                                DataBean listAd = data.getListAd();
+                                if (listAd != null){
+                                    mView.setVideoListAd(listAd);
+                                }
+                                DataBean videoInfo = data.getVideoInfo();
+                                videoInfo.setIsLike(data.getIsLike());
+                                mView.setVideoDesc(videoInfo);
+//                                mView.setZan(data.getIsLike());
+                                mView.setCollState(data.isCollect());
                             }
                         }
                     }
@@ -112,6 +116,8 @@ public class VideoPresenter extends VideoContract.Presenter{
                     @Override
                     public void onError(Throwable e) {
                         mView.onError(e);
+                        showToast("没有此视频");
+                        act.finish();
                     }
 
                     @Override
@@ -283,7 +289,10 @@ public class VideoPresenter extends VideoContract.Presenter{
 
     @Override
     public void onVideoDownload(String videoUrl, String title) {
-        if (videoUrl == null)return;
+        if (videoUrl == null){
+            showToast("请先关闭广告才能下载");
+            return;
+        }
         FileSaveUtils.saveVideo(act, videoUrl, title);
     }
 
@@ -302,6 +311,68 @@ public class VideoPresenter extends VideoContract.Presenter{
                     public void onNext(Response<BaseResponseBean> baseResponseBeanResponse) {
                         if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
                             mView.setCommentZan(position);
+                        }
+                        showToast(baseResponseBeanResponse.body().message);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.onError(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mView.hideLoading();
+                    }
+                });
+    }
+
+    @Override
+    public void onCommonSaveChildComment(int position, String text, String id, String parentId) {
+        CloudApi.commonSaveChildComment(parentId, text, id)
+                .doOnSubscribe(disposable -> {})
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<BaseResponseBean<DataBean>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mView.addDisposable(d);
+                    }
+
+                    @Override
+                    public void onNext(Response<BaseResponseBean<DataBean>> baseResponseBeanResponse) {
+                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+                            DataBean data = baseResponseBeanResponse.body().data;
+                            mView.setTwoComment(data, position);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.onError(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mView.hideLoading();
+                    }
+                });
+    }
+
+    @Override
+    public void onChildZan(int position, String id) {
+        CloudApi.commonLikeComment(id)
+                .doOnSubscribe(disposable -> {})
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<BaseResponseBean>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mView.addDisposable(d);
+                    }
+
+                    @Override
+                    public void onNext(Response<BaseResponseBean> baseResponseBeanResponse) {
+                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+                            mView.setCommentChildZan(position);
                         }
                         showToast(baseResponseBeanResponse.body().message);
                     }

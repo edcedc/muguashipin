@@ -5,11 +5,11 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
-import com.yarolegovich.discretescrollview.DSVOrientation;
 import com.yarolegovich.discretescrollview.InfiniteScrollAdapter;
-import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
 import com.yc.mugua.R;
 import com.yc.mugua.adapter.HomeAdapter;
 import com.yc.mugua.adapter.HomeBannerAdapter;
@@ -20,6 +20,8 @@ import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.databinding.FOneBinding;
 import com.yc.mugua.impl.OneContract;
 import com.yc.mugua.presenter.OnePresenter;
+import com.yc.mugua.utils.cache.ShareEquCache;
+import com.yc.mugua.view.act.HtmlAct;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +67,7 @@ public class OneFrg extends BaseFragment<OnePresenter, FOneBinding> implements O
     protected void initView(View view) {
         setSwipeBackEnable(false);
         setSofia(true);
-        if (homeBannerAdapter == null){
+       /* if (homeBannerAdapter == null){
             homeBannerAdapter = new HomeBannerAdapter(act, this, listBanner);
         }
         mB.speedRecyclerView.setOrientation(DSVOrientation.HORIZONTAL);
@@ -73,7 +75,9 @@ public class OneFrg extends BaseFragment<OnePresenter, FOneBinding> implements O
         mB.speedRecyclerView.setAdapter(infiniteAdapter);
         mB.speedRecyclerView.setItemTransformer(new ScaleTransformer.Builder()
                 .setMinScale(0.8f)
-                .build());
+                .build());*/
+
+
 
         tvLikeTitle = view.findViewById(R.id.tv_like_title);
         rvLike = view.findViewById(R.id.rv_like);
@@ -97,6 +101,7 @@ public class OneFrg extends BaseFragment<OnePresenter, FOneBinding> implements O
         showLoadDataing();
         mB.refreshLayout.startRefresh();
         mPresenter.onBanner();
+//        mPresenter.onVersionList();
 //        mPresenter.onListRequest();
         setRefreshLayout(mB.refreshLayout, new RefreshListenerAdapter() {
             @Override
@@ -110,6 +115,11 @@ public class OneFrg extends BaseFragment<OnePresenter, FOneBinding> implements O
                 mPresenter.onRequest(pagerNumber += 1);
             }
         });
+
+        String equPwd = ShareEquCache.getInstance(act).getEquPwd();
+        if (!StringUtils.isEmpty(equPwd)){
+            UIHelper.startEquAct();
+        }
     }
 
     @Override
@@ -156,9 +166,28 @@ public class OneFrg extends BaseFragment<OnePresenter, FOneBinding> implements O
 
     @Override
     public void setBanner(List<DataBean> list) {
-        listBanner.clear();
-        listBanner.addAll(list);
-        homeBannerAdapter.notifyDataSetChanged();
+//        listBanner.clear();
+//        listBanner.addAll(list);
+//        homeBannerAdapter.notifyDataSetChanged();
+        List<String> list1 = new ArrayList<>();
+        for (DataBean bean : list){
+            list1.add(bean.getImgUrl());
+        }
+        mB.banner.initBanner(list1, true)//开启3D画廊效果
+                .addPageMargin(10, 50)//参数1page之间的间距,参数2中间item距离边界的间距
+                .addPoint(6)//添加指示器
+                .addStartTimer(3)//自动轮播5秒间隔
+                .addPointBottom(7)
+                .addRoundCorners(10)//圆角
+                .finishConfig()//这句必须加
+                .addBannerListener(position -> {
+                    DataBean bean = list.get(position);
+                    if (bean.getType() == 0){
+                        UIHelper.startVideoAct(bean.getLink());
+                    }else {
+                        UIHelper.startHtmlAct(act, HtmlAct.BANNER, bean.getLink());
+                    }
+                });
     }
 
     @Override
@@ -167,6 +196,18 @@ public class OneFrg extends BaseFragment<OnePresenter, FOneBinding> implements O
         listLike.clear();
         listLike.addAll(list);
         likeAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void setVersion(int type, String downloadUrl, String appVersion) {
+        String appVersionName = AppUtils.getAppVersionName();
+        if (!appVersion.equals(appVersionName)){
+//            PopupWindowTool.showDialog(act, PopupWindowTool.version, type ,() -> {
+//                Uri uri = Uri.parse(downloadUrl);
+//                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//                startActivity(intent);
+//            });
+        }
     }
 
 }

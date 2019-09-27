@@ -55,7 +55,7 @@ public class EquFrg extends BaseFragment<BasePresenter, FEquBinding> implements 
             if (StringUtils.isEmpty(equCache.getEquPwd())){
                 equCache.save(result);
                 mB.numLock.resetResult();
-                showToast("设置密码成功，请再重复输入一遍");
+                showToast("设置密码成功，请再重复输入一遍退出");
             }else if (!StringUtils.isEmpty(equCache.getEquPwd()) && !equCache.getEquPwd().equals(result)){
                 showToast("密码错误");
             } else if (equCache.getEquPwd().equals(result)){

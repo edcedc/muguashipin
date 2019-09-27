@@ -1,11 +1,14 @@
 package com.yc.mugua.view;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.blankj.utilcode.util.AppUtils;
 import com.lzy.okgo.model.Response;
 import com.yc.mugua.R;
 import com.yc.mugua.base.BaseFragment;
@@ -17,6 +20,8 @@ import com.yc.mugua.callback.Code;
 import com.yc.mugua.controller.CloudApi;
 import com.yc.mugua.databinding.FMainBinding;
 import com.yc.mugua.utils.PopupWindowTool;
+
+import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -71,7 +76,7 @@ public class MainFrg extends BaseFragment<BasePresenter, FMainBinding> implement
         mB.ly4.setOnClickListener(this);
         setClick(position, mB.ly1);
         showHideFragment(mFragments[position], mFragments[prePosition]);
-        onProfitOne();
+        onVersion();
     }
 
     @Override
@@ -209,6 +214,59 @@ public class MainFrg extends BaseFragment<BasePresenter, FMainBinding> implement
                             DataBean data = baseResponseBeanResponse.body().data;
                             if (data != null){
                                 PopupWindowTool.showAdvertisement(act, data);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        MainFrg.this.onError(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+    private void onVersion() {
+        CloudApi.versionList()
+                .doOnSubscribe(disposable -> {
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<BaseResponseBean<DataBean>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        addDisposable(d);
+                    }
+
+                    @Override
+                    public void onNext(Response<BaseResponseBean<DataBean>> baseResponseBeanResponse) {
+                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+                            DataBean data = baseResponseBeanResponse.body().data;
+                            List<DataBean> version = data.getVersion();
+                            for (DataBean bean : version){
+                                if (bean.getPlatform() == 0){
+                                    String appVersionName = AppUtils.getAppVersionName();
+                                    if (!bean.getAppVersion().equals(appVersionName)){
+                                        PopupWindowTool.showDialog(act, PopupWindowTool.version, bean.getType(), new PopupWindowTool.DialogListener() {
+                                            @Override
+                                            public void onClick() {
+                                                Uri uri = Uri.parse(bean.getDownloadUrl());
+                                                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                                                startActivity(intent);
+                                                onProfitOne();
+                                            }
+
+                                            @Override
+                                            public void onDismiss() {
+                                                onProfitOne();
+                                            }
+                                        });
+                                    }
+
+                                    break;
+                                }
                             }
                         }
                     }

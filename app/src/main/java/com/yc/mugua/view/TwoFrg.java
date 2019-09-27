@@ -29,6 +29,7 @@ import java.util.List;
 
 public class TwoFrg extends BaseFragment<TwoPresenter, FTwoBinding> implements TwoContract.View, View.OnClickListener {
 
+
     public static TwoFrg newInstance() {
         Bundle args = new Bundle();
         TwoFrg fragment = new TwoFrg();
@@ -40,6 +41,9 @@ public class TwoFrg extends BaseFragment<TwoPresenter, FTwoBinding> implements T
     private FindVideoAdapter adapter;
 
     private List<DataBean> listSearch = new ArrayList<>();
+    private List<DataBean> oneListSearch = new ArrayList<>();
+    private TagAdapter<DataBean> oneSearchAdapter;
+
     private SearchAdapter searchAdapter;
     private String field;
     private String categoryId;
@@ -78,7 +82,6 @@ public class TwoFrg extends BaseFragment<TwoPresenter, FTwoBinding> implements T
 
         showLoadDataing();
         mB.refreshLayout.startRefresh();
-        mB.refreshLayout.setEnableLoadmore(false);
         mPresenter.onSearch();
         setRefreshLayout(mB.refreshLayout, new RefreshListenerAdapter() {
             @Override
@@ -111,8 +114,10 @@ public class TwoFrg extends BaseFragment<TwoPresenter, FTwoBinding> implements T
 
     @Override
     public void setSearchOne(List<DataBean> list) {
+        oneListSearch.clear();
+        oneListSearch = list;
         mB.flSearch.removeAllViews();
-        mB.flSearch.setAdapter(new TagAdapter<DataBean>(list){
+        oneSearchAdapter = new TagAdapter<DataBean>(list) {
             @Override
             public View getView(FlowLayout parent, int position, DataBean dataBean) {
                 View view = View.inflate(act, R.layout.i_search_label, null);
@@ -127,7 +132,7 @@ public class TwoFrg extends BaseFragment<TwoPresenter, FTwoBinding> implements T
                 RoundTextView tvText = view.findViewById(R.id.tv_text);
                 RoundViewDelegate delegate = tvText.getDelegate();
                 DataBean bean = list.get(position);
-                delegate.setBackgroundColor(act.getColor(R.color.red_F72A61));
+                delegate.setBackgroundColor(act.getResources().getColor(R.color.red_F72A61));
                 bean.setSelect(true);
                 field = bean.getId();
                 mB.refreshLayout.startRefresh();
@@ -144,7 +149,8 @@ public class TwoFrg extends BaseFragment<TwoPresenter, FTwoBinding> implements T
                 field = null;
                 mB.refreshLayout.startRefresh();
             }
-        });
+        };
+        mB.flSearch.setAdapter(oneSearchAdapter);
     }
 
     @Override
@@ -190,6 +196,25 @@ public class TwoFrg extends BaseFragment<TwoPresenter, FTwoBinding> implements T
         this.categoryId = event.categoryId;
         this.tagsId = event.tagsId;
         mB.refreshLayout.startRefresh();
+        for (int i = 0;i < oneListSearch.size();i++){
+            DataBean bean = oneListSearch.get(i);
+            if (bean.getId().equals(field)){
+                oneSearchAdapter.setSelectedList(i);
+                break;
+            }
+        }
+        for (int i = 0;i < listSearch.size();i++){
+            DataBean bean = listSearch.get(i);
+            List<DataBean> category = bean.getCategory();
+            for (int j = 0;j < category.size();j++){
+                DataBean dataBean = category.get(j);
+                if (dataBean.getId().equals(categoryId)){
+                    dataBean.setSelect(true);
+                    searchAdapter.notifyDataSetChanged();
+                    break;
+                }
+            }
+        }
     }
 
     @Override

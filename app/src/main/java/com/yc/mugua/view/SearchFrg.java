@@ -2,15 +2,13 @@ package com.yc.mugua.view;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.widget.AppCompatEditText;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.flyco.roundview.RoundTextView;
 import com.flyco.roundview.RoundViewDelegate;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
@@ -96,33 +94,12 @@ public class SearchFrg extends BaseFragment<SearchPresenter, FSearchBinding> imp
                 if (imm.isActive()) {
                     imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
                 }
+                searchText = etSearch.getText().toString().trim();
+                mB.refreshLayout.startRefresh();
                 return true;
             }
             return false;
         });
-        etSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(final Editable editable) {
-                new Handler().postDelayed(() -> {
-                    if (editable.length() == 0){
-                        mB.tvSearch.setText("搜索");
-                    }else {
-                        mB.tvSearch.setText("取消");
-                    }
-                }, 300);
-            }
-        });
-
     }
 
     @Override
@@ -179,7 +156,7 @@ public class SearchFrg extends BaseFragment<SearchPresenter, FSearchBinding> imp
                 super.onSelected(position, view);
                 RoundTextView tvText = view.findViewById(R.id.tv_text);
                 RoundViewDelegate delegate = tvText.getDelegate();
-                delegate.setBackgroundColor(act.getColor(R.color.red_F72A61));
+                delegate.setBackgroundColor(act.getResources().getColor(R.color.red_F72A61));
                 DataBean bean = list.get(position);
                 bean.setSelect(true);
                 searchText = bean.getName();
@@ -229,6 +206,7 @@ public class SearchFrg extends BaseFragment<SearchPresenter, FSearchBinding> imp
         switch (view.getId()){
             case R.id.tv_search:
                 searchText = etSearch.getText().toString().trim();
+                if (StringUtils.isEmpty(searchText))return;
                 mB.refreshLayout.startRefresh();
                 break;
             case R.id.fy_close:

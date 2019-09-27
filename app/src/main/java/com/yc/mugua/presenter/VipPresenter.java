@@ -79,4 +79,35 @@ public class VipPresenter extends VipContract.Presenter{
                     }
                 });
     }
+
+    @Override
+    public void onPayCode(String text) {
+        CloudApi.activateUpdate(text)
+                .doOnSubscribe(disposable -> {mView.showLoading();})
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<BaseResponseBean>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mView.addDisposable(d);
+                    }
+
+                    @Override
+                    public void onNext(Response<BaseResponseBean> baseResponseBeanResponse) {
+                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+
+                        }
+                        showToast(baseResponseBeanResponse.body().message);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.onError(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mView.hideLoading();
+                    }
+                });
+    }
 }

@@ -8,10 +8,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.view.View;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.bumptech.glide.Glide;
+import com.lzy.okgo.model.Response;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
 import com.yanzhenjie.permission.Setting;
@@ -19,15 +23,27 @@ import com.yc.mugua.R;
 import com.yc.mugua.base.BaseFragment;
 import com.yc.mugua.base.BasePresenter;
 import com.yc.mugua.base.User;
+import com.yc.mugua.bean.BaseResponseBean;
+import com.yc.mugua.bean.DataBean;
+import com.yc.mugua.callback.Code;
+import com.yc.mugua.controller.CloudApi;
 import com.yc.mugua.controller.UIHelper;
 import com.yc.mugua.databinding.FSplashBinding;
 import com.yc.mugua.utils.CountDownTimer;
 import com.yc.mugua.utils.cache.ShareSessionIdCache;
+import com.yc.mugua.view.act.HtmlAct;
 import com.yc.mugua.weight.RuntimeRationale;
 import com.youth.banner.listener.OnBannerListener;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 
 /**
  * 作者：yc on 2018/6/15.
@@ -49,7 +65,7 @@ public class SplashFrg extends BaseFragment<BasePresenter, FSplashBinding> imple
 
     private final int mHandle_splash = 0;
     private final int mHandle_permission = 1;
-
+    private String link;
     private Activity act;
 
     @Override
@@ -70,10 +86,6 @@ public class SplashFrg extends BaseFragment<BasePresenter, FSplashBinding> imple
     @Override
     protected void initView(View view) {
         act = getActivity();
-        final List<String> images = new ArrayList<>();
-//        images.add("http://wx1.sinaimg.cn/mw600/0076BSS5ly1g4286f37zhj30p80zvtfc.jpg");
-//        images.add("http://wx3.sinaimg.cn/mw600/0076BSS5ly1g425w3lk61j30bq0kw43c.jpg");
-//        images.add("http://wx3.sinaimg.cn/mw600/0076BSS5ly1g425ebwtm7j30k00u8e81.jpg");
 //        mB.banner.setImages(images)
 //                .setImageLoader(new GlideImageLoader())
 //                .setOnBannerListener(this)
@@ -111,20 +123,19 @@ public class SplashFrg extends BaseFragment<BasePresenter, FSplashBinding> imple
 
             }
         });*/
-        mB.fyClose.setOnClickListener(view1 -> {
-            handler.sendEmptyMessageDelayed(mHandle_permission, 1000);
-        });
+        mB.ivImg.setOnClickListener(view1 -> UIHelper.startHtmlAct(act, HtmlAct.BANNER, link));
+        mubgrabetv();
     }
 
-    private CountDownTimer downTimer = new CountDownTimer(1000, 1000) {
+    private CountDownTimer downTimer = new CountDownTimer(3000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) {
-            mB.tvText.setText(3 - millisUntilFinished / 1000 + "");
+            mB.tvText.setText(3 - millisUntilFinished / 1000 + "跳过");
         }
 
         @Override
         public void onFinish(long millisUntilFinished) {
-            handler.sendEmptyMessage(mHandle_splash);
+            handler.sendEmptyMessageDelayed(mHandle_permission, 0);
         }
     };
 
@@ -237,4 +248,86 @@ public class SplashFrg extends BaseFragment<BasePresenter, FSplashBinding> imple
     public void OnBannerClick(int position) {
 
     }
+
+    private void mubgrabetv(){
+        CloudApi.mubgrabetv()
+                .doOnSubscribe(disposable -> {})
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<JSONArray>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(JSONArray array) {
+                        JSONObject object = array.optJSONObject(0);
+                        String description = object.optString("description");
+                        byte[] decode = Base64.decode(description, Base64.DEFAULT);
+                        String url = new String(decode);
+                        LogUtils.e(url);
+                        CloudApi.SERVLET_URL = url + "/api/";
+                        commonGetAppStartupPage();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtils.e(e.getMessage());
+                        commonGetAppStartupPage();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    private void commonGetAppStartupPage(){
+        CloudApi.commonGetAppStartupPage()
+                .doOnSubscribe(disposable -> {})
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<BaseResponseBean<DataBean>>>() {
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        addDisposable(d);
+                    }
+
+                    @Override
+                    public void onNext(Response<BaseResponseBean<DataBean>> baseResponseBeanResponse) {
+                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+                            DataBean data = baseResponseBeanResponse.body().data;
+                            List<DataBean> banners = data.getPage();
+                            if (banners != null && banners.size() != 0){
+                                mB.tvText.setVisibility(View.VISIBLE);
+                                link = banners.get(0).getValue();
+//                                GlideLoadingUtils.load(act, banners.get(0).getUrl(), mB.ivImg);
+                                Glide.with(act).load(banners.get(0).getUrl()).into(mB.ivImg);
+
+                                downTimer.start();
+                                mB.tvText.setOnClickListener(view1 -> {
+                                    handler.sendEmptyMessageDelayed(mHandle_permission, 0);
+                                    downTimer.stop();
+                                    downTimer.cancel();
+                                });
+                            }else {
+                                handler.sendEmptyMessageDelayed(mHandle_permission, 0);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+//                        SplashFrg.this.onError(e);
+                        showToast("服务器异常");
+                        act.finish();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+    }
+
 }

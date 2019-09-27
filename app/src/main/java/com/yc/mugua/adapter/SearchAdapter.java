@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.flyco.roundview.RoundTextView;
 import com.flyco.roundview.RoundViewDelegate;
@@ -36,11 +35,12 @@ public class SearchAdapter extends BaseRecyclerviewAdapter<DataBean> {
         DataBean bean = listBean.get(position);
         final List<DataBean> list = bean.getCategory();
         viewHolder.fl_search.removeAllViews();
-        viewHolder.fl_search.setAdapter(new TagAdapter<DataBean>(list){
+        TagAdapter<DataBean> adapter = new TagAdapter<DataBean>(list) {
             @Override
             public View getView(FlowLayout parent, int position, DataBean dataBean) {
                 View view = View.inflate(act, R.layout.i_search_label, null);
-                TextView tvText = view.findViewById(R.id.tv_text);
+                RoundTextView tvText = view.findViewById(R.id.tv_text);
+                RoundViewDelegate delegate = tvText.getDelegate();
                 tvText.setText(dataBean.getName());
                 return view;
             }
@@ -51,9 +51,9 @@ public class SearchAdapter extends BaseRecyclerviewAdapter<DataBean> {
                 RoundTextView tvText = view.findViewById(R.id.tv_text);
                 RoundViewDelegate delegate = tvText.getDelegate();
                 DataBean bean = list.get(position);
-                delegate.setBackgroundColor(act.getColor(R.color.red_F72A61));
+                delegate.setBackgroundColor(act.getResources().getColor(R.color.red_F72A61));
                 bean.setSelect(true);
-                if (listener != null){
+                if (listener != null) {
                     listener.onClick(position, null, bean.getId());
                 }
             }
@@ -66,11 +66,19 @@ public class SearchAdapter extends BaseRecyclerviewAdapter<DataBean> {
                 DataBean bean = list.get(position);
                 delegate.setBackgroundColor(0);
                 bean.setSelect(false);
-                if (listener != null){
+                if (listener != null) {
                     listener.onClick(position, null, null);
                 }
             }
-        });
+        };
+        viewHolder.fl_search.setAdapter(adapter);
+        for (int i = 0;i < list.size();i++){
+            DataBean dataBean = list.get(i);
+            if (dataBean.isSelect()){
+                adapter.setSelectedList(i);
+                break;
+            }
+        }
     }
 
     private OnClickListener listener;

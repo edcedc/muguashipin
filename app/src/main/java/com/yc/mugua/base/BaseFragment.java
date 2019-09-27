@@ -169,7 +169,7 @@ public abstract class BaseFragment<P extends BasePresenter, VB extends ViewDataB
     private void errorText(Throwable e, String errorName){
         if (null != e) {
             LogUtils.e(e.getMessage(), errorName);
-            showToast(e.getMessage());
+            showToast("连接网络失败");
             if (refreshLayout != null){
                 refreshLayout.finishRefreshing();
                 refreshLayout.finishLoadmore();
@@ -230,7 +230,7 @@ public abstract class BaseFragment<P extends BasePresenter, VB extends ViewDataB
                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     dialog.setCanceledOnTouchOutside(false);
                     dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                    dialog.setMessage("请求网络中...");
+                    dialog.setMessage("");
                     dialog.show();
                     break;
                 case handler_hide:

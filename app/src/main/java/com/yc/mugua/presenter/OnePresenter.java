@@ -127,4 +127,41 @@ public class OnePresenter extends OneContract.Presenter{
                     }
                 });
     }
+
+    @Override
+    public void onVersionList() {
+        CloudApi.versionList()
+                .doOnSubscribe(disposable -> {})
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<BaseResponseBean<DataBean>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mView.addDisposable(d);
+                    }
+
+                    @Override
+                    public void onNext(Response<BaseResponseBean<DataBean>> baseResponseBeanResponse) {
+                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+                            DataBean data = baseResponseBeanResponse.body().data;
+                            List<DataBean> version = data.getVersion();
+                            for (DataBean bean : version){
+                                if (bean.getPlatform() == 0){
+                                    mView.setVersion(bean.getType(), bean.getDownloadUrl(), bean.getAppVersion());
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.onError(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mView.hideLoading();
+                    }
+                });
+    }
 }

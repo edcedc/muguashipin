@@ -71,7 +71,7 @@
     <style name="advert_img">
         <item name="android:layout_height">@dimen/px192</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:scaleType">centerCrop</item>
+        <item name="android:scaleType">fitXY</item>
         <item name="android:src">@mipmap/place_holder</item>
     </style>
 
